@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.findNavController
 import com.example.dealwithexpenses.databinding.FragmentLoginScreenBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -32,6 +33,10 @@ class LoginScreenFragment : Fragment() {
     @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        binding.customRegisterButton.setOnClickListener {
+            val action = LoginScreenFragmentDirections.actionLoginScreenFragmentToRegisterScreenFragment()
+            it.findNavController().navigate(action)
+        }
         binding.customLoginButton.setOnClickListener {
             val email = binding.userName.text.toString()
             val password = binding.passWord.text.toString()
