@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "706220170114",
+    "project_id": "dealwithexpenses",
+    "storage_bucket": "dealwithexpenses.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:706220170114:android:52530e6043c66d85dd8d9b",
+        "android_client_info": {
+          "package_name": "com.example.dealwithexpenses"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "706220170114-ggkfa2150f3v38272naejagr3pq7p31n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dealwithexpenses",
+            "certificate_hash": "c58acfcd676f25a36148db5c1b086fc09590d096"
+          }
+        },
+        {
+          "client_id": "706220170114-o1af7k8p7iehic5ngol86s0leil5koo4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsiKAROH6I2IK5opoAy3_-TEPU9AAoZRw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "706220170114-o1af7k8p7iehic5ngol86s0leil5koo4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
