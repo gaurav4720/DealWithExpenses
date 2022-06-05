@@ -6,15 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.example.dealwithexpenses.databinding.FragmentRegisterScreenBinding
 import com.example.dealwithexpenses.entities.User
 import com.google.firebase.auth.FirebaseAuth
 
 class RegisterScreenFragment : Fragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     private lateinit var binding: FragmentRegisterScreenBinding
     private lateinit var firebaseAuth: FirebaseAuth
@@ -32,6 +29,12 @@ class RegisterScreenFragment : Fragment() {
 
         binding.registerButton.setOnClickListener {
             handleCustomLogin()
+        }
+        binding.googleLoginButton.setOnClickListener {
+            findNavController().navigate(RegisterScreenFragmentDirections.actionRegisterScreenFragmentToGoogleLoginFragment())
+        }
+        binding.fbLoginButton.setOnClickListener {
+            findNavController().navigate(RegisterScreenFragmentDirections.actionRegisterScreenFragmentToFacebookLoginFragment())
         }
         return binding.root
     }
@@ -64,3 +67,4 @@ class RegisterScreenFragment : Fragment() {
     }
 
 }
+

@@ -64,52 +64,37 @@ class LoginScreenFragment : Fragment() {
 
         googleSignInClient = GoogleSignIn.getClient(requireContext(), googleSignInOptions)
         binding.googleLoginButton.setOnClickListener {
-            val intent = googleSignInClient.signInIntent
-            startActivityForResult(intent, SIGN_IN_CODE)
+            findNavController().navigate(LoginScreenFragmentDirections.actionLoginScreenFragmentToGoogleLoginFragment())
         }
 
-            // Set the click listeners
-            binding.customRegisterButton.setBackgroundColor(resources.getColor(R.color.white))
-            binding.customRegisterButton.setTextColor(resources.getColor(R.color.black))
-            binding.customRegisterButton.setOnClickListener {
-                val action =
-                    LoginScreenFragmentDirections.actionLoginScreenFragmentToRegisterScreenFragment()
-                findNavController().navigate(action)
-            }
+        // Set the click listeners
+        binding.customRegisterButton.setBackgroundColor(resources.getColor(R.color.white))
+        binding.customRegisterButton.setTextColor(resources.getColor(R.color.black))
+        binding.customRegisterButton.setOnClickListener {
+            val action =
+                LoginScreenFragmentDirections.actionLoginScreenFragmentToRegisterScreenFragment()
+            findNavController().navigate(action)
+        }
 
 
-            var stayLoggedIn = false
-            binding.stayLoggedIn.setOnClickListener {
-                stayLoggedIn = binding.stayLoggedIn.isChecked
-            }
+        var stayLoggedIn = false
+        binding.stayLoggedIn.setOnClickListener {
+            stayLoggedIn = binding.stayLoggedIn.isChecked
+        }
 
-            binding.customLoginButton.setOnClickListener {
-                handleCustomLogin()
-            }
+        binding.customLoginButton.setOnClickListener {
+            handleCustomLogin()
+        }
 
-            binding.fbLoginButton.setOnClickListener {
-                val action =
-                    LoginScreenFragmentDirections.actionLoginScreenFragmentToFacebookLoginFragment()
-                findNavController().navigate(action)
-            }
+        binding.fbLoginButton.setOnClickListener {
+            val action =
+                LoginScreenFragmentDirections.actionLoginScreenFragmentToFacebookLoginFragment()
+            findNavController().navigate(action)
+        }
         return binding.root
     }
 
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == SIGN_IN_CODE) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
-                val account = task.getResult(ApiException::class.java)
-                firebaseAuthWithGoogle(account!!)
-            } catch (e: ApiException) {
-                Toast.makeText(context, "Google sign in failed", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    private fun handleCustomLogin(){
+    private fun handleCustomLogin() {
         val email = binding.userName.text.toString()
         val password = binding.passWord.text.toString()
 
@@ -147,23 +132,6 @@ class LoginScreenFragment : Fragment() {
         }
     }
 
-    private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
-        val credential= GoogleAuthProvider.getCredential(account.idToken, null)
-        GlobalScope.launch(Dispatchers.IO) {
-            val auth = firebaseAuth.signInWithCredential(credential)
-            val user = auth.result.user
-            withContext(Dispatchers.Main){
-                if(user!=null){
-                    if(binding.stayLoggedIn.isChecked){
-                        sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
-                    }
-                    sharedPreferences.edit().putBoolean("isRegistered", true).apply()
-                    action()
-                }
-            }
-        }
-    }
-
     private fun action() {
         var action =
             LoginScreenFragmentDirections.actionLoginScreenFragmentToMainScreenFragment()
@@ -173,6 +141,4 @@ class LoginScreenFragment : Fragment() {
 
         findNavController().navigate(action)
     }
-
-
 }
