@@ -1,4 +1,4 @@
-package com.example.dealwithexpenses
+package com.example.dealwithexpenses.initialScreens
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

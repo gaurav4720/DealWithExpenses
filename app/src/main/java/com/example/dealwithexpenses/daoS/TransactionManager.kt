@@ -16,7 +16,7 @@ interface TransactionManager {
     suspend fun delete(transaction: Transaction)
 
     @Query("SELECT * FROM transactions WHERE trans_id =:trans_id and user_id = :user_id")
-    fun getInfo(trans_id: Long, user_id: Long): LiveData<Transaction>
+    fun getInfo(trans_id: Long, user_id: String): LiveData<Transaction>
 
 }
 

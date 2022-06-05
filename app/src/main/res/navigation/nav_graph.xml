@@ -6,16 +6,77 @@
     app:startDestination="@id/loginScreenFragment">
     <fragment
         android:id="@+id/loginScreenFragment"
-        android:name="com.example.dealwithexpenses.LoginScreenFragment"
+        android:name="com.example.dealwithexpenses.initialScreens.LoginScreenFragment"
         android:label="fragment_login_screen"
         tools:layout="@layout/fragment_login_screen" >
         <action
             android:id="@+id/action_loginScreenFragment_to_registerScreenFragment"
             app:destination="@id/registerScreenFragment" />
+        <action
+            android:id="@+id/action_loginScreenFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
+        <action
+            android:id="@+id/action_loginScreenFragment_to_userBudgetDetailsFragment"
+            app:destination="@id/userBudgetDetailsFragment" />
+        <action
+            android:id="@+id/action_loginScreenFragment_to_facebookLoginFragment"
+            app:destination="@id/facebookLoginFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerScreenFragment"
-        android:name="com.example.dealwithexpenses.RegisterScreenFragment"
+        android:name="com.example.dealwithexpenses.initialScreens.RegisterScreenFragment"
         android:label="fragment_register_screen"
-        tools:layout="@layout/fragment_register_screen" />
+        tools:layout="@layout/fragment_register_screen" >
+        <action
+            android:id="@+id/action_registerScreenFragment_to_facebookLoginFragment"
+            app:destination="@id/facebookLoginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/frontScreenFragment"
+        android:name="com.example.dealwithexpenses.initialScreens.FrontScreenFragment"
+        android:label="front_screen"
+        tools:layout="@layout/fragment_front_screen" >
+
+        <action
+            android:id="@+id/action_frontScreenFragment_to_loginScreenFragment"
+            app:destination="@id/loginScreenFragment" />
+        <action
+            android:id="@+id/action_frontScreenFragment_to_transactionDetailFragment"
+            app:destination="@id/transactionDetailFragment" />
+        <action
+            android:id="@+id/action_frontScreenFragment_to_userBudgetDetailsFragment"
+            app:destination="@id/userBudgetDetailsFragment" />
+        <action
+            android:id="@+id/action_frontScreenFragment_to_registerScreenFragment"
+            app:destination="@id/registerScreenFragment" />
+        <action
+            android:id="@+id/action_frontScreenFragment_to_mainScreenFragment2"
+            app:destination="@id/mainScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/transactionDetailFragment"
+        android:name="com.example.dealwithexpenses.TransactionLibrary.TransactionDetailFragment"
+        android:label="fragment_transaction_detail"
+        tools:layout="@layout/fragment_transaction_detail" />
+    <fragment
+        android:id="@+id/userBudgetDetailsFragment"
+        android:name="com.example.dealwithexpenses.initialScreens.UserBudgetDetailsFragment"
+        android:label="fragment_user_budget_details"
+        tools:layout="@layout/fragment_user_budget_details" />
+    <fragment
+        android:id="@+id/mainScreenFragment"
+        android:name="com.example.dealwithexpenses.initialScreens.MainScreenFragment"
+        android:label="fragment_main_screen"
+        tools:layout="@layout/fragment_main_screen" />
+    <fragment
+        android:id="@+id/facebookLoginFragment"
+        android:name="com.example.dealwithexpenses.initialScreens.FacebookLoginFragment"
+        android:label="FacebookLoginFragment" >
+        <action
+            android:id="@+id/action_facebookLoginFragment_to_userBudgetDetailsFragment"
+            app:destination="@id/userBudgetDetailsFragment" />
+        <action
+            android:id="@+id/action_facebookLoginFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
+    </fragment>
 </navigation>

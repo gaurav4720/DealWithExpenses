@@ -10,7 +10,7 @@ import java.util.*
 @Entity(tableName = "transactions")
 @TypeConverters(DateConverter::class)
 data class Transaction(
-    val user_id: Long,
+    val user_id: String,
     @PrimaryKey(autoGenerate = true) val trans_id: Long,
 
     val description: String,

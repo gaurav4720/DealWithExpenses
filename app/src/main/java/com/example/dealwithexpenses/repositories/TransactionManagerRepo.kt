@@ -14,7 +14,7 @@ class TransactionManagerRepo(application: Application) {
     suspend fun update(transaction: Transaction) = transactionDao.update(transaction)
     suspend fun delete(transaction: Transaction) = transactionDao.delete(transaction)
 
-    fun getAllTransactions(trans_id: Long, user_id: Long): LiveData<Transaction> = transactionDao.getInfo(trans_id, user_id)
+    fun getTransaction(trans_id: Long, user_id: String): LiveData<Transaction> = transactionDao.getInfo(trans_id, user_id)
 
 
 }
