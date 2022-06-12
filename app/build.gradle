@@ -60,6 +60,10 @@ dependencies {
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:2.4.2")
 
+    // Chart and graph library
+    implementation 'com.github.blackfizz:eazegraph:1.2.5l@aar'
+    implementation 'com.nineoldandroids:library:2.4.0'
+
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.10'
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'

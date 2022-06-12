@@ -57,12 +57,6 @@ class LoginScreenFragment : Fragment() {
 
         // Inflate the layout for this fragment
         binding = FragmentLoginScreenBinding.inflate(inflater, container, false)
-
-        val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail().build()
-
-        googleSignInClient = GoogleSignIn.getClient(requireContext(), googleSignInOptions)
         binding.googleLoginButton.setOnClickListener {
             findNavController().navigate(LoginScreenFragmentDirections.actionLoginScreenFragmentToGoogleLoginFragment())
         }

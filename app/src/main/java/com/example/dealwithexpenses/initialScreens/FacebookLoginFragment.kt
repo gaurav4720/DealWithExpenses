@@ -49,16 +49,12 @@ class FacebookLoginFragment : Fragment() {
                 override fun onCancel() {
                     Toast.makeText(requireContext(),"Login Cancelled", Toast.LENGTH_SHORT).show()
                 }
-
                 override fun onError(error: FacebookException) {
                     Toast.makeText(requireContext(),"Login Failed", Toast.LENGTH_SHORT).show()
                 }
-
                 override fun onSuccess(result: LoginResult) {
-
                     handleFbLogin(result)
                 }
-
             }
         )
         return inflater.inflate(R.layout.fragment_facebook_login, container, false)
