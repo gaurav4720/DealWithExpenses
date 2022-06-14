@@ -1,7 +1,6 @@
-package com.example.dealwithexpenses.initialScreens
+package com.example.dealwithexpenses.authentication
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Patterns
@@ -14,17 +13,8 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.example.dealwithexpenses.R
 import com.example.dealwithexpenses.databinding.FragmentLoginScreenBinding
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class LoginScreenFragment : Fragment() {
@@ -65,8 +55,7 @@ class LoginScreenFragment : Fragment() {
         binding.customRegisterButton.setBackgroundColor(resources.getColor(R.color.white))
         binding.customRegisterButton.setTextColor(resources.getColor(R.color.black))
         binding.customRegisterButton.setOnClickListener {
-            val action =
-                LoginScreenFragmentDirections.actionLoginScreenFragmentToRegisterScreenFragment()
+            val action =LoginScreenFragmentDirections.actionLoginScreenFragmentToRegisterScreenFragment()
             findNavController().navigate(action)
         }
 
@@ -81,8 +70,7 @@ class LoginScreenFragment : Fragment() {
         }
 
         binding.fbLoginButton.setOnClickListener {
-            val action =
-                LoginScreenFragmentDirections.actionLoginScreenFragmentToFacebookLoginFragment()
+            val action = LoginScreenFragmentDirections.actionLoginScreenFragmentToFacebookLoginFragment()
             findNavController().navigate(action)
         }
         return binding.root
@@ -127,11 +115,9 @@ class LoginScreenFragment : Fragment() {
     }
 
     private fun action() {
-        var action =
-            LoginScreenFragmentDirections.actionLoginScreenFragmentToMainScreenFragment()
+        var action =LoginScreenFragmentDirections.actionLoginScreenFragmentToMainScreenFragment()
         if (!allCheck)
-            action =
-                LoginScreenFragmentDirections.actionLoginScreenFragmentToUserBudgetDetailsFragment()
+            action =LoginScreenFragmentDirections.actionLoginScreenFragmentToUserBudgetDetailsFragment()
 
         findNavController().navigate(action)
     }

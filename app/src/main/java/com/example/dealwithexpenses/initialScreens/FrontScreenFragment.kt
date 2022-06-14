@@ -31,34 +31,17 @@ class FrontScreenFragment : Fragment() {
     ): View? {
 
         sharedPreferences = activity?.getSharedPreferences("com.example.makeMyBudget", 0)!!
+        binding = FragmentFrontScreenBinding.inflate(inflater, container, false)
         val isRegistered: Boolean = sharedPreferences.getBoolean("isRegistered", false)
         val isLoggedIn: Boolean = sharedPreferences.getBoolean("isLoggedIn", false)
         val allCheck: Boolean = sharedPreferences.getBoolean("allCheck", false)
 
-        var action: NavDirections = if (isRegistered) {
-            if (!isLoggedIn)
-                FrontScreenFragmentDirections.actionFrontScreenFragmentToLoginScreenFragment()
-            else if (allCheck)
-                FrontScreenFragmentDirections.actionFrontScreenFragmentToMainScreenFragment()
-            else
-                FrontScreenFragmentDirections.actionFrontScreenFragmentToUserBudgetDetailsFragment()
-
-        } else {
-            FrontScreenFragmentDirections.actionFrontScreenFragmentToRegisterScreenFragment()
-        }
+        var action: NavDirections = FrontScreenFragmentDirections.actionFrontScreenFragmentToLoginScreenFragment()
 
         val handler = Handler()
         handler.postDelayed({
             findNavController().navigate(action)
-        }, 2000)
-        // Inflate the layout for this fragment
-        binding = FragmentFrontScreenBinding.inflate(inflater, container, false)
-        action =
-            FrontScreenFragmentDirections.actionFrontScreenFragmentToLoginScreenFragment()
-
-        Handler().postDelayed({
-            findNavController().navigate(action)
-        }, 3000)
+        }, 5000)
 
         return binding.root
     }

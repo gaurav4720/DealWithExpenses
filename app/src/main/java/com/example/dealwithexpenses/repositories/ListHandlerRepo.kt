@@ -13,6 +13,9 @@ class ListHandlerRepo(application: Application) {
     fun getAllTransactionsByDate(user_id: String, date: Long): LiveData<List<Transaction>> =
         listHandlerDao.getTransactions(user_id, date)
 
+    fun getYears(user_id: String): LiveData<List<Int>> =
+        listHandlerDao.getYears(user_id)
+
     fun getAllTransactionsByCategory(
         user_id: String,
         category: TransactionCategory

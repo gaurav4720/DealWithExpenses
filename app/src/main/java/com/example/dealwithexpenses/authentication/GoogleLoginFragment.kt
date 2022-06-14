@@ -1,4 +1,4 @@
-package com.example.dealwithexpenses.initialScreens
+package com.example.dealwithexpenses.authentication
 
 import android.content.Context
 import android.content.Intent
@@ -9,10 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.example.dealwithexpenses.R
-import com.example.dealwithexpenses.databinding.FragmentLoginScreenBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -23,7 +21,6 @@ import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class GoogleLoginFragment : Fragment() {
 
@@ -71,25 +68,21 @@ class GoogleLoginFragment : Fragment() {
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         GlobalScope.launch(Dispatchers.IO) {
-            val auth = firebaseAuth.signInWithCredential(credential)
-            val user = auth.result.user
-            withContext(Dispatchers.Main) {
-                if (user != null) {
-                    sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
-                    sharedPreferences.edit().putBoolean("isRegistered", true).apply()
-                    action()
+            val auth = firebaseAuth.signInWithCredential(credential).addOnSuccessListener {
+                val user = it.user
+                    if (user != null) {
+                        sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
+                        sharedPreferences.edit().putBoolean("isRegistered", true).apply()
+                        action()
                 }
             }
         }
     }
 
     private fun action() {
-        var action =
-            LoginScreenFragmentDirections.actionLoginScreenFragmentToMainScreenFragment()
         if (!allCheck)
-            action =
-                LoginScreenFragmentDirections.actionLoginScreenFragmentToUserBudgetDetailsFragment()
-
-        findNavController().navigate(action)
+            findNavController().navigate(GoogleLoginFragmentDirections.actionGoogleLoginFragmentToUserBudgetDetailsFragment())
+        else
+            findNavController().navigate(GoogleLoginFragmentDirections.actionGoogleLoginFragmentToMainScreenFragment())
     }
 }

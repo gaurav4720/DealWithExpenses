@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginScreenFragment">
+    app:startDestination="@id/frontScreenFragment">
     <fragment
         android:id="@+id/loginScreenFragment"
-        android:name="com.example.dealwithexpenses.initialScreens.LoginScreenFragment"
+        android:name="com.example.dealwithexpenses.authentication.LoginScreenFragment"
         android:label="fragment_login_screen"
         tools:layout="@layout/fragment_login_screen" >
         <action
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerScreenFragment"
-        android:name="com.example.dealwithexpenses.initialScreens.RegisterScreenFragment"
+        android:name="com.example.dealwithexpenses.authentication.RegisterScreenFragment"
         android:label="fragment_register_screen"
         tools:layout="@layout/fragment_register_screen" >
         <action
@@ -56,7 +56,7 @@
             android:id="@+id/action_frontScreenFragment_to_registerScreenFragment"
             app:destination="@id/registerScreenFragment" />
         <action
-            android:id="@+id/action_frontScreenFragment_to_mainScreenFragment2"
+            android:id="@+id/action_frontScreenFragment_to_mainScreenFragment"
             app:destination="@id/mainScreenFragment" />
     </fragment>
     <fragment
@@ -76,7 +76,7 @@
         tools:layout="@layout/fragment_main_screen" />
     <fragment
         android:id="@+id/facebookLoginFragment"
-        android:name="com.example.dealwithexpenses.initialScreens.FacebookLoginFragment"
+        android:name="com.example.dealwithexpenses.authentication.FacebookLoginFragment"
         android:label="FacebookLoginFragment" >
         <action
             android:id="@+id/action_facebookLoginFragment_to_userBudgetDetailsFragment"
@@ -87,7 +87,7 @@
     </fragment>
     <fragment
         android:id="@+id/googleLoginFragment"
-        android:name="com.example.dealwithexpenses.initialScreens.GoogleLoginFragment"
+        android:name="com.example.dealwithexpenses.authentication.GoogleLoginFragment"
         android:label="fragment_google_login"
         tools:layout="@layout/fragment_google_login" >
         <action

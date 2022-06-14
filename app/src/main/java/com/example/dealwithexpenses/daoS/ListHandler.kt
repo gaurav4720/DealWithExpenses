@@ -11,6 +11,9 @@ interface ListHandler {
     @Query("SELECT * FROM transactions WHERE user_id = :user_id and transactionDate = :date")
     fun getTransactions(user_id: String, date: Long): LiveData<List<Transaction>>
 
+    @Query("SELECT year FROM transactions WHERE user_id = :user_id GROUP BY year")
+    fun getYears(user_id: String): LiveData<List<Int>>
+
     @Query("SELECT * FROM transactions WHERE user_id = :user_id and transactionType = :transactionType ORDER BY transactionDate DESC")
     fun getTransactionsByType(
         user_id: String,

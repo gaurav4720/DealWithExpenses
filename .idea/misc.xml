@@ -3,8 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/drawable/ic_baseline_arrow_drop_down_24.xml" value="0.1955" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.1955" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/drawable/ic_baseline_edit_road_24.xml" value="0.1955" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/drawable/ic_baseline_notes_24.xml" value="0.1955" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/font/aclonica.xml" value="0.284375" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/epoxy_months.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/epoxy_years.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_add_or_edit_transaction.xml" value="0.264" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_facebook_login.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_front_screen.xml" value="0.2" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_front_screen2.xml" value="0.25416666666666665" />
@@ -14,11 +21,15 @@
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_main_screen.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_month_screen.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_opening_screen.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_overview_tab.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_register_screen.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_transaction_detail.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_transaction_tab.xml" value="0.24010416666666667" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_user_budget_details.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/front_screen.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/transaction_item.xml" value="0.264" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/menu/add_or_edit_transaction_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/menu/view_transaction_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2595" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2595" />
       </map>

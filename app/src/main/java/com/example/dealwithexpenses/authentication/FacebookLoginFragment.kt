@@ -1,4 +1,4 @@
-package com.example.dealwithexpenses.initialScreens
+package com.example.dealwithexpenses.authentication
 
 import android.content.Context
 import android.content.Intent

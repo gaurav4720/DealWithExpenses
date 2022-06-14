@@ -3,7 +3,6 @@
     <string name="facebook_app_id">551641013001626</string>
     <string name="fb_login_protocol_scheme">fb551641013001626</string>
     <string name="facebook_client_token">815f6c23fe093c91b0fcc73877c84ca9</string>
-    <string name="default_web_client_id">706220170114-ggkfa2150f3v38272naejagr3pq7p31n.apps.googleusercontent.com</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

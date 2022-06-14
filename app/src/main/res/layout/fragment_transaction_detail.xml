@@ -1,17 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".TransactionLibrary.TransactionDetailFragment"
-    tools:ignore="SpeakableTextPresentCheck">
+    android:layout_height="match_parent">
 
-
- />
 
  <androidx.constraintlayout.widget.ConstraintLayout
+     android:id="@+id/contraint_layout"
      android:layout_width="match_parent"
-     android:layout_height="wrap_content">
+     android:layout_height="match_parent">
+
+  <EditText
+      android:id="@+id/to_date_input"
+      android:layout_width="173dp"
+      android:layout_height="57dp"
+      android:layout_marginStart="20dp"
+      android:ems="10"
+      android:hint="To"
+      android:inputType="date"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.058"
+      app:layout_constraintStart_toEndOf="@+id/from_date_input"
+      app:layout_constraintTop_toTopOf="@+id/from_date_input" />
+
+  <com.google.android.material.appbar.AppBarLayout
+      android:id="@+id/app_bar"
+
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:backgroundTint="#078DCA"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+   <com.google.android.material.appbar.MaterialToolbar
+
+       android:id="@+id/toolbar"
+       style="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:backgroundTint="#3F51B5"
+
+       android:textAlignment="center"
+       app:menu="@menu/add_or_edit_transaction_menu"
+       app:title="Add New Transaction">
+
+   </com.google.android.material.appbar.MaterialToolbar>
+  </com.google.android.material.appbar.AppBarLayout>
+
+  <EditText
+      android:id="@+id/trans_desc_input"
+      android:layout_width="372dp"
+      android:layout_height="48dp"
+      android:layout_marginTop="8dp"
+      android:ems="10"
+      android:gravity="start|top"
+      android:hint="Description"
+      android:inputType="textMultiLine"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.717"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/trans_title_input" />
+
+  <TextView
+      android:id="@+id/trans_amount_msg"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="28dp"
+      android:layout_marginTop="8dp"
+      android:text="Amount : "
+      app:layout_constraintEnd_toStartOf="@+id/textView6"
+      app:layout_constraintHorizontal_bias="0.549"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/trans_desc_input" />
+
+  <TextView
+      android:id="@+id/trans_amount_input"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="220dp"
+      android:text="InputAmount"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="@+id/trans_amount_msg" />
+
+  <TextView
+      android:id="@+id/trans_date_msg"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="28dp"
+      android:layout_marginTop="16dp"
+      android:text="Date :"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/trans_amount_msg" />
+
+  <EditText
+      android:id="@+id/trans_date_input"
+      android:layout_width="128dp"
+      android:layout_height="48dp"
+      android:layout_marginEnd="192dp"
+      android:ems="10"
+      android:inputType="date"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/trans_date_msg"
+      app:layout_constraintTop_toTopOf="@+id/trans_date_msg"
+      tools:ignore="SpeakableTextPresentCheck" />
+
+  <CheckBox
+      android:id="@+id/isRecurringCheckBox"
+      android:layout_width="177dp"
+      android:layout_height="48dp"
+      android:layout_marginTop="36dp"
+      android:text="Recurring Transaction"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.119"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/trans_date_msg" />
+
+  <EditText
+      android:id="@+id/trans_title_input"
+      android:layout_width="112dp"
+      android:layout_height="40dp"
+      android:layout_marginTop="20dp"
+      android:ems="10"
+      android:hint="Title"
+      android:inputType="textPersonName"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.093"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/app_bar" />
+
+  <EditText
+      android:id="@+id/from_date_input"
+      android:layout_width="173dp"
+      android:layout_height="57dp"
+      android:layout_marginStart="28dp"
+      android:layout_marginTop="8dp"
+      android:ems="10"
+      android:hint="From"
+      android:inputType="date"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/isRecurringCheckBox" />
+
+  <Spinner
+      android:id="@+id/trans_mode_input"
+      android:layout_width="178dp"
+      android:layout_height="25dp"
+      android:layout_marginTop="80dp"
+      android:layout_marginEnd="24dp"
+      android:tooltipText="Select Mode"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/isRecurringCheckBox" />
+
+  <TextView
+      android:id="@+id/tranaction_mode_label"
+      android:layout_width="157dp"
+      android:layout_height="26dp"
+      android:layout_marginStart="28dp"
+      android:text="Transaction Mode: "
+      android:textSize="16sp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@+id/trans_mode_input" />
+
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/transaction_tags"
+      android:layout_width="358dp"
+      android:layout_height="26dp"
+      android:layout_marginTop="16dp"
+      android:orientation="horizontal"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.547"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tranaction_mode_label" />
+
+  <Spinner
+      android:id="@+id/tags_spinner"
+      android:layout_width="359dp"
+      android:layout_height="28dp"
+      android:layout_marginTop="8dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.557"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/transaction_tags" />
 
  </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
