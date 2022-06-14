@@ -12,7 +12,7 @@
      android:layout_width="match_parent"
      android:layout_height="match_parent">
 
-  <EditText
+  <TextView
       android:id="@+id/to_date_input"
       android:layout_width="173dp"
       android:layout_height="57dp"
@@ -50,7 +50,7 @@
    </com.google.android.material.appbar.MaterialToolbar>
   </com.google.android.material.appbar.AppBarLayout>
 
-  <EditText
+  <TextView
       android:id="@+id/trans_desc_input"
       android:layout_width="372dp"
       android:layout_height="48dp"
@@ -58,7 +58,6 @@
       android:ems="10"
       android:gravity="start|top"
       android:hint="Description"
-      android:inputType="textMultiLine"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.717"
       app:layout_constraintStart_toStartOf="parent"
@@ -71,8 +70,8 @@
       android:layout_marginStart="28dp"
       android:layout_marginTop="8dp"
       android:text="Amount : "
-      app:layout_constraintEnd_toStartOf="@+id/textView6"
-      app:layout_constraintHorizontal_bias="0.549"
+      app:layout_constraintEnd_toStartOf="@+id/trans_amount_input"
+      app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/trans_desc_input" />
 
@@ -95,13 +94,12 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/trans_amount_msg" />
 
-  <EditText
+  <TextView
       android:id="@+id/trans_date_input"
       android:layout_width="128dp"
       android:layout_height="48dp"
       android:layout_marginEnd="192dp"
       android:ems="10"
-      android:inputType="date"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@+id/trans_date_msg"
       app:layout_constraintTop_toTopOf="@+id/trans_date_msg"
@@ -118,20 +116,19 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/trans_date_msg" />
 
-  <EditText
+  <TextView
       android:id="@+id/trans_title_input"
       android:layout_width="112dp"
       android:layout_height="40dp"
       android:layout_marginTop="20dp"
       android:ems="10"
       android:hint="Title"
-      android:inputType="textPersonName"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.093"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/app_bar" />
 
-  <EditText
+  <TextView
       android:id="@+id/from_date_input"
       android:layout_width="173dp"
       android:layout_height="57dp"
@@ -139,7 +136,6 @@
       android:layout_marginTop="8dp"
       android:ems="10"
       android:hint="From"
-      android:inputType="date"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/isRecurringCheckBox" />
 

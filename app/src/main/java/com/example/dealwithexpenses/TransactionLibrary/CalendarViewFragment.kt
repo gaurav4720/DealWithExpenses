@@ -1,4 +1,4 @@
-package com.example.dealwithexpenses.initialScreens
+package com.example.dealwithexpenses.TransactionLibrary
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.dealwithexpenses.R
 
-class OpeningScreenFragment : Fragment() {
+class CalendarViewFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,8 +18,7 @@ class OpeningScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_opening_screen, container, false)
+        return inflater.inflate(R.layout.fragment_calendar_view, container, false)
     }
-
 
 }

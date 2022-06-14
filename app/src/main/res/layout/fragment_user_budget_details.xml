@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E0EDF8"
     tools:context=".initialScreens.UserBudgetDetailsFragment">
 
     <EditText
@@ -47,11 +48,15 @@
 
     <TextView
         android:id="@+id/topNotification"
-        android:layout_width="412dp"
+        android:layout_width="0dp"
         android:layout_height="84dp"
-        android:text="Welcome! Help us remember your credentials."
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/galada"
+        android:text="Welcome! Help us remember \n your credentials."
         android:textAlignment="center"
-        android:textColor="#FA2B2B"
+        android:textColor="#71287E"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
