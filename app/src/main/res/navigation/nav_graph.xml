@@ -73,7 +73,11 @@
         android:id="@+id/mainScreenFragment"
         android:name="com.example.dealwithexpenses.initialScreens.MainScreenFragment"
         android:label="fragment_main_screen"
-        tools:layout="@layout/fragment_main_screen" />
+        tools:layout="@layout/fragment_main_screen" >
+        <action
+            android:id="@+id/action_mainScreenFragment_to_addOrEditTransactionFragment"
+            app:destination="@id/addOrEditTransactionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/facebookLoginFragment"
         android:name="com.example.dealwithexpenses.authentication.FacebookLoginFragment"
@@ -95,6 +99,18 @@
             app:destination="@id/userBudgetDetailsFragment" />
         <action
             android:id="@+id/action_googleLoginFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addOrEditTransactionFragment"
+        android:name="com.example.dealwithexpenses.TransactionLibrary.AddOrEditTransactionFragment"
+        android:label="fragment_add_or_edit_transaction"
+        tools:layout="@layout/fragment_add_or_edit_transaction" >
+        <argument
+            android:name="trans_id"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_addOrEditTransactionFragment_to_mainScreenFragment"
             app:destination="@id/mainScreenFragment" />
     </fragment>
 </navigation>

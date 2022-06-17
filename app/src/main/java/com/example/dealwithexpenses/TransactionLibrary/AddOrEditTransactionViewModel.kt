@@ -6,7 +6,7 @@ import com.example.dealwithexpenses.entities.Transaction
 import com.example.dealwithexpenses.repositories.TransactionManagerRepo
 import kotlinx.coroutines.launch
 
-class TransactionViewModel(application: Application): AndroidViewModel(application) {
+class AddOrEditTransactionViewModel(application: Application): AndroidViewModel(application) {
     private val repository = TransactionManagerRepo(application)
     private val _transactionID: MutableLiveData<Long> = MutableLiveData(0L)
     val transactionId: LiveData<Long>

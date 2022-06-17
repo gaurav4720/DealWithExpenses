@@ -4,9 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/drawable/ic_baseline_arrow_drop_down_24.xml" value="0.1955" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/drawable/ic_baseline_calendar_today_24.xml" value="0.1" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.1955" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/drawable/ic_baseline_edit_road_24.xml" value="0.1955" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/drawable/ic_baseline_notes_24.xml" value="0.1955" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/drawable/ic_sharp_stay_current_landscape_24.xml" value="0.1955" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/font/aclonica.xml" value="0.284375" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/epoxy_months.xml" value="0.25416666666666665" />
@@ -23,6 +25,7 @@
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_month_screen.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_opening_screen.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_overview_tab.xml" value="0.264" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_recent_transactions_tab.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_register_screen.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_transaction_detail.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_transaction_tab.xml" value="0.24010416666666667" />

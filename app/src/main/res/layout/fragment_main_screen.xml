@@ -1,8 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".initialScreens.MainScreenFragment">
+    android:layout_height="match_parent">
 
-</FrameLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_baseline_currency_rupee_24"
+            app:layout_constraintBottom_toBottomOf="@id/textView1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textView1" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:text="Balances"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@id/cardView2"
+            app:layout_constraintStart_toEndOf="@id/imageView3"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </TextView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView2"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_margin="15dp"
+            android:layout_marginTop="48dp"
+            app:cardBackgroundColor="#E7E9EC"
+            app:cardCornerRadius="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView1">
+
+            <TextView
+                android:id="@+id/total_income_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Total Income"
+                android:textColor="#209C05"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/left_amount_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Left Amount"
+                android:textColor="#D36FE4"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/total_spent_income"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:text="Total Spent"
+                android:textColor="#F32C2C"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/total_income"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="N/A"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/left_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="N/A"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/total_spent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="10dp"
+                android:text="N/A"
+                android:textSize="20sp" />
+        </androidx.cardview.widget.CardView>
+
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+
+            android:layout_marginTop="36dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardView2"
+            tools:ignore="SpeakableTextPresentCheck">
+
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tabLayout"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        </androidx.viewpager2.widget.ViewPager2>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>
