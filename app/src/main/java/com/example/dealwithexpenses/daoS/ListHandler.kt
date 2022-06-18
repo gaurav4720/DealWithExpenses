@@ -44,6 +44,9 @@ interface ListHandler {
         transactionCategory: TransactionCategory
     ): LiveData<Double>
 
+    @Query("SELECT SUM(transactionAmount) FROM transactions WHERE user_id= :user_id and transactionType= :transactionType and monthYear= :monthYear")
+    fun getAmountByMonthYearAndType(user_id: String, transactionType: TransactionType, monthYear: Int) : LiveData<Double>
+
     @Query("SELECT SUM(transactionAmount) FROM transactions WHERE user_id = :user_id and transactionMode = :transactionMode ORDER BY transactionDate DESC")
     fun getAmountByMode(user_id: String, transactionMode: TransactionMode): LiveData<Double>
 
@@ -57,7 +60,7 @@ interface ListHandler {
     fun getAmountByDate(user_id: String, date: Long): LiveData<Double>
 
     @Query("SELECT SUM(transactionAmount) FROM transactions WHERE user_id = :user_id and monthYear = :monthYear")
-    fun getAmountByMonth(user_id: String, monthYear: Long): LiveData<Double>
+    fun getAmountByMonth(user_id: String, monthYear: Int): LiveData<Double>
 
     @Query("SELECT SUM(transactionAmount) FROM transactions WHERE user_id = :user_id and transactionMode = :transactionMode and transactionDate = :date")
     fun getAmountByModeAndDate(
@@ -88,7 +91,7 @@ interface ListHandler {
     ): LiveData<Double>
 
     @Query("SELECT * FROM transactions WHERE user_id = :user_id and monthYear = :monthYear ORDER BY transactionDate DESC")
-    fun getTransactionsByMonth(user_id: String, monthYear: Long): LiveData<List<Transaction>>
+    fun getTransactionsByMonth(user_id: String, monthYear: Int): LiveData<List<Transaction>>
 
     @Query("SELECT * FROM transactions WHERE user_id = :user_id GROUP BY monthYear ORDER BY year, month DESC")
     fun getTransactionsAllMonths(user_id: String): LiveData<List<Transaction>>

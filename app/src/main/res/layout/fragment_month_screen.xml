@@ -6,6 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".initialScreens.MonthScreenFragment">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#078DCA"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+
+            android:id="@+id/toolbar"
+            style="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#C36969"
+
+            android:backgroundTint="#2E4EF8"
+            android:textAlignment="center"
+            app:menu="@menu/month_screen_menu"
+            app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+            app:title="Month Year">
+
+        </com.google.android.material.appbar.MaterialToolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton2"
         android:layout_width="wrap_content"
@@ -16,18 +43,20 @@
         android:foregroundGravity="bottom|right"
         android:src="@drawable/ic_baseline_add_24"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <androidx.cardview.widget.CardView
-        android:layout_width="409dp"
-        android:layout_height="200dp"
-        app:cardBackgroundColor="#B4E9F1"
+        android:id="@+id/basicInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#EFE9B3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/app_bar">
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/net_balance_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -36,9 +65,9 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/textView10"
-            android:layout_width="166dp"
-            android:layout_height="56dp"
+            android:id="@+id/net_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="50dp"
             android:text="15000.00"
@@ -55,18 +84,18 @@
             android:layout_marginEnd="10dp" />
 
         <TextView
-            android:id="@+id/textView11"
-            android:layout_width="145dp"
-            android:layout_height="29dp"
+            android:id="@+id/amount_saved_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="125dp"
             android:text="AMOUNT SAVED"
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/textView12"
-            android:layout_width="135dp"
-            android:layout_height="39dp"
+            android:id="@+id/amount_saved"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="150dp"
             android:text="25000.00"
@@ -74,7 +103,7 @@
             android:textSize="30sp" />
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/amount_spent_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -84,7 +113,7 @@
             android:textSize="18dp" />
 
         <TextView
-            android:id="@+id/textView14"
+            android:id="@+id/amount_spent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -96,15 +125,17 @@
     </androidx.cardview.widget.CardView>
 
     <ScrollView
-        android:layout_width="410dp"
-        android:layout_height="525dp"
-        android:layout_marginBottom="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/transaction_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/basicInfo">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/transaction_items"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </ScrollView>

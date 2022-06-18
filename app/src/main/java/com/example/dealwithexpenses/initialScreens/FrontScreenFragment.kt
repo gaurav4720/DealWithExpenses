@@ -30,7 +30,7 @@ class FrontScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        sharedPreferences = activity?.getSharedPreferences("com.example.makeMyBudget", 0)!!
+        sharedPreferences = activity?.getSharedPreferences("user_auth", 0)!!
         binding = FragmentFrontScreenBinding.inflate(inflater, container, false)
         val isRegistered: Boolean = sharedPreferences.getBoolean("isRegistered", false)
         val isLoggedIn: Boolean = sharedPreferences.getBoolean("isLoggedIn", false)

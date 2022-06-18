@@ -63,7 +63,14 @@
         android:id="@+id/transactionDetailFragment"
         android:name="com.example.dealwithexpenses.TransactionLibrary.TransactionDetailFragment"
         android:label="fragment_transaction_detail"
-        tools:layout="@layout/fragment_transaction_detail" />
+        tools:layout="@layout/fragment_transaction_detail" >
+        <argument
+            android:name="trans_id"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_transactionDetailFragment_to_addOrEditTransactionFragment"
+            app:destination="@id/addOrEditTransactionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/userBudgetDetailsFragment"
         android:name="com.example.dealwithexpenses.initialScreens.UserBudgetDetailsFragment"
@@ -112,5 +119,14 @@
         <action
             android:id="@+id/action_addOrEditTransactionFragment_to_mainScreenFragment"
             app:destination="@id/mainScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/monthScreenFragment"
+        android:name="com.example.dealwithexpenses.initialScreens.MonthScreenFragment"
+        android:label="fragment_month_screen"
+        tools:layout="@layout/fragment_month_screen" >
+        <argument
+            android:name="monthYear"
+            app:argType="integer" />
     </fragment>
 </navigation>

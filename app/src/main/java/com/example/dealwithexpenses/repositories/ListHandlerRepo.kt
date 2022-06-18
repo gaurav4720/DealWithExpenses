@@ -55,7 +55,7 @@ class ListHandlerRepo(application: Application) {
     fun getAmountByDate(user_id: String, date: Long): LiveData<Double> =
         listHandlerDao.getAmountByDate(user_id, date)
 
-    fun getAmountByMonth(user_id: String, monthYear: Long): LiveData<Double> =
+    fun getAmountByMonth(user_id: String, monthYear: Int): LiveData<Double> =
         listHandlerDao.getAmountByMonth(user_id, monthYear)
 
     fun getAmountByModeAndDate(
@@ -86,10 +86,12 @@ class ListHandlerRepo(application: Application) {
     ): LiveData<Double> =
         listHandlerDao.getAmountByModeAndType(user_id, transactionMode, transactionType)
 
-    fun getTransactionsByMonthYear(user_id: String, monthYear: Long): LiveData<List<Transaction>> =
+    fun getTransactionsByMonthYear(user_id: String, monthYear: Int): LiveData<List<Transaction>> =
         listHandlerDao.getTransactionsByMonth(user_id, monthYear)
 
     fun getTransactionsByMonth(user_id: String): LiveData<List<Transaction>> =
         listHandlerDao.getTransactionsAllMonths(user_id)
 
+    fun getAmountByMonthYearAndType(user_id: String, monthYear: Int, transactionType: TransactionType): LiveData<Double> =
+        listHandlerDao.getAmountByMonthYearAndType(user_id, transactionType, monthYear)
 }
