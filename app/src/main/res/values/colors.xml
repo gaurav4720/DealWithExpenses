@@ -9,4 +9,28 @@
     <color name="white">#FFFFFFFF</color>
     <color name="transaction_completed">#FFE3F8CB</color>
     <color name="transaction_pending">#FFFA9C9C</color>
+
+    <!--    Transaction Category colors-->
+    <color name="category_food">#9400D3</color>
+    <color name="category_clothing">#4B0082</color>
+    <color name="category_entertainment">#2196FF</color>
+    <color name="category_transport">#00FF00</color>
+    <color name="category_health">#FFEB3B</color>
+    <color name="category_education">#FFC107</color>
+    <color name="category_bills">#FF9800</color>
+    <color name="category_other">#FF0000</color>
+
+    <!--    Transaction Types colors-->
+    <color name="type_income">#CCF39F</color>
+    <color name="type_expense">#F3A2A2</color>
+
+    <!--    Transaction Modes colors-->
+    <color name="mode_cash">#F44336</color>
+    <color name="mode_credit_card">#D6C104</color>
+    <color name="mode_debit_card">#379A3B</color>
+
+    <!--    Transaction Types colors-->
+    <color name="status_upcoming">#84CFF1</color>
+    <color name="status_completed">#CCF39F</color>
+    <color name="status_missed">#F3A2A2</color>
 </resources>

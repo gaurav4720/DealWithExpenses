@@ -19,7 +19,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/transaction_title"
             android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_marginStart="10dp"

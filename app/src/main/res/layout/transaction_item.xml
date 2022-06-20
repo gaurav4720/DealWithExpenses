@@ -8,46 +8,59 @@
     android:background="#D3EBFD"
     android:paddingBottom="10dp">
 
+    <View
+        android:id="@+id/expenseOrIncome"
+        android:layout_width="5dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:background="#BC6565"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </View>
+
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/categorized_image"
         android:layout_width="46dp"
         android:layout_height="38dp"
 
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="4dp"
         android:src="@drawable/common_google_signin_btn_icon_dark"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/expenseOrIncome"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/mode_transaction"
         android:layout_width="57dp"
         android:layout_height="18dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="@+id/categorized_image"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toStartOf="@+id/categorized_image"
+        app:layout_constraintTop_toBottomOf="@+id/categorized_image"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/transaction_title"
         android:layout_width="87dp"
         android:layout_height="15dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/textView6"
+        app:layout_constraintEnd_toEndOf="@+id/amount"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView6"
+        app:layout_constraintStart_toStartOf="@+id/amount"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/amount"
         android:layout_width="87dp"
         android:layout_height="15dp"
         android:layout_marginStart="36dp"
@@ -55,12 +68,12 @@
         android:text="TextView"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintStart_toEndOf="@+id/mode_transaction"
+        app:layout_constraintTop_toBottomOf="@+id/transaction_title"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/Date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -70,12 +83,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/details_inside"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:text="View Details ➡"
         app:layout_constraintBottom_toBottomOf="@+id/item"
-        app:layout_constraintEnd_toEndOf="@+id/textView7" />
+        app:layout_constraintEnd_toEndOf="@+id/Date" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

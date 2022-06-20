@@ -64,5 +64,4 @@ enum class TransactionStatus {
     UPCOMING,
     MISSED,
     COMPLETED,
-    CANCELLED,
 }
