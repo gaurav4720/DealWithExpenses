@@ -1,4 +1,4 @@
-package com.example.dealwithexpenses.initialScreens
+package com.example.dealwithexpenses.mainScreen.viewModels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -31,10 +31,10 @@ class MonthScreenViewModel(application: Application): AndroidViewModel(applicati
     }
 
     val monthlyExpenses : LiveData<Double> = Transformations.switchMap(MonthYear){
-        listHandlerRepo.getAmountByMonthYearAndType(user_id.value!!, it, TransactionType.EXPENSE)
+        listHandlerRepo.getAmountByMonthYearAndType(user_id.value!!, TransactionType.EXPENSE, it)
     }
 
     val monthlyIncome : LiveData<Double> = Transformations.switchMap(MonthYear){
-        listHandlerRepo.getAmountByMonthYearAndType(user_id.value!!, it, TransactionType.INCOME)
+        listHandlerRepo.getAmountByMonthYearAndType(user_id.value!!, TransactionType.INCOME, it)
     }
 }

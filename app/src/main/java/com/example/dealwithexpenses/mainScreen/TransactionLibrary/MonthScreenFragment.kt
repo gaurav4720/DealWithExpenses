@@ -1,4 +1,4 @@
-package com.example.dealwithexpenses.initialScreens
+package com.example.dealwithexpenses.mainScreen.TransactionLibrary
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -9,8 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.dealwithexpenses.R
 import com.example.dealwithexpenses.databinding.FragmentMonthScreenBinding
+import com.example.dealwithexpenses.mainScreen.viewModels.MonthScreenViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 class MonthScreenFragment : Fragment() {
@@ -34,7 +34,9 @@ class MonthScreenFragment : Fragment() {
         auth= FirebaseAuth.getInstance()
         sharedPreferences= activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
 
-        val monthYear= MonthScreenFragmentArgs.fromBundle(requireArguments()).monthYear
+        val monthYear= MonthScreenFragmentArgs.fromBundle(
+            requireArguments()
+        ).monthYear
         val month= monthYear%100
         val year= monthYear/100
         binding.toolbar.title = "${months[month-1]} $year"

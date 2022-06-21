@@ -61,7 +61,7 @@
     </fragment>
     <fragment
         android:id="@+id/transactionDetailFragment"
-        android:name="com.example.dealwithexpenses.TransactionLibrary.TransactionDetailFragment"
+        android:name="com.example.dealwithexpenses.mainScreen.TransactionLibrary.TransactionDetailFragment"
         android:label="fragment_transaction_detail"
         tools:layout="@layout/fragment_transaction_detail" >
         <argument
@@ -78,12 +78,15 @@
         tools:layout="@layout/fragment_user_budget_details" />
     <fragment
         android:id="@+id/mainScreenFragment"
-        android:name="com.example.dealwithexpenses.initialScreens.MainScreenFragment"
+        android:name="com.example.dealwithexpenses.mainScreen.MainScreenFragment"
         android:label="fragment_main_screen"
         tools:layout="@layout/fragment_main_screen" >
         <action
             android:id="@+id/action_mainScreenFragment_to_addOrEditTransactionFragment"
             app:destination="@id/addOrEditTransactionFragment" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_monthScreenFragment"
+            app:destination="@id/monthScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/facebookLoginFragment"
@@ -110,7 +113,7 @@
     </fragment>
     <fragment
         android:id="@+id/addOrEditTransactionFragment"
-        android:name="com.example.dealwithexpenses.TransactionLibrary.AddOrEditTransactionFragment"
+        android:name="com.example.dealwithexpenses.mainScreen.TransactionLibrary.AddOrEditTransactionFragment"
         android:label="fragment_add_or_edit_transaction"
         tools:layout="@layout/fragment_add_or_edit_transaction" >
         <argument
@@ -122,7 +125,7 @@
     </fragment>
     <fragment
         android:id="@+id/monthScreenFragment"
-        android:name="com.example.dealwithexpenses.initialScreens.MonthScreenFragment"
+        android:name="com.example.dealwithexpenses.mainScreen.TransactionLibrary.MonthScreenFragment"
         android:label="fragment_month_screen"
         tools:layout="@layout/fragment_month_screen" >
         <argument

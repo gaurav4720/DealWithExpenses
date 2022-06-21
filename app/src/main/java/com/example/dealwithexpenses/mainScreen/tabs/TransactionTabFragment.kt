@@ -1,4 +1,4 @@
-package com.example.dealwithexpenses.TransactionLibrary
+package com.example.dealwithexpenses.mainScreen.tabs
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.dealwithexpenses.R
 
-class CalendarViewFragment : Fragment() {
+class TransactionTabFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,7 +18,7 @@ class CalendarViewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calendar_view, container, false)
+        return inflater.inflate(R.layout.fragment_transaction_tab, container, false)
     }
 
 }

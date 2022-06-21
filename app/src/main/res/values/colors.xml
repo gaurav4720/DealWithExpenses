@@ -29,8 +29,17 @@
     <color name="mode_credit_card">#D6C104</color>
     <color name="mode_debit_card">#379A3B</color>
 
-    <!--    Transaction Types colors-->
+    <!--    Transaction Status colors-->
     <color name="status_upcoming">#84CFF1</color>
     <color name="status_completed">#CCF39F</color>
     <color name="status_missed">#F3A2A2</color>
+
+    <!--    Limit Exceeded or Not-->
+    <color name="Limit_exceeded">#F44336</color>
+    <color name="limit_not_exceeded">#379A3B</color>
+
+    <!--    Bar Chart Colors-->
+    <color name="bar_chart_monthly_amount">#FF9800</color>
+    <color name="bar_chart_monthly_transactions">#354FE3</color>
+    <color name="bar_chart_years">#F44336</color>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.dealwithexpenses.TransactionLibrary
+package com.example.dealwithexpenses.mainScreen.TransactionLibrary
 
 import com.airbnb.epoxy.AsyncEpoxyController
 

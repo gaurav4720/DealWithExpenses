@@ -1,4 +1,4 @@
-package com.example.dealwithexpenses.TransactionLibrary
+package com.example.dealwithexpenses.mainScreen.TransactionLibrary
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -13,6 +13,7 @@ import com.example.dealwithexpenses.R
 import com.example.dealwithexpenses.databinding.FragmentTransactionDetailBinding
 import com.example.dealwithexpenses.entities.Transaction
 import com.example.dealwithexpenses.entities.TransactionMode
+import com.example.dealwithexpenses.mainScreen.viewModels.AddOrEditTransactionViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 

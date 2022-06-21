@@ -1,4 +1,4 @@
-package com.example.dealwithexpenses.TransactionLibrary
+package com.example.dealwithexpenses.mainScreen.TransactionLibrary
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.dealwithexpenses.databinding.FragmentAddOrEditTransactionBinding
 import com.example.dealwithexpenses.entities.*
+import com.example.dealwithexpenses.mainScreen.viewModels.AddOrEditTransactionViewModel
 import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
 import java.util.*

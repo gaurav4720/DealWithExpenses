@@ -3,60 +3,160 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/heading_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#2196F3"
+            android:backgroundTint="#D066E3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/pieChart_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Statistics"
+                android:textColor="@color/white"
+                android:textSize="20sp">
+
+            </TextView>
+        </androidx.cardview.widget.CardView>
 
         <org.eazegraph.lib.charts.PieChart
             android:id="@+id/pieChart"
             android:layout_width="250dp"
             android:layout_height="200dp"
-            android:layout_margin="5dp"
             android:layout_marginStart="4dp"
             android:background="@android:color/transparent"
-            android:rotationX="15"
-            android:rotationY="12"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/heading_box"
-            tools:layout_editor_absoluteY="153dp">
+            android:rotation="-4"
+            android:rotationX="8"
+            android:rotationY="25"
+            app:layout_constraintBottom_toBottomOf="@+id/pieChartBarrier"
+            app:layout_constraintStart_toStartOf="parent">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/heading_box"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="28dp">
-
-                <TextView
-                    android:id="@+id/pieChart_heading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Statistics">
-
-                </TextView>
-            </androidx.cardview.widget.CardView>
         </org.eazegraph.lib.charts.PieChart>
 
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/pie_chart_spinner"
             android:layout_width="250dp"
-            android:layout_height="32dp"
-            android:layout_margin="5dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
             app:layout_constraintBottom_toTopOf="@+id/pieChart"
             app:layout_constraintEnd_toEndOf="@+id/pieChart"
             app:layout_constraintStart_toStartOf="@+id/pieChart"
+            app:layout_constraintTop_toBottomOf="@+id/heading_box"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/refernece_box"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/pieChartBarrier"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/pieChart"
             app:layout_constraintTop_toTopOf="@+id/pieChart" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/pieChartBarrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="top" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/heading_box2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="#2196F3"
+            android:backgroundTint="#1957D5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pieChartBarrier">
+
+            <TextView
+                android:id="@+id/barChart_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Expenditure Graph"
+                android:textColor="@color/white"
+                android:textSize="20sp">
+
+            </TextView>
+        </androidx.cardview.widget.CardView>
+
+        <Spinner
+            android:id="@+id/bar_chart_spinner"
+            android:layout_width="250dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintBottom_toTopOf="@+id/barChart"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/heading_box2"
+            app:layout_constraintVertical_bias="1.0"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChart"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toTopOf="@id/barChartBarrier"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"></com.github.mikephil.charting.charts.BarChart>
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barChartBarrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="top" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch1"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            app:layout_constraintBottom_toTopOf="@+id/barChart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/bar_chart_spinner"
+            app:layout_constraintTop_toTopOf="@+id/bar_chart_spinner"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yearly"
+            app:layout_constraintBottom_toBottomOf="@+id/switch1"
+            app:layout_constraintEnd_toStartOf="@+id/switch1"
+            app:layout_constraintTop_toTopOf="@+id/switch1" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="53dp"
+            android:text="Monthly"
+            app:layout_constraintBottom_toBottomOf="@+id/switch1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/switch1"
+            app:layout_constraintTop_toTopOf="@+id/switch1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

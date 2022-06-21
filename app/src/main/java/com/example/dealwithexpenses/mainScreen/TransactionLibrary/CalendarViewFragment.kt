@@ -1,11 +1,14 @@
-package com.example.dealwithexpenses
+package com.example.dealwithexpenses.mainScreen.TransactionLibrary
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-class OverviewTabFragment : Fragment() {
+import com.example.dealwithexpenses.R
+
+class CalendarViewFragment : Fragment() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -15,6 +18,7 @@ class OverviewTabFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_overview_tab, container, false)
+        return inflater.inflate(R.layout.fragment_calendar_view, container, false)
     }
+
 }

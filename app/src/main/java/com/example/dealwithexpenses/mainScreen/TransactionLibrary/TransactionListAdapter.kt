@@ -1,4 +1,4 @@
-package com.example.dealwithexpenses.TransactionLibrary
+package com.example.dealwithexpenses.mainScreen.TransactionLibrary
 
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +16,70 @@ import com.example.dealwithexpenses.entities.TransactionStatus
 import com.example.dealwithexpenses.entities.TransactionType
 
 class TransactionListAdapter(private val listener: (Long) -> Unit)  : ListAdapter<Transaction, TransactionListAdapter.holder>(diffView()) {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): holder {
+        val view= LayoutInflater.from(parent.context).inflate(R.layout.transaction_item,parent,false)
+        return holder(view)
+    }
+
+    override fun onBindViewHolder(holder: holder, position: Int) {
+        holder.bindview(getItem(position))
+    }
+
+    inner class holder(val view: View) : RecyclerView.ViewHolder(view){
+        init {
+            val viewDetails: TextView= view.findViewById(R.id.profitOrLoss)
+            viewDetails.setOnClickListener {
+                listener.invoke(getItem(adapterPosition).trans_id)
+            }
+        }
+
+        val layout: ConstraintLayout= view.findViewById(R.id.item)
+        val title: TextView= view.findViewById(R.id.transaction_title)
+        val mode: TextView= view.findViewById(R.id.month_transaction)
+        val amount: TextView= view.findViewById(R.id.amount)
+        val date: TextView= view.findViewById(R.id.GainOrLoss)
+        val typeHere: View= view.findViewById(R.id.expenseOrIncome)
+        val image: ImageView= view.findViewById(R.id.categorized_image)
+
+        fun bindview(transaction: Transaction){
+            val status= transaction.transactionStatus
+            if(status==TransactionStatus.UPCOMING)
+                layout.setBackgroundColor(status_color[0])
+            else if(status==TransactionStatus.MISSED)
+                layout.setBackgroundColor(status_color[1])
+            else
+                layout.setBackgroundColor(status_color[2])
+
+            title.text= transaction.title
+
+            mode.text= transaction.transactionMode.name
+
+            amount.text= transaction.transactionAmount.toString()
+
+            date.text= transaction.transactionDate.toString()
+
+            val type= transaction.transactionType
+            if(type==TransactionType.INCOME)
+                typeHere.setBackgroundColor(type_color[0])
+            else
+                typeHere.setBackgroundColor(type_color[1])
+
+            image.setImageDrawable(ContextCompat.getDrawable(image.context,images[transaction.transactionCategory.ordinal]))
+        }
+    }
+
+    class diffView : DiffUtil.ItemCallback<Transaction>(){
+        override fun areItemsTheSame(oldItem: Transaction, newItem: Transaction): Boolean {
+            return oldItem.trans_id==newItem.trans_id
+        }
+
+        override fun areContentsTheSame(oldItem: Transaction, newItem: Transaction): Boolean {
+            return oldItem==newItem
+        }
+
+    }
+
     val type_color= arrayListOf(
         R.color.type_income,
         R.color.type_expense
@@ -32,67 +96,6 @@ class TransactionListAdapter(private val listener: (Long) -> Unit)  : ListAdapte
         R.color.status_missed,
         R.color.status_completed
     )
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): holder {
-        val view= LayoutInflater.from(parent.context).inflate(R.layout.transaction_item,parent,false)
-        return holder(view)
-    }
-
-    override fun onBindViewHolder(holder: holder, position: Int) {
-        holder.bindview(getItem(position))
-    }
-
-    inner class holder(val view: View) : RecyclerView.ViewHolder(view){
-        init {
-            val viewDetails: TextView= view.findViewById(R.id.details_inside)
-            viewDetails.setOnClickListener {
-                listener.invoke(getItem(adapterPosition).trans_id)
-            }
-        }
-        fun bindview(transaction: Transaction){
-            val layout: ConstraintLayout= view.findViewById(R.id.item)
-            val status= transaction.transactionStatus
-            if(status==TransactionStatus.UPCOMING)
-                layout.setBackgroundColor(status_color[0])
-            else if(status==TransactionStatus.MISSED)
-                layout.setBackgroundColor(status_color[1])
-            else
-                layout.setBackgroundColor(status_color[2])
-
-            val title: TextView= view.findViewById(R.id.transaction_title)
-            title.text= transaction.title
-
-            val mode: TextView= view.findViewById(R.id.mode_transaction)
-            mode.text= transaction.transactionMode.name
-
-            val amount: TextView= view.findViewById(R.id.amount)
-            amount.text= transaction.transactionAmount.toString()
-
-            val date: TextView= view.findViewById(R.id.Date)
-            date.text= transaction.transactionDate.toString()
-
-            val typeHere: View= view.findViewById(R.id.expenseOrIncome)
-            val type= transaction.transactionType
-            if(type==TransactionType.INCOME)
-                typeHere.setBackgroundColor(type_color[0])
-            else
-                typeHere.setBackgroundColor(type_color[1])
-
-            val image: ImageView= view.findViewById(R.id.categorized_image)
-            image.setImageDrawable(ContextCompat.getDrawable(image.context,images[transaction.transactionCategory.ordinal]))
-        }
-    }
-
-    class diffView : DiffUtil.ItemCallback<Transaction>(){
-        override fun areItemsTheSame(oldItem: Transaction, newItem: Transaction): Boolean {
-            return oldItem.trans_id==newItem.trans_id
-        }
-
-        override fun areContentsTheSame(oldItem: Transaction, newItem: Transaction): Boolean {
-            return oldItem==newItem
-        }
-
-    }
 
     companion object{
         val images= mutableListOf(

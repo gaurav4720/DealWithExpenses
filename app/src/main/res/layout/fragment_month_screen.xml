@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".initialScreens.MonthScreenFragment">
+    tools:context=".mainScreen.TransactionLibrary.MonthScreenFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -56,7 +56,7 @@
         app:layout_constraintTop_toBottomOf="@id/app_bar">
 
         <TextView
-            android:id="@+id/net_balance_text"
+            android:id="@+id/net_balance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -65,7 +65,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/net_balance"
+            android:id="@+id/detailsInside"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"

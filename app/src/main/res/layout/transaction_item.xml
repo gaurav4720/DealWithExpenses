@@ -34,7 +34,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/mode_transaction"
+        android:id="@+id/month_transaction"
         android:layout_width="57dp"
         android:layout_height="18dp"
         android:layout_marginTop="8dp"
@@ -68,12 +68,12 @@
         android:text="TextView"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/mode_transaction"
+        app:layout_constraintStart_toEndOf="@+id/month_transaction"
         app:layout_constraintTop_toBottomOf="@+id/transaction_title"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/Date"
+        android:id="@+id/GainOrLoss"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -83,12 +83,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/details_inside"
+        android:id="@+id/profitOrLoss"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:text="View Details ➡"
         app:layout_constraintBottom_toBottomOf="@+id/item"
-        app:layout_constraintEnd_toEndOf="@+id/Date" />
+        app:layout_constraintEnd_toEndOf="@+id/GainOrLoss" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -45,7 +45,6 @@ class GoogleLoginFragment : Fragment() {
         val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail().build()
-
         googleSignInClient = GoogleSignIn.getClient(requireContext(), googleSignInOptions)
         val intent = googleSignInClient.signInIntent
         startActivityForResult(intent, SIGN_IN_CODE)

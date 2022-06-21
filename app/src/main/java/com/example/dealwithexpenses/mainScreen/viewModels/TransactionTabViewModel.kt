@@ -1,4 +1,4 @@
-package com.example.dealwithexpenses.TransactionLibrary
+package com.example.dealwithexpenses.mainScreen.TransactionLibrary
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

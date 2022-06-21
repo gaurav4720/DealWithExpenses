@@ -13,9 +13,6 @@ class ListHandlerRepo(application: Application) {
     fun getAllTransactionsByDate(user_id: String, date: Long): LiveData<List<Transaction>> =
         listHandlerDao.getTransactions(user_id, date)
 
-    fun getYears(user_id: String): LiveData<List<Int>> =
-        listHandlerDao.getYears(user_id)
-
     fun getAllTransactionsByCategory(
         user_id: String,
         category: TransactionCategory
@@ -55,8 +52,11 @@ class ListHandlerRepo(application: Application) {
     fun getAmountByDate(user_id: String, date: Long): LiveData<Double> =
         listHandlerDao.getAmountByDate(user_id, date)
 
-    fun getAmountByMonth(user_id: String, monthYear: Int): LiveData<Double> =
+    fun getAmountByMonth(user_id: String, monthYear: Long): LiveData<Double> =
         listHandlerDao.getAmountByMonth(user_id, monthYear)
+
+    fun getAmountByYear(user_id: String, year: Int): LiveData<Double> =
+        listHandlerDao.getAmountByYear(user_id, year)
 
     fun getAmountByModeAndDate(
         user_id: String,
@@ -86,12 +86,28 @@ class ListHandlerRepo(application: Application) {
     ): LiveData<Double> =
         listHandlerDao.getAmountByModeAndType(user_id, transactionMode, transactionType)
 
+    fun getYears(user_id: String): LiveData<List<Int>> =
+        listHandlerDao.getYears(user_id)
+
+    fun countTransactionsByMonthYear(user_id: String, monthYear: Int): LiveData<Int> =
+        listHandlerDao.countTransactionsByMonth(user_id, monthYear)
+
     fun getTransactionsByMonthYear(user_id: String, monthYear: Int): LiveData<List<Transaction>> =
         listHandlerDao.getTransactionsByMonth(user_id, monthYear)
 
     fun getTransactionsByMonth(user_id: String): LiveData<List<Transaction>> =
         listHandlerDao.getTransactionsAllMonths(user_id)
 
-    fun getAmountByMonthYearAndType(user_id: String, monthYear: Int, transactionType: TransactionType): LiveData<Double> =
+    fun countTransactionsByYear(user_id: String, year: Int): LiveData<Int> =
+        listHandlerDao.countTransactionsByYear(user_id, year)
+
+    fun getTransactionsByYear(user_id: String, year: Int): LiveData<List<Transaction>> =
+        listHandlerDao.getTransactionsByYear(user_id, year)
+
+    fun getAmountByMonthYearAndType(
+        user_id: String,
+        transactionType: TransactionType,
+        monthYear: Int
+    ): LiveData<Double> =
         listHandlerDao.getAmountByMonthYearAndType(user_id, transactionType, monthYear)
 }
