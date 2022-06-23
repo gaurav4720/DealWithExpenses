@@ -43,6 +43,14 @@ class MonthAdapter(val MonthCardList: MutableList<MonthCardDetail> , val fragmen
             }
         }
         fun bindView(monthCardDetail: MonthCardDetail){
+            monthName.text = monthCardDetail.month
+            gainOrLoss.text= if(monthCardDetail.amount<0){
+                "Loss"
+            } else {
+                "Gain"
+            }
+            profit.text= monthCardDetail.profit.toString()
+            balance.text= monthCardDetail.amount.toString()
 
         }
     }

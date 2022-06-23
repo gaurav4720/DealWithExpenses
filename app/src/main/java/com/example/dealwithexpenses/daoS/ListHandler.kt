@@ -109,5 +109,6 @@ interface ListHandler {
     @Query("SELECT * FROM transactions WHERE user_id = :user_id GROUP BY monthYear ORDER BY year, month DESC")
     fun getTransactionsAllMonths(user_id: String): LiveData<List<Transaction>>
 
-
+    @Query("SELECT DISTINCT monthYear FROM transactions WHERE user_id = :user_id AND year= :year ORDER BY monthYear " )
+    fun getDistinctMonths(user_id: String, year: Int): LiveData<List<Int>>
 }

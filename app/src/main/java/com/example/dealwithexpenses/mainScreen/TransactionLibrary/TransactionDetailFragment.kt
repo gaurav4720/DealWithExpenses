@@ -43,7 +43,7 @@ class TransactionDetailFragment : Fragment() {
         val user_id= auth.currentUser!!.uid
         viewModel.setUserId(user_id)
 
-        val transaction_id= TransactionDetailFragmentArgs.fromBundle(arguments).transId
+        val transaction_id= TransactionDetailFragmentArgs.fromBundle(requireArguments()).transId
         viewModel.setTransactionId(transaction_id)
 
         viewModel.transaction.observe(viewLifecycleOwner) {

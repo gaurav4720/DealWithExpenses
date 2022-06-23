@@ -110,4 +110,10 @@ class ListHandlerRepo(application: Application) {
         monthYear: Int
     ): LiveData<Double> =
         listHandlerDao.getAmountByMonthYearAndType(user_id, transactionType, monthYear)
+
+    fun getDistinctMonths(
+        user_id: String,
+        year: Int
+    ): LiveData<List<Int>> =
+        listHandlerDao.getDistinctMonths(user_id, year)
 }

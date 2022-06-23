@@ -62,6 +62,10 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
         }
     }
 
+    fun getDistinctMonths(year: Int)= repo.getDistinctMonths(_userID.value!!, year)
+
+    fun getMonthlyIncome(monthYear: Int) = repo.getAmountByMonthYearAndType(_userID.value!!,TransactionType.INCOME,monthYear)
+    fun getMonthlyExpense(monthYear: Int) = repo.getAmountByMonthYearAndType(_userID.value!!,TransactionType.EXPENSE,monthYear)
 
     val monthlyAmountData: MutableLiveData<MutableList<Double>> = MutableLiveData(mutableListOf())
     val monthlyTransactionData: MutableLiveData<MutableList<Int>> = MutableLiveData(mutableListOf())

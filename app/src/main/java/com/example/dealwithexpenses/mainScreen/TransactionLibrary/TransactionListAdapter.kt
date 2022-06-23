@@ -7,15 +7,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dealwithexpenses.R
 import com.example.dealwithexpenses.entities.Transaction
 import com.example.dealwithexpenses.entities.TransactionStatus
 import com.example.dealwithexpenses.entities.TransactionType
 
-class TransactionListAdapter(private val listener: (Long) -> Unit)  : ListAdapter<Transaction, TransactionListAdapter.holder>(diffView()) {
+class TransactionListAdapter(val transactionList: MutableList<Transaction>, val fragment: Fragment, private var listener: (Long)->Unit)  : RecyclerView.Adapter<TransactionListAdapter.holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): holder {
         val view= LayoutInflater.from(parent.context).inflate(R.layout.transaction_item,parent,false)
@@ -23,19 +23,23 @@ class TransactionListAdapter(private val listener: (Long) -> Unit)  : ListAdapte
     }
 
     override fun onBindViewHolder(holder: holder, position: Int) {
-        holder.bindview(getItem(position))
+        holder.bindview(transactionList[position])
+    }
+
+    override fun getItemCount(): Int {
+        return transactionList.size
     }
 
     inner class holder(val view: View) : RecyclerView.ViewHolder(view){
         init {
             val viewDetails: TextView= view.findViewById(R.id.profitOrLoss)
             viewDetails.setOnClickListener {
-                listener.invoke(getItem(adapterPosition).trans_id)
+                listener.invoke(transactionList[adapterPosition].trans_id)
             }
         }
 
         val layout: ConstraintLayout= view.findViewById(R.id.item)
-        val title: TextView= view.findViewById(R.id.transaction_title)
+        val title: TextView= view.findViewById(R.id.year)
         val mode: TextView= view.findViewById(R.id.month_transaction)
         val amount: TextView= view.findViewById(R.id.amount)
         val date: TextView= view.findViewById(R.id.GainOrLoss)
@@ -52,11 +56,8 @@ class TransactionListAdapter(private val listener: (Long) -> Unit)  : ListAdapte
                 layout.setBackgroundColor(status_color[2])
 
             title.text= transaction.title
-
             mode.text= transaction.transactionMode.name
-
             amount.text= transaction.transactionAmount.toString()
-
             date.text= transaction.transactionDate.toString()
 
             val type= transaction.transactionType
