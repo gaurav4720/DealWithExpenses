@@ -32,7 +32,7 @@
     <!--    Transaction Status colors-->
     <color name="status_upcoming">#84CFF1</color>
     <color name="status_completed">#CCF39F</color>
-    <color name="status_missed">#F3A2A2</color>
+    <color name="status_pending">#F3A2A2</color>
 
     <!--    Limit Exceeded or Not-->
     <color name="Limit_exceeded">#F44336</color>

@@ -111,6 +111,25 @@ class ListHandlerRepo(application: Application) {
     ): LiveData<Double> =
         listHandlerDao.getAmountByMonthYearAndType(user_id, transactionType, monthYear)
 
+    fun getTransactionDatesByMonthYear(user_id: String, monthYear: Int): LiveData<List<Long>> =
+        listHandlerDao.getTransactionDatesByMonthYear(user_id, monthYear)
+
+    fun getTransactionByDate(user_id: String, date: Long): LiveData<List<Transaction>> =
+        listHandlerDao.getTransactionByDate(user_id, date)
+
+    fun getTransactionAmountByDateAndType(
+        user_id: String,
+        date: Long,
+        transactionType: TransactionType
+    ): LiveData<Double> =
+        listHandlerDao.getTransactionAmountByDateAndType(user_id, date, transactionType)
+
+    fun getUpcomingTransactions(user_id: String, date: Long): LiveData<List<Transaction>> =
+        listHandlerDao.getUpcomingTransactions(user_id, date)
+
+    fun getPendingTransactions(user_id: String, date: Long): LiveData<List<Transaction>> =
+        listHandlerDao.getPendingTransactions(user_id, date)
+
     fun getDistinctMonths(
         user_id: String,
         year: Int

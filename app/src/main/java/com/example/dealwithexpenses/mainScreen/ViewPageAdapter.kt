@@ -4,10 +4,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.dealwithexpenses.mainScreen.tabs.OverviewTabFragment
-import com.example.dealwithexpenses.mainScreen.tabs.RecentTransactionsTabFragment
-import com.example.dealwithexpenses.mainScreen.tabs.TransactionTabFragment
+import com.example.dealwithexpenses.mainScreen.tabs.TransactionLogTabFragment
+import com.example.dealwithexpenses.mainScreen.tabs.YearMonthTabFragment
 
-class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class ViewPagerAdapter(fm: FragmentManager, val fragment: Fragment) : FragmentPagerAdapter(fm) {
     override fun getCount(): Int {
         return 3
     }
@@ -18,10 +18,10 @@ class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
                 OverviewTabFragment()
             }
             1 -> {
-                RecentTransactionsTabFragment()
+                TransactionLogTabFragment(fragment)
             }
             else -> {
-                TransactionTabFragment()
+                YearMonthTabFragment(fragment)
             }
         }
     }

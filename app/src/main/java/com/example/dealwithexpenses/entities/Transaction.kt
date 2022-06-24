@@ -61,7 +61,6 @@ enum class TransactionMode {
 }
 
 enum class TransactionStatus {
-    UPCOMING,
-    MISSED,
     COMPLETED,
+    PENDING,
 }

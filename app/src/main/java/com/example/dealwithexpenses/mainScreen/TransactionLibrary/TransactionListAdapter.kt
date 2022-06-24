@@ -47,12 +47,12 @@ class TransactionListAdapter(val transactionList: MutableList<Transaction>, val 
         val image: ImageView= view.findViewById(R.id.categorized_image)
 
         fun bindview(transaction: Transaction){
-            val status= transaction.transactionStatus
-            if(status==TransactionStatus.UPCOMING)
+            val isUpcoming = transaction.transactionDate.time > System.currentTimeMillis()
+            if (transaction.transactionStatus == TransactionStatus.COMPLETED)
                 layout.setBackgroundColor(status_color[0])
-            else if(status==TransactionStatus.MISSED)
+            else if (isUpcoming)
                 layout.setBackgroundColor(status_color[1])
-            else
+            else if (transaction.transactionStatus == TransactionStatus.PENDING)
                 layout.setBackgroundColor(status_color[2])
 
             title.text= transaction.title
@@ -92,10 +92,10 @@ class TransactionListAdapter(val transactionList: MutableList<Transaction>, val 
         R.color.mode_debit_card
     )
 
-    val status_color= arrayListOf(
+    val status_color = arrayListOf(
+        R.color.status_completed,
         R.color.status_upcoming,
-        R.color.status_missed,
-        R.color.status_completed
+        R.color.status_pending,
     )
 
     companion object{

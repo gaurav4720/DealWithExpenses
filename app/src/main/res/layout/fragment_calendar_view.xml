@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mainScreen.TransactionLibrary.CalendarViewFragment">
+    tools:context="com.example.dealwithexpenses.mainScreen.TransactionLibrary.CalendarViewFragment">
 
-    <CalendarView
+    <sun.bob.mcalendarview.MCalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </CalendarView>
+    </sun.bob.mcalendarview.MCalendarView>
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -37,42 +37,47 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/spentMoney"
+                    android:id="@+id/earned_heading"
                     android:layout_width="150dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
-                    android:text="TextView" />
+                    android:text="Earned"
+                    android:textSize="24sp" />
 
                 <TextView
-                    android:id="@+id/spentAmount"
+                    android:id="@+id/earned_amount"
                     android:layout_width="150dp"
                     android:layout_height="30dp"
                     android:layout_gravity="bottom"
                     android:layout_marginStart="10dp"
                     android:layout_marginBottom="5dp"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/savedMoney"
+                    android:id="@+id/spent_heading"
                     android:layout_width="150dp"
                     android:layout_height="30dp"
                     android:layout_gravity="end"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
-                    android:text="TextView" />
+                    android:text="Spent"
+                    android:textSize="24sp" />
 
                 <TextView
-                    android:id="@+id/savedAmount"
+                    android:id="@+id/spent_amount"
                     android:layout_width="150dp"
                     android:layout_height="30dp"
                     android:layout_gravity="bottom|end"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:textSize="20sp" />
             </androidx.cardview.widget.CardView>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/daily_transactions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"

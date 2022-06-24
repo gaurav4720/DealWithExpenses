@@ -7,20 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.example.dealwithexpenses.R
-import com.example.dealwithexpenses.databinding.FragmentTransactionTabBinding
+import com.example.dealwithexpenses.databinding.FragmentYearMonthTabBinding
 import com.example.dealwithexpenses.mainScreen.TransactionLibrary.EpoxyData
 import com.example.dealwithexpenses.mainScreen.TransactionLibrary.MonthCardDetail
+import com.example.dealwithexpenses.mainScreen.TransactionLibrary.YearEpoxyController
 import com.example.dealwithexpenses.mainScreen.viewModels.MainScreenViewModel
 import com.google.firebase.auth.FirebaseAuth
 import java.time.Year
 
-class TransactionTabFragment : Fragment() {
+class YearMonthTabFragment(val fragment: Fragment) : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
-    private lateinit var binding: FragmentTransactionTabBinding
+    private lateinit var binding: FragmentYearMonthTabBinding
     private lateinit var model: MainScreenViewModel
     private lateinit var auth: FirebaseAuth
     private lateinit var sharedPreferences: SharedPreferences
@@ -29,12 +29,12 @@ class TransactionTabFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding= FragmentTransactionTabBinding.inflate(inflater,container,false)
+        binding= FragmentYearMonthTabBinding.inflate(inflater,container,false)
         auth= FirebaseAuth.getInstance()
         model= ViewModelProvider(this).get(MainScreenViewModel::class.java)
         sharedPreferences= activity?.getSharedPreferences("user_auth", 0)!!
-        model.setUserId(auth.currentUser!!.uid)
-        var list: MutableList<EpoxyData> = mutableListOf()
+        model.setUserID(auth.currentUser!!.uid)
+        val list: MutableList<EpoxyData> = mutableListOf()
         model.years.observe(viewLifecycleOwner){
             it.forEach { year->
                 val listMonthCard: MutableList<MonthCardDetail> = mutableListOf()
@@ -46,7 +46,9 @@ class TransactionTabFragment : Fragment() {
                 list.add(EpoxyData(year,listMonthCard))
             }
         }
-
+        val yearEpoxyController= YearEpoxyController(fragment)
+        yearEpoxyController.transactYears= list
+        binding.epoxy.setController(yearEpoxyController)
         return binding.root
     }
 
@@ -54,10 +56,11 @@ class TransactionTabFragment : Fragment() {
         val income= sharedPreferences.getString("income","0")!!.toDouble()
         var expense= 0.0
         var profit= 0.0
-        model.getMonthlyExpense(monthYear).observe(viewLifecycleOwner){
+        model.setMonthYear(monthYear)
+        model.monthlyExpenses.observe(viewLifecycleOwner){
             expense+= it
         }
-        model.getMonthlyIncome(monthYear).observe(viewLifecycleOwner){
+        model.monthlyGains.observe(viewLifecycleOwner){
             profit+= it
         }
         val amount: Double = income+profit-expense

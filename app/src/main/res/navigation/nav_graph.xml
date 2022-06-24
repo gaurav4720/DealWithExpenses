@@ -87,6 +87,9 @@
         <action
             android:id="@+id/action_mainScreenFragment_to_monthScreenFragment"
             app:destination="@id/monthScreenFragment" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_transactionDetailFragment"
+            app:destination="@id/transactionDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/facebookLoginFragment"
@@ -132,4 +135,25 @@
             android:name="monthYear"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/calenderViewFragment"
+        android:name="com.example.dealwithexpenses.mainScreen.TransactionLibrary.CalenderViewFragment"
+        android:label="CalenderViewFragment" >
+        <argument
+            android:name="monthYear"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/overviewTabFragment"
+        android:name="com.example.dealwithexpenses.mainScreen.tabs.OverviewTabFragment"
+        android:label="OverviewTabFragment" />
+    <fragment
+        android:id="@+id/transactionLogTabFragment"
+        android:name="com.example.dealwithexpenses.mainScreen.tabs.TransactionLogTabFragment"
+        android:label="fragment_transaction_log_tab"
+        tools:layout="@layout/fragment_transaction_log_tab" />
+    <fragment
+        android:id="@+id/yearMonthTabFragment"
+        android:name="com.example.dealwithexpenses.mainScreen.tabs.YearMonthTabFragment"
+        android:label="YearMonthTabFragment" />
 </navigation>

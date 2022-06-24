@@ -135,7 +135,7 @@ class AddOrEditTransactionFragment : Fragment() {
         val year= binding.transDateInput.text.toString().substring(6).toInt()
         val monthyear= year*100 + month
         val type: TransactionType= TransactionType.values()[binding.radioGroup.checkedRadioButtonId]
-        val status: TransactionStatus= TransactionStatus.UPCOMING
+        val status: TransactionStatus= TransactionStatus.PENDING
         val transaction= Transaction(
             viewModel.userID.value!!,
             viewModel.transactionId.value!!,

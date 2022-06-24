@@ -60,11 +60,15 @@ interface ListHandler {
     @Query("SELECT SUM(transactionAmount) FROM transactions WHERE user_id = :user_id and year = :year ORDER BY transactionDate")
     fun getAmountByYear(user_id: String, year: Int): LiveData<Double>
 
-    @Query("SELECT year FROM transactions WHERE user_id = :user_id GROUP BY year")
+    @Query("SELECT year FROM transactions WHERE user_id = :user_id GROUP BY year ORDER BY year ")
     fun getYears(user_id: String): LiveData<List<Int>>
 
     @Query("SELECT SUM(transactionAmount) FROM transactions WHERE user_id= :user_id and transactionType= :transactionType and monthYear= :monthYear")
-    fun getAmountByMonthYearAndType(user_id: String, transactionType: TransactionType, monthYear: Int) : LiveData<Double>
+    fun getAmountByMonthYearAndType(
+        user_id: String,
+        transactionType: TransactionType,
+        monthYear: Int
+    ): LiveData<Double>
 
     @Query("SELECT SUM(transactionAmount) FROM transactions WHERE user_id = :user_id and transactionMode = :transactionMode and transactionDate = :date")
     fun getAmountByModeAndDate(
@@ -108,6 +112,25 @@ interface ListHandler {
 
     @Query("SELECT * FROM transactions WHERE user_id = :user_id GROUP BY monthYear ORDER BY year, month DESC")
     fun getTransactionsAllMonths(user_id: String): LiveData<List<Transaction>>
+
+    @Query("SELECT DISTINCT(transactionDate) FROM transactions WHERE user_id = :user_id and monthYear = :monthYear ORDER BY transactionDate")
+    fun getTransactionDatesByMonthYear(user_id: String, monthYear: Int): LiveData<List<Long>>
+
+    @Query("SELECT * FROM transactions WHERE user_id = :user_id and transactionDate = :date")
+    fun getTransactionByDate(user_id: String, date: Long): LiveData<List<Transaction>>
+
+    @Query("SELECT SUM(transactionAmount) FROM transactions WHERE user_id = :user_id and transactionDate = :date and transactionType = :transactionType")
+    fun getTransactionAmountByDateAndType(
+        user_id: String,
+        date: Long,
+        transactionType: TransactionType
+    ): LiveData<Double>
+
+    @Query("SELECT * FROM transactions WHERE user_id = :user_id and transactionDate >= :date")
+    fun getUpcomingTransactions(user_id: String, date: Long): LiveData<List<Transaction>>
+
+    @Query("SELECT * FROM transactions WHERE user_id = :user_id and transactionDate < :date and transactionStatus = :transactionStatus")
+    fun getPendingTransactions(user_id: String, date: Long, transactionStatus: TransactionStatus = TransactionStatus.PENDING): LiveData<List<Transaction>>
 
     @Query("SELECT DISTINCT monthYear FROM transactions WHERE user_id = :user_id AND year= :year ORDER BY monthYear " )
     fun getDistinctMonths(user_id: String, year: Int): LiveData<List<Int>>

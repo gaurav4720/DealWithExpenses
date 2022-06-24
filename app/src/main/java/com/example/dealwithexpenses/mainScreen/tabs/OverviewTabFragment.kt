@@ -41,7 +41,7 @@ class OverviewTabFragment : Fragment() {
         binding = FragmentOverviewTabBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
         firebaseAuth = FirebaseAuth.getInstance()
-        viewModel.setUserId(firebaseAuth.currentUser?.uid.toString())
+        viewModel.setUserID(firebaseAuth.currentUser?.uid.toString())
 
         val pieChartChoices = arrayOf(
             "Category",
