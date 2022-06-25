@@ -137,6 +137,9 @@
         <action
             android:id="@+id/action_monthScreenFragment_to_transactionDetailFragment"
             app:destination="@id/transactionDetailFragment" />
+        <action
+            android:id="@+id/action_monthScreenFragment_to_addOrEditTransactionFragment"
+            app:destination="@id/addOrEditTransactionFragment" />
     </fragment>
     <fragment
         android:id="@+id/calenderViewFragment"

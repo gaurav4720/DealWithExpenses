@@ -9,7 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.example.dealwithexpenses.databinding.FragmentMonthScreenBinding
+import com.example.dealwithexpenses.mainScreen.viewModels.TransactionViewModel
 import com.example.dealwithexpenses.mainScreen.viewModels.MonthScreenViewModel
 import com.google.firebase.auth.FirebaseAuth
 
@@ -23,6 +26,7 @@ class MonthScreenFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var auth: FirebaseAuth
     private lateinit var viewModel: MonthScreenViewModel
+    private lateinit var transactionViewModel: TransactionViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +34,7 @@ class MonthScreenFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding= FragmentMonthScreenBinding.inflate(inflater,container,false)
+        transactionViewModel= ViewModelProvider(this).get(TransactionViewModel::class.java)
         viewModel= ViewModelProvider(this).get(MonthScreenViewModel:: class.java)
         auth= FirebaseAuth.getInstance()
         sharedPreferences= activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
@@ -37,27 +42,62 @@ class MonthScreenFragment : Fragment() {
         val monthYear= MonthScreenFragmentArgs.fromBundle(
             requireArguments()
         ).monthYear
+
+        transactionViewModel.setUserId(auth.currentUser?.uid!!)
+        viewModel.setUserId(auth.currentUser?.uid!!)
+
         val month= monthYear%100
         val year= monthYear/100
         binding.toolbar.title = "${months[month-1]} $year"
         binding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
+
         val activeIncome = sharedPreferences.getString("income", "0")?.toDouble()
         val totalGains = viewModel.monthlyIncome.value
         val totalExpenses = viewModel.monthlyExpenses.value
+
         binding.amountSpent.text= totalExpenses.toString()
         binding.netBalance.text= totalGains.toString()
+
         val totalCredit = totalGains?.plus((activeIncome!!))
         val totalBalance = totalCredit?.minus(totalExpenses!!)
+
         binding.amountSaved.text= totalBalance.toString()
+
+        binding.addTransactionButton.setOnClickListener {
+            findNavController().navigate(
+                MonthScreenFragmentDirections.actionMonthScreenFragmentToAddOrEditTransactionFragment(
+                    0
+                )
+            )
+        }
+
         return binding.root
     }
 
     fun showMonthlyTransactions(monthYear: Int) {
         viewModel.monthlyTransactions.observe(viewLifecycleOwner) {
-            binding.transactionItems.adapter =
-                TransactionListAdapter(it.toMutableList(), this, listener)
+            val adapter= TransactionListAdapter(
+                it.toMutableList(),
+                this,
+                listener,
+                transactionViewModel,
+                requireContext()
+            )
+            binding.transactionItems.adapter = adapter
+            val swipeHandler = object : SwipeHandler() {
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    if (direction == ItemTouchHelper.LEFT) {
+                        adapter.deleteTransaction(viewHolder.adapterPosition)
+                    } else if (direction == ItemTouchHelper.RIGHT) {
+                        adapter.completeTransaction(viewHolder.adapterPosition)
+                    }
+                }
+            }
+
+            val itemTouchHelper = ItemTouchHelper(swipeHandler)
+            itemTouchHelper.attachToRecyclerView(binding.transactionItems)
         }
     }
 

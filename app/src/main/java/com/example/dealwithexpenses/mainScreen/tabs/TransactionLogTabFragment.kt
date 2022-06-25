@@ -11,6 +11,8 @@ import com.example.dealwithexpenses.mainScreen.TransactionLibrary.TransactionLog
 import com.example.dealwithexpenses.mainScreen.viewModels.MainScreenViewModel
 import com.example.dealwithexpenses.R
 import com.example.dealwithexpenses.databinding.FragmentTransactionLogTabBinding
+import com.example.dealwithexpenses.mainScreen.viewModels.TransactionViewModel
+import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 
 class TransactionLogTabFragment(val fragment: Fragment) : Fragment() {
@@ -19,7 +21,9 @@ class TransactionLogTabFragment(val fragment: Fragment) : Fragment() {
     }
 
     private lateinit var binding: FragmentTransactionLogTabBinding
+    private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var viewModel: MainScreenViewModel
+    private lateinit var transactionViewModel: TransactionViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +32,8 @@ class TransactionLogTabFragment(val fragment: Fragment) : Fragment() {
 
         binding = FragmentTransactionLogTabBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
+        firebaseAuth = FirebaseAuth.getInstance()
+        transactionViewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
 
         val transStatus = mutableListOf<TransactionLogItem>(
             TransactionLogItem("Completed", mutableListOf()),
@@ -49,7 +55,8 @@ class TransactionLogTabFragment(val fragment: Fragment) : Fragment() {
                 transStatus[2].transactionLog = it.toMutableList()
             }
 
-        val epoxyController = TransactionLogEpoxyController(fragment)
+        val epoxyController =
+            TransactionLogEpoxyController(fragment, requireContext(), transactionViewModel)
         epoxyController.transactionLog = transStatus
 
         binding.transactionsLogRecyclerView.setController(epoxyController)

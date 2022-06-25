@@ -13,7 +13,7 @@ import com.example.dealwithexpenses.R
 import com.example.dealwithexpenses.databinding.FragmentTransactionDetailBinding
 import com.example.dealwithexpenses.entities.Transaction
 import com.example.dealwithexpenses.entities.TransactionMode
-import com.example.dealwithexpenses.mainScreen.viewModels.AddOrEditTransactionViewModel
+import com.example.dealwithexpenses.mainScreen.viewModels.TransactionViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -21,7 +21,7 @@ class TransactionDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentTransactionDetailBinding
     private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var viewModel: AddOrEditTransactionViewModel
+    private lateinit var viewModel: TransactionViewModel
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +37,7 @@ class TransactionDetailFragment : Fragment() {
         binding= FragmentTransactionDetailBinding.inflate(inflater,container,false)
         sharedPreferences= requireActivity().getSharedPreferences("transaction_detail", Context.MODE_PRIVATE)
 
-        viewModel= ViewModelProvider(this).get(AddOrEditTransactionViewModel::class.java)
+        viewModel= ViewModelProvider(this).get(TransactionViewModel::class.java)
         auth= FirebaseAuth.getInstance()
 
         val user_id= auth.currentUser!!.uid

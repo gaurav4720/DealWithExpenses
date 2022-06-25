@@ -35,7 +35,7 @@ data class Transaction(
     val transactionType: TransactionType,
     val transactionCategory: TransactionCategory,
     val transactionMode: TransactionMode,
-    val transactionStatus: TransactionStatus
+    var transactionStatus: TransactionStatus
 )
 
 enum class TransactionType {

@@ -11,15 +11,14 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dealwithexpenses.R
 import com.example.dealwithexpenses.entities.Transaction
 import com.example.dealwithexpenses.entities.TransactionStatus
 import com.example.dealwithexpenses.entities.TransactionType
-import com.example.dealwithexpenses.mainScreen.viewModels.AddOrEditTransactionViewModel
+import com.example.dealwithexpenses.mainScreen.viewModels.TransactionViewModel
 
-class TransactionListAdapter(val transactionList: MutableList<Transaction>, val fragment: Fragment, private var listener: (Long)->Unit, val viewModel: AddOrEditTransactionViewModel, val context: Context)  : RecyclerView.Adapter<TransactionListAdapter.holder>() {
+class TransactionListAdapter(val transactionList: MutableList<Transaction>, val fragment: Fragment, private var listener: (Long)->Unit, val viewModel: TransactionViewModel, val context: Context)  : RecyclerView.Adapter<TransactionListAdapter.holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): holder {
         val view= LayoutInflater.from(parent.context).inflate(R.layout.transaction_item,parent,false)
@@ -47,7 +46,7 @@ class TransactionListAdapter(val transactionList: MutableList<Transaction>, val 
         val mode: TextView= view.findViewById(R.id.month_transaction)
         val amount: TextView= view.findViewById(R.id.amount)
         val date: TextView= view.findViewById(R.id.GainOrLoss)
-        val typeHere: View= view.findViewById(R.id.expenseOrIncome)
+        private val typeHere: View= view.findViewById(R.id.expenseOrIncome)
         val image: ImageView= view.findViewById(R.id.categorized_image)
 
         fun bindview(transaction: Transaction){
@@ -74,17 +73,6 @@ class TransactionListAdapter(val transactionList: MutableList<Transaction>, val 
         }
     }
 
-    class diffView : DiffUtil.ItemCallback<Transaction>(){
-        override fun areItemsTheSame(oldItem: Transaction, newItem: Transaction): Boolean {
-            return oldItem.trans_id==newItem.trans_id
-        }
-
-        override fun areContentsTheSame(oldItem: Transaction, newItem: Transaction): Boolean {
-            return oldItem==newItem
-        }
-
-    }
-
     fun deleteTransaction(position: Int){
         val builder = AlertDialog.Builder(context)
             .setTitle("Delete Transaction")
@@ -101,8 +89,13 @@ class TransactionListAdapter(val transactionList: MutableList<Transaction>, val 
         builder.create().show()
     }
 
-    fun completeTransaction(){
-        val builder = AlertDialog.Builder(context)
+    fun completeTransaction(position: Int){
+        viewModel.setTransactionId(transactionList[position].trans_id)
+        viewModel.complete()
+        val transaction = transactionList[position]
+        transaction.transactionStatus = TransactionStatus.COMPLETED
+        transactionList[position] = transaction
+        notifyItemChanged(position)
     }
 
     val type_color= arrayListOf(

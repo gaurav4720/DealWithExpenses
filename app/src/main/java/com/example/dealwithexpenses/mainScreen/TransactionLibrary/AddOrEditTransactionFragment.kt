@@ -18,7 +18,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.dealwithexpenses.databinding.FragmentAddOrEditTransactionBinding
 import com.example.dealwithexpenses.entities.*
-import com.example.dealwithexpenses.mainScreen.viewModels.AddOrEditTransactionViewModel
+import com.example.dealwithexpenses.mainScreen.viewModels.TransactionViewModel
 import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
 import java.util.*
@@ -28,7 +28,7 @@ class AddOrEditTransactionFragment : Fragment() {
 
     private lateinit var binding: FragmentAddOrEditTransactionBinding
     private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var viewModel: AddOrEditTransactionViewModel
+    private lateinit var viewModel: TransactionViewModel
     private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
@@ -80,7 +80,7 @@ class AddOrEditTransactionFragment : Fragment() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {}
             override fun onNothingSelected(p0: AdapterView<*>?) {}
         }
-        viewModel= ViewModelProvider(this).get(AddOrEditTransactionViewModel::class.java)
+        viewModel= ViewModelProvider(this).get(TransactionViewModel::class.java)
         auth= FirebaseAuth.getInstance()
 
         val user_id= auth.currentUser!!.uid

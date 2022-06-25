@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyHolder
@@ -21,6 +22,9 @@ abstract class TransactionLogModel : EpoxyModelWithHolder<TransactionLogModel.Ho
     @EpoxyAttribute
     lateinit var adapter: TransactionListAdapter
 
+    @EpoxyAttribute
+    lateinit var itemTouchHelper: ItemTouchHelper
+
     override fun getDefaultLayout(): Int {
         return R.layout.transaction_log_item
     }
@@ -29,6 +33,7 @@ abstract class TransactionLogModel : EpoxyModelWithHolder<TransactionLogModel.Ho
         super.bind(holder)
         holder.heading.text = title
         holder.recyclerView.adapter = adapter
+        itemTouchHelper.attachToRecyclerView(holder.recyclerView)
 
         holder.recyclerView.visibility = if (title == "Completed")
             View.VISIBLE

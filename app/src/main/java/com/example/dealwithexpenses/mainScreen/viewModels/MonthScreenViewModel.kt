@@ -21,7 +21,7 @@ class MonthScreenViewModel(application: Application): AndroidViewModel(applicati
         }
     }
 
-    private fun setUserId(userId: String){
+    fun setUserId(userId: String){
         user_id.let {
             it.value= userId
         }

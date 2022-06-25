@@ -35,6 +35,14 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
         listHandlerRepo.getAmountByType(it, TransactionType.EXPENSE)
     }
 
+    val yearlyExpenses : LiveData<List<Transaction>> = Transformations.switchMap(monthYear) {
+        listHandlerRepo.getTransactionsByYear(userID.value!!, it)
+    }
+
+    val yearlyGains : LiveData<List<Transaction>> = Transformations.switchMap(monthYear) {
+        listHandlerRepo.getTransactionsByYear(userID.value!!, it)
+    }
+
     val choice = MutableLiveData("Category")
     fun setChoice(choice: String) {
         this.choice.value = choice
