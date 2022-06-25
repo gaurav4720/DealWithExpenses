@@ -70,6 +70,8 @@ dependencies {
     // Testing Fragments in Isolation
     debugImplementation("androidx.fragment:fragment-testing:1.4.1")
 
+    implementation 'com.github.xabaras:RecyclerViewSwipeDecorator:1.4'
+
     // Kotlin
     implementation("androidx.navigation:navigation-fragment-ktx:2.4.2")
     implementation("androidx.navigation:navigation-ui-ktx:2.4.2")

@@ -13,7 +13,6 @@ import com.example.dealwithexpenses.mainScreen.TransactionLibrary.MonthCardDetai
 import com.example.dealwithexpenses.mainScreen.TransactionLibrary.YearEpoxyController
 import com.example.dealwithexpenses.mainScreen.viewModels.MainScreenViewModel
 import com.google.firebase.auth.FirebaseAuth
-import java.time.Year
 
 class YearMonthTabFragment(val fragment: Fragment) : Fragment() {
 

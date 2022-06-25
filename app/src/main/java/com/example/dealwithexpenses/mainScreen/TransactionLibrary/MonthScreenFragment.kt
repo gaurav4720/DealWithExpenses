@@ -53,6 +53,20 @@ class MonthScreenFragment : Fragment() {
         binding.amountSaved.text= totalBalance.toString()
         return binding.root
     }
+
+    fun showMonthlyTransactions(monthYear: Int) {
+        viewModel.monthlyTransactions.observe(viewLifecycleOwner) {
+            binding.transactionItems.adapter =
+                TransactionListAdapter(it.toMutableList(), this, listener)
+        }
+    }
+
+    private val listener: (id: Long) -> Unit = {
+        findNavController().navigate(
+            MonthScreenFragmentDirections.actionMonthScreenFragmentToTransactionDetailFragment(it)
+        )
+    }
+
     companion object{
         private val months = arrayListOf<String>(
             "JANUARY",

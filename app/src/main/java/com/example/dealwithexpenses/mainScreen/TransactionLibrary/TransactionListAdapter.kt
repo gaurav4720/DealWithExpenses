@@ -1,5 +1,8 @@
 package com.example.dealwithexpenses.mainScreen.TransactionLibrary
 
+
+import android.app.AlertDialog
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +17,9 @@ import com.example.dealwithexpenses.R
 import com.example.dealwithexpenses.entities.Transaction
 import com.example.dealwithexpenses.entities.TransactionStatus
 import com.example.dealwithexpenses.entities.TransactionType
+import com.example.dealwithexpenses.mainScreen.viewModels.AddOrEditTransactionViewModel
 
-class TransactionListAdapter(val transactionList: MutableList<Transaction>, val fragment: Fragment, private var listener: (Long)->Unit)  : RecyclerView.Adapter<TransactionListAdapter.holder>() {
+class TransactionListAdapter(val transactionList: MutableList<Transaction>, val fragment: Fragment, private var listener: (Long)->Unit, val viewModel: AddOrEditTransactionViewModel, val context: Context)  : RecyclerView.Adapter<TransactionListAdapter.holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): holder {
         val view= LayoutInflater.from(parent.context).inflate(R.layout.transaction_item,parent,false)
@@ -79,6 +83,26 @@ class TransactionListAdapter(val transactionList: MutableList<Transaction>, val 
             return oldItem==newItem
         }
 
+    }
+
+    fun deleteTransaction(position: Int){
+        val builder = AlertDialog.Builder(context)
+            .setTitle("Delete Transaction")
+            .setMessage("Are you sure you want to delete this transaction?")
+            .setPositiveButton("YES"){ _,_ ->
+                viewModel.setTransactionId(transactionList[position].trans_id)
+                viewModel.delete(viewModel.transaction.value!!)
+                transactionList.removeAt(position)
+                notifyItemRemoved(position)
+            }
+            .setNegativeButton("NO"){_,_ ->
+
+            }
+        builder.create().show()
+    }
+
+    fun completeTransaction(){
+        val builder = AlertDialog.Builder(context)
     }
 
     val type_color= arrayListOf(

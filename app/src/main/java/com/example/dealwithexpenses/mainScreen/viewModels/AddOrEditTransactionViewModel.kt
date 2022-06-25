@@ -3,6 +3,7 @@ package com.example.dealwithexpenses.mainScreen.viewModels
 import android.app.Application
 import androidx.lifecycle.*
 import com.example.dealwithexpenses.entities.Transaction
+import com.example.dealwithexpenses.entities.TransactionStatus
 import com.example.dealwithexpenses.repositories.TransactionManagerRepo
 import kotlinx.coroutines.launch
 
@@ -41,6 +42,30 @@ class AddOrEditTransactionViewModel(application: Application): AndroidViewModel(
     fun delete(transaction: Transaction) {
         viewModelScope.launch {
             repository.delete(transaction)
+        }
+    }
+
+    fun complete(){
+        val transaction1= Transaction(
+            transaction.value!!.user_id,
+            transaction.value!!.trans_id,
+            transaction.value!!.title,
+            transaction.value!!.description,
+            transaction.value!!.transactionAmount,
+            transaction.value!!.transactionDate,
+            transaction.value!!.isRecurring,
+            transaction.value!!.fromDate,
+            transaction.value!!.toDate,
+            transaction.value!!.month,
+            transaction.value!!.year,
+            transaction.value!!.monthYear,
+            transaction.value!!.transactionType,
+            transaction.value!!.transactionCategory,
+            transaction.value!!.transactionMode,
+            TransactionStatus.COMPLETED
+        )
+        viewModelScope.launch {
+            insertOrUpdate(transaction1)
         }
     }
 }
