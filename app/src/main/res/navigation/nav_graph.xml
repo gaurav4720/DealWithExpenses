@@ -75,7 +75,11 @@
         android:id="@+id/userBudgetDetailsFragment"
         android:name="com.example.dealwithexpenses.initialScreens.UserBudgetDetailsFragment"
         android:label="fragment_user_budget_details"
-        tools:layout="@layout/fragment_user_budget_details" />
+        tools:layout="@layout/fragment_user_budget_details" >
+        <action
+            android:id="@+id/action_userBudgetDetailsFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
+    </fragment>
     <fragment
         android:id="@+id/mainScreenFragment"
         android:name="com.example.dealwithexpenses.mainScreen.MainScreenFragment"

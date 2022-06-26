@@ -33,7 +33,6 @@ import kotlinx.coroutines.*
 class LoginScreenFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     private lateinit var sharedPreferences: SharedPreferences
@@ -45,7 +44,6 @@ class LoginScreenFragment : Fragment() {
     private lateinit var callBackManager: CallbackManager
 
     private var allCheck: Boolean = false
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -144,7 +142,6 @@ class LoginScreenFragment : Fragment() {
     private fun googleLogin() {
         val intent = googleSignInClient.signInIntent
         startActivityForResult(intent, SIGN_IN_CODE)
-        action()
     }
 
     private fun fbLogin() {

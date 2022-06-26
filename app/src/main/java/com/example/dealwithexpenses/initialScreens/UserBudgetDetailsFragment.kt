@@ -3,12 +3,16 @@ package com.example.dealwithexpenses.initialScreens
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.preference.PreferenceManager
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.dealwithexpenses.R
 import com.example.dealwithexpenses.databinding.FragmentUserBudgetDetailsBinding
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class UserBudgetDetailsFragment : Fragment() {
     private lateinit var binding: FragmentUserBudgetDetailsBinding
@@ -45,9 +49,24 @@ class UserBudgetDetailsFragment : Fragment() {
                 }
                 editor.putBoolean("allCheck",true)
                 editor.apply()
+                findNavController().navigate(UserBudgetDetailsFragmentDirections.actionUserBudgetDetailsFragmentToMainScreenFragment())
             }
         }
         return binding.root
     }
 
+        fun SharedPreferences.saveHashMap(key: String, obj: HashMap<Int, Int>) {
+            val editor = this.edit()
+            val gson = Gson()
+            val json = gson.toJson(obj)
+            editor.putString(key, json)
+            editor.apply()
+        }
+
+        fun SharedPreferences.getHashMap(key: String): HashMap<Int, Int> {
+            val gson = Gson()
+            val json = this.getString(key, "")
+            val type = object : TypeToken<HashMap<Int, Int>>() {}.type
+            return gson.fromJson(json, type)
+        }
 }
