@@ -7,11 +7,12 @@ import java.time.Month
 import java.time.Year
 import java.util.*
 
+//giving the name of the table
 @Entity(tableName = "transactions")
 @TypeConverters(DateConverter::class)
 data class Transaction(
     val user_id: String,
-    @PrimaryKey(autoGenerate = true) val trans_id: Long,
+    @PrimaryKey(autoGenerate = true) val trans_id: Long, //transaction id will be the primary key
 
     val title: String,
     val description: String,
@@ -20,6 +21,7 @@ data class Transaction(
     @TypeConverters(DateConverter::class)
     val transactionDate: Date,
 
+    //to check if the transaction is recurring or not
     val isRecurring: Boolean,
 
     @TypeConverters(DateConverter::class)

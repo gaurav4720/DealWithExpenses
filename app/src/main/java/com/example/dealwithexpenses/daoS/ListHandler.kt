@@ -1,7 +1,9 @@
 package com.example.dealwithexpenses.daoS
 
 import androidx.lifecycle.LiveData
+import androidx.room.ColumnInfo
 import androidx.room.Dao
+import androidx.room.MapInfo
 import androidx.room.Query
 import com.example.dealwithexpenses.entities.*
 
@@ -35,18 +37,28 @@ interface ListHandler {
         transactionStatus: TransactionStatus
     ): LiveData<List<Transaction>>
 
-
     @Query("SELECT SUM(transactionAmount) FROM transactions WHERE user_id = :user_id and transactionCategory = :transactionCategory")
-    fun getAmountByCategory(
+    fun getAmountByCategory(user_id: String, transactionCategory: TransactionCategory): LiveData<Double>
+
+    @MapInfo(keyColumn = "category", valueColumn = "sum")
+    @Query("SELECT transactionCategory as category ,SUM(transactionAmount) as sum FROM transactions WHERE user_id = :user_id GROUP BY transactionCategory")
+    fun getAmountByCategoryAll(
         user_id: String,
-        transactionCategory: TransactionCategory
-    ): LiveData<Double>
+    ): LiveData<Map<TransactionCategory,Double>>
 
     @Query("SELECT SUM(transactionAmount) FROM transactions WHERE user_id = :user_id and transactionMode = :transactionMode ORDER BY transactionDate DESC")
     fun getAmountByMode(user_id: String, transactionMode: TransactionMode): LiveData<Double>
 
+    @MapInfo(keyColumn = "mode", valueColumn = "sum")
+    @Query("SELECT transactionMode as mode, SUM(transactionAmount) as sum FROM transactions WHERE user_id = :user_id GROUP BY transactionMode ORDER BY transactionDate DESC")
+    fun getAmountByModeAll(user_id: String, ): LiveData<Map<TransactionMode,Double>>
+
     @Query("SELECT SUM(transactionAmount) FROM transactions WHERE user_id = :user_id and transactionType = :transactionType")
     fun getAmountByType(user_id: String, transactionType: TransactionType): LiveData<Double>
+
+    @MapInfo(keyColumn = "type", valueColumn = "sum")
+    @Query("SELECT transactionType as type, SUM(transactionAmount) as sum FROM transactions WHERE user_id = :user_id GROUP BY transactionType")
+    fun getAmountByTypeAll(user_id: String, ): LiveData<Map<TransactionType,Double>>
 
     @Query("SELECT SUM(transactionAmount) FROM transactions WHERE user_id = :user_id and transactionStatus = :transactionStatus")
     fun getAmountByStatus(user_id: String, transactionStatus: TransactionStatus): LiveData<Double>
@@ -134,4 +146,33 @@ interface ListHandler {
 
     @Query("SELECT DISTINCT monthYear FROM transactions WHERE user_id = :user_id AND year= :year ORDER BY monthYear " )
     fun getDistinctMonths(user_id: String, year: Int): LiveData<List<Int>>
+
+    @MapInfo(keyColumn = "year")
+    @Query(
+        "SELECT t1.year as year, t1.month as month, t1.monthYear as monthYear, " +
+                "(SELECT SUM(t2.transactionAmount) " +
+                "FROM transactions t2 " +
+                "WHERE t2.user_id = :user_id and t2.monthYear = t1.monthYear and t2.transactionType = :transactionType1) " +
+                "as expense, " +
+                "(SELECT SUM(t2.transactionAmount) " +
+                "FROM transactions t2 " +
+                "WHERE t2.user_id = :user_id and t2.monthYear = t1.monthYear and t2.transactionType = :transactionType2) " +
+                "as gain " +
+                "FROM transactions t1 " +
+                "WHERE t1.user_id = :user_id " +
+                "GROUP BY t1.monthYear " +
+                "ORDER BY t1.month"
+    )
+    fun getMonthDetailByYear(
+        user_id: String,
+        transactionType1: TransactionType = TransactionType.EXPENSE,
+        transactionType2: TransactionType = TransactionType.INCOME,
+    ): LiveData<Map<Int, List<MonthDetail>>>
 }
+
+data class MonthDetail(
+    @ColumnInfo(name= "month") val month: Int,
+    @ColumnInfo(name= "monthYear") val monthYear: Int,
+    @ColumnInfo(name= "expense") val expense: Double,
+    @ColumnInfo(name= "gain") val gain: Double
+)

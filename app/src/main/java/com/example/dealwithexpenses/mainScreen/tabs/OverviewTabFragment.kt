@@ -15,6 +15,7 @@ import com.example.dealwithexpenses.entities.TransactionType
 import com.example.dealwithexpenses.mainScreen.viewModels.MainScreenViewModel
 import com.example.dealwithexpenses.R
 import com.example.dealwithexpenses.databinding.FragmentOverviewTabBinding
+import com.example.dealwithexpenses.entities.TransactionMode
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
@@ -38,26 +39,35 @@ class OverviewTabFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
+        //initialising binding, viewModel and firebase
         binding = FragmentOverviewTabBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
         firebaseAuth = FirebaseAuth.getInstance()
+
+        //setting the user id of viewModel after getting it through firebase
         viewModel.setUserID(firebaseAuth.currentUser?.uid.toString())
 
+        //choices for the pie chart data, category-wise, type-wise or mode-wise
         val pieChartChoices = arrayOf(
             "Category",
             "Type",
             "Mode",
         )
 
+        //creating the array adapter for this drop down menu
         val pieChartAdapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_item,
             pieChartChoices
         )
 
+        //storing the created adapter in the adapter of the spinner
         binding.pieChartSpinner.adapter = pieChartAdapter
 
+        //default choice is chosen to be category, i.e. the first choice
         setPieChart("Category")
+
+        // whenever user will click an item from the drop down menu
         binding.pieChartSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -200,7 +210,7 @@ class OverviewTabFragment : Fragment() {
                     it.forEachIndexed { index, mode ->
                         pieEntries.add(
                             PieModel(
-                                TransactionType.values()[index].name,
+                                TransactionMode.values()[index].name,
                                 mode.toFloat(),
                                 colors[index]
                             )

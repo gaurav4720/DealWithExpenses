@@ -21,7 +21,7 @@ class MonthAdapter(val MonthCardList: MutableList<MonthCardDetail> , val fragmen
     }
 
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
-
+        holder.bindView(MonthCardList[position])
     }
 
     override fun getItemCount(): Int {
@@ -58,18 +58,4 @@ class MonthAdapter(val MonthCardList: MutableList<MonthCardDetail> , val fragmen
         R.color.type_income,
         R.color.type_expense
     )
-
-    class diffView : DiffUtil.ItemCallback<MonthCardDetail>(){
-        override fun areItemsTheSame(oldItem: MonthCardDetail, newItem: MonthCardDetail): Boolean {
-            return oldItem.month==newItem.month
-        }
-
-        override fun areContentsTheSame(
-            oldItem: MonthCardDetail,
-            newItem: MonthCardDetail
-        ): Boolean {
-            return oldItem==newItem
-        }
-
-    }
 }

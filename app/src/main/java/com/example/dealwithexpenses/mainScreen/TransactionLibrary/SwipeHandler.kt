@@ -31,6 +31,6 @@ abstract class SwipeHandler : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.L
             .addSwipeRightActionIcon(R.drawable.bill)
             .create().decorate()
 
-        super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+        super.onChildDraw(c, recyclerView, viewHolder, dX/3 , dY, actionState, isCurrentlyActive)
     }
 }

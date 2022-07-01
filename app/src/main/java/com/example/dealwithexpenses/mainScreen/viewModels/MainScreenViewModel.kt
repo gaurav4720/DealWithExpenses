@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import com.example.dealwithexpenses.daoS.MonthDetail
 import com.example.dealwithexpenses.entities.*
 import com.example.dealwithexpenses.repositories.ListHandlerRepo
 import java.util.*
@@ -52,32 +53,16 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
         listHandlerRepo.getYears(it)
     }
 
-    val categoryInfo: MutableLiveData<MutableList<Double>> = MutableLiveData(mutableListOf())
-    val typesInfo: MutableLiveData<MutableList<Double>> = MutableLiveData(mutableListOf())
-    val transModesInfo: MutableLiveData<MutableList<Double>> = MutableLiveData(mutableListOf())
-
-    fun fetchCategoriesData() {
-        TransactionCategory.values().forEach {
-            categoryInfo.value?.add(
-                listHandlerRepo.getAmountByCategory(
-                    _userID.value!!,
-                    it
-                ).value!!
-            )
-        }
+    val categoryInfoList: LiveData<Map<TransactionCategory, Double>> = Transformations.switchMap(_userID) {
+        listHandlerRepo.getAmountByCategoryAll(it)
+    }
+    val typesInfoList: LiveData<Map<TransactionType, Double>> = Transformations.switchMap(_userID) {
+        listHandlerRepo.getAmountByTypeAll(it)
+    }
+    val transModesInfoList: LiveData<Map<TransactionMode, Double>> = Transformations.switchMap(_userID) {
+        listHandlerRepo.getAmountByModeAll(it)
     }
 
-    fun fetchTypesData() {
-        TransactionType.values().forEach {
-            typesInfo.value?.add(listHandlerRepo.getAmountByType(_userID.value!!, it).value!!)
-        }
-    }
-
-    fun fetchModesData() {
-        TransactionMode.values().forEach {
-            transModesInfo.value?.add(listHandlerRepo.getAmountByMode(_userID.value!!, it).value!!)
-        }
-    }
 
     /* <-- Transactions according to Transaction Status -->*/
     fun getCompletedTransactions() =
@@ -111,7 +96,11 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
         listHandlerRepo.getAmountByMonthYearAndType(userID.value!!, TransactionType.INCOME, it)
     }
 
-    fun getDistinctMonths(year: Int)= listHandlerRepo.getDistinctMonths(_userID.value!!, year)
+    val epoxyDataList: LiveData<Map<Int, List<MonthDetail>>> = Transformations.switchMap(userID){
+        listHandlerRepo.getMonthDetailByYear(it)
+    }
+
+    //fun getDistinctMonths(year: Int)= listHandlerRepo.getDistinctMonths(_userID.value!!, year)
     val monthlyAmountData: MutableLiveData<MutableList<Double>> = MutableLiveData(mutableListOf())
     val monthlyTransactionData: MutableLiveData<MutableList<Int>> = MutableLiveData(mutableListOf())
 
@@ -126,7 +115,7 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
                 listHandlerRepo.getAmountByMonth(
                     _userID.value!!,
                     (monthYear + i).toLong()
-                ).value!!
+                ).value ?: 0.0
             )
         }
     }
@@ -139,7 +128,7 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
                 listHandlerRepo.countTransactionsByMonthYear(
                     _userID.value!!,
                     (monthYear + i)
-                ).value!!
+                ).value ?: 0
             )
         }
     }
@@ -151,7 +140,7 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
                 listHandlerRepo.getAmountByYear(
                     _userID.value!!,
                     it
-                ).value!!
+                ).value ?: 0.0
             )
         }
     }
@@ -163,7 +152,7 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
                 listHandlerRepo.countTransactionsByYear(
                     _userID.value!!,
                     it
-                ).value!!
+                ).value ?: 0
             )
         }
     }

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dealwithexpenses.databinding.FragmentMonthScreenBinding
 import com.example.dealwithexpenses.mainScreen.viewModels.TransactionViewModel
@@ -86,6 +87,7 @@ class MonthScreenFragment : Fragment() {
                 requireContext()
             )
             binding.transactionItems.adapter = adapter
+            binding.transactionItems.layoutManager= LinearLayoutManager(requireContext())
             val swipeHandler = object : SwipeHandler() {
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     if (direction == ItemTouchHelper.LEFT) {

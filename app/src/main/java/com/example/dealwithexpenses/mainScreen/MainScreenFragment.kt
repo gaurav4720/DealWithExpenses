@@ -82,7 +82,7 @@ class MainScreenFragment : Fragment() {
 //        val totalBalance = totalCredit?.minus(totalExpenses!!)
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main_screen, container, false)
+        return binding.root
     }
 
 }

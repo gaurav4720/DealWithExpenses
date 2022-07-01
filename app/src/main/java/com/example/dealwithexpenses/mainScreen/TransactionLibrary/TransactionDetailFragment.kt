@@ -1,5 +1,6 @@
 package com.example.dealwithexpenses.mainScreen.TransactionLibrary
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.dealwithexpenses.R
@@ -57,14 +59,25 @@ class TransactionDetailFragment : Fragment() {
                     true
                 }
                 else -> {
-                    viewModel.delete(viewModel.transaction.value!!)
+                    val dialog= AlertDialog.Builder(requireContext())
+                    with(dialog){
+                        setTitle("Delete Transaction")
+                        setMessage("Are you sure you want to delete this transaction?")
+                        setPositiveButton("Yes"){_,_->
+                            viewModel.delete(viewModel.transaction.value!!)
+                            Toast.makeText(requireContext(),"Transaction deleted successfully",Toast.LENGTH_SHORT).show()
+                            findNavController().navigate(TransactionDetailFragmentDirections.actionTransactionDetailFragmentToMainScreenFragment())
+                        }
+                        setNegativeButton("No"){_,_->
+                        }
+                    }
+                    dialog.create().show()
                     true
                 }
             }
         }
-        return inflater.inflate(R.layout.fragment_transaction_detail, container, false)
+        return binding.root
     }
-
 
     private  fun setData(transaction: Transaction) {
         binding.transTitleInput.setText(transaction.title)
@@ -83,7 +96,8 @@ class TransactionDetailFragment : Fragment() {
         binding.transModeInput.setText(TransactionMode.values().find {
             it.name== transaction.transactionMode.name
         }!!.ordinal)
-        binding.radioGroup.check(transaction.transactionType.ordinal)
+        binding.incomeButton.isChecked= transaction.transactionType.ordinal==1
+        binding.expenseButton.isChecked= transaction.transactionType.ordinal==0 //rishabh ye kar
         binding.radioGroup.isClickable= false;
     }
 }

@@ -62,7 +62,7 @@ class TransactionLogTabFragment(val fragment: Fragment) : Fragment() {
         binding.transactionsLogRecyclerView.setController(epoxyController)
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_transaction_log_tab, container, false)
+        return binding.root
     }
 
 }

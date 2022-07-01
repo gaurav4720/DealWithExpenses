@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.dealwithexpenses.mainScreen.TransactionLibrary.CalendarViewFragment">
 
-    <sun.bob.mcalendarview.MCalendarView
+    <com.applandeo.materialcalendarview.CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </sun.bob.mcalendarview.MCalendarView>
+    </com.applandeo.materialcalendarview.CalendarView>
 
     <ScrollView
         android:id="@+id/scrollView2"

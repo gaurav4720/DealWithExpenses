@@ -26,6 +26,11 @@ import java.util.*
 
 class AddOrEditTransactionFragment : Fragment() {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
+        super.onCreate(savedInstanceState)
+    }
+
     private lateinit var binding: FragmentAddOrEditTransactionBinding
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var viewModel: TransactionViewModel
@@ -39,14 +44,7 @@ class AddOrEditTransactionFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentAddOrEditTransactionBinding.inflate(inflater, container, false)
 
-        sharedPreferences =
-            requireActivity().getSharedPreferences("add_or_edit", Context.MODE_PRIVATE)
-        val mode: String? = sharedPreferences.getString("mode", "")!!
-
-        binding.toolbar.title = if (mode.equals("Add"))
-            "Add New Transaction"
-        else
-            "Edit Transactions"
+        sharedPreferences = activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
 
         binding.transDateInput.transformIntoDatePicker(requireContext(), "dd-MM-yyyy")
         binding.toDateInput.transformIntoDatePicker(requireContext(), "dd-MM-yyyy")
@@ -88,7 +86,9 @@ class AddOrEditTransactionFragment : Fragment() {
 
         val transaction_id= AddOrEditTransactionFragmentArgs.fromBundle(requireArguments()).transId
         viewModel.setTransactionId(transaction_id)
-
+        if(transaction_id==0L){
+            binding.toolbar.title= "Add new Transaction"
+        } else binding.toolbar.title= "Edit Transaction"
         viewModel.transaction.observe(viewLifecycleOwner) {
             if(transaction_id!=0L){
                 setData(it)
@@ -103,8 +103,8 @@ class AddOrEditTransactionFragment : Fragment() {
                 setPositiveButton("Yes"){_, it->
                     findNavController().navigate(AddOrEditTransactionFragmentDirections.actionAddOrEditTransactionFragmentToMainScreenFragment())
                 }
-
             }
+            dialog.create().show()
         }
 
         binding.saveButton.setOnClickListener {
@@ -134,7 +134,8 @@ class AddOrEditTransactionFragment : Fragment() {
         val month= binding.transDateInput.text.toString().substring(3,5).toInt()
         val year= binding.transDateInput.text.toString().substring(6).toInt()
         val monthyear= year*100 + month
-        val type: TransactionType= TransactionType.values()[binding.radioGroup.checkedRadioButtonId]
+        val typeIndex= if(binding.incomeButton.isChecked) 1 else 0
+        val type: TransactionType= TransactionType.values()[typeIndex]
         val status: TransactionStatus= TransactionStatus.PENDING
         val transaction= Transaction(
             viewModel.userID.value!!,
@@ -162,7 +163,7 @@ class AddOrEditTransactionFragment : Fragment() {
     private  fun setData(transaction: Transaction) {
         binding.transTitleInput.setText(transaction.title)
         binding.transDescInput.setText(transaction.description)
-        binding.transAmountInput.text= (transaction.transactionAmount.toString())
+        binding.transAmountInput.setText(transaction.transactionAmount.toString())
         binding.transDateInput.setText(transaction.transactionDate.toString())
         if(transaction.isRecurring) {
             binding.isRecurringCheckBox.isChecked = true
@@ -179,7 +180,8 @@ class AddOrEditTransactionFragment : Fragment() {
         binding.tagsSpinner.setSelection(TransactionCategory.values().find{
             it.name== transaction.transactionCategory.name
         }!!.ordinal)
-        binding.radioGroup.check(transaction.transactionType.ordinal)
+        binding.incomeButton.isChecked= transaction.transactionType.ordinal==1
+        binding.expenseButton.isChecked= transaction.transactionType.ordinal==0
     }
 
     private fun EditText.transformIntoDatePicker(context: Context, format: String) {
@@ -192,6 +194,7 @@ class AddOrEditTransactionFragment : Fragment() {
             DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 myCalendar.set(Calendar.YEAR, year)
                 myCalendar.set(Calendar.MONTH, monthOfYear)
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
                 val sdf = SimpleDateFormat(format, Locale.UK)
                 setText(sdf.format(myCalendar.time))

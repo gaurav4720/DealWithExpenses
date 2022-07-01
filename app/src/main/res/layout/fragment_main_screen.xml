@@ -9,6 +9,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:foregroundGravity="bottom|right"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_baseline_add_24"
+            tools:layout_editor_absoluteY="293dp" />
+
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="wrap_content"
@@ -110,12 +121,12 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
 
             android:layout_marginTop="36dp"
             app:tabIndicatorFullWidth="true"
-            app:tabIndicatorGravity="center"
-            android:background="#FB9B0D"
+            app:tabIndicatorGravity="bottom"
+            android:background="#F6E0BE"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -129,12 +140,13 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="#CF4646"
+            android:layout_height="600dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tabLayout">
+            app:layout_constraintTop_toBottomOf="@id/tabLayout"
+            app:layout_constraintVertical_bias="1.0">
 
         </androidx.viewpager2.widget.ViewPager2>
 

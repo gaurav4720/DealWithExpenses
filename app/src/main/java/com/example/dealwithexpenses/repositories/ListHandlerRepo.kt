@@ -2,6 +2,7 @@ package com.example.dealwithexpenses.repositories
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import com.example.dealwithexpenses.daoS.MonthDetail
 import com.example.dealwithexpenses.daoS.TransactionDB
 import com.example.dealwithexpenses.entities.*
 import java.time.YearMonth
@@ -40,11 +41,20 @@ class ListHandlerRepo(application: Application) {
     fun getAmountByCategory(user_id: String, category: TransactionCategory): LiveData<Double> =
         listHandlerDao.getAmountByCategory(user_id, category)
 
+    fun getAmountByCategoryAll(user_id: String): LiveData<Map<TransactionCategory, Double>> =
+        listHandlerDao.getAmountByCategoryAll(user_id)
+
     fun getAmountByType(user_id: String, type: TransactionType): LiveData<Double> =
         listHandlerDao.getAmountByType(user_id, type)
 
+    fun getAmountByTypeAll(user_id: String): LiveData<Map<TransactionType, Double>> =
+        listHandlerDao.getAmountByTypeAll(user_id)
+
     fun getAmountByMode(user_id: String, mode: TransactionMode): LiveData<Double> =
         listHandlerDao.getAmountByMode(user_id, mode)
+
+    fun getAmountByModeAll(user_id: String): LiveData<Map<TransactionMode, Double>> =
+        listHandlerDao.getAmountByModeAll(user_id)
 
     fun getAmountByStatus(user_id: String, status: TransactionStatus): LiveData<Double> =
         listHandlerDao.getAmountByStatus(user_id, status)
@@ -135,4 +145,9 @@ class ListHandlerRepo(application: Application) {
         year: Int
     ): LiveData<List<Int>> =
         listHandlerDao.getDistinctMonths(user_id, year)
+
+    fun getMonthDetailByYear(
+        user_id: String
+    ): LiveData<Map<Int, List<MonthDetail>>> =
+        listHandlerDao.getMonthDetailByYear(user_id)
 }

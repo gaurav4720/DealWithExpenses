@@ -25,7 +25,6 @@ class CalenderViewFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
-
     private lateinit var binding: FragmentCalendarViewBinding
     private lateinit var viewModel: MainScreenViewModel
     private lateinit var transactionViewModel: TransactionViewModel
@@ -35,53 +34,61 @@ class CalenderViewFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        // declaring the binding and viewModel
         binding = FragmentCalendarViewBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
         transactionViewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
+        // declaring the firebaseAuth
         firebaseAuth = FirebaseAuth.getInstance()
 
-
+        // getting the user id from firebase to set in both viewModels
         viewModel.setUserID(firebaseAuth.currentUser?.uid.toString())
         transactionViewModel.setUserId(firebaseAuth.currentUser?.uid.toString())
 
+        // getting monthYear through arguments of CalenderViewFragment
         var monthYear = CalenderViewFragmentArgs.fromBundle(requireArguments()).monthYear
+        // monthYear is of the form YYYYMM in long format
+        // hence monthYear /100 will be YYYY(the year) and monthYear % 100 will be MM(the month)
         val month = monthYear % 100
         val year = monthYear / 100
         val day = 1;
 
+        // getting the instance of the calendar
         val calender = Calendar.getInstance()
+        // setting the day, month and year of the calendar
         calender.set(year, month, day)
-        markDates(monthYear)
+        // marking the dates
+        //markDates(monthYear)
 
-        binding.calendarView.setOnDateClickListener(object : OnDateClickListener() {
-            override fun onDateClick(view: View?, date: DateData) {
-                val calendar= Calendar.getInstance()
-                calendar.set(date.year,date.month,date.day)
-                showData(calendar.timeInMillis)
-            }
-        })
-
-        binding.calendarView.setOnMonthChangeListener(object : OnMonthChangeListener() {
-            override fun onMonthChange(year: Int, month: Int) {
-                monthYear = year * 100 + month
-                markDates(monthYear)
-            }
-        })
+        //
+//        binding.calendarView.setOnDateClickListener(object : OnDateClickListener() {
+//            override fun onDateClick(view: View?, date: DateData) {
+//                val calendar= Calendar.getInstance()
+//                calendar.set(date.year,date.month,date.day)
+//                showData(calendar.timeInMillis)
+//            }
+//        })
+//
+//        binding.calendarView.setOnMonthChangeListener(object : OnMonthChangeListener() {
+//            override fun onMonthChange(year: Int, month: Int) {
+//                monthYear = year * 100 + month
+//                markDates(monthYear)
+//            }
+//        })
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calendar_view, container, false)
+        return binding.root
     }
 
 
-    private fun markDates(monthYear: Int) {
-        viewModel.getDates(monthYear).observe(viewLifecycleOwner) { it ->
-            it.forEach { date ->
-                val date1= Date(date)
-                binding.calendarView.markDate(DateData(date1.year, date1.month, date1.day))
-            }
-        }
-    }
+//    private fun markDates(monthYear: Int) {
+//        viewModel.getDates(monthYear).observe(viewLifecycleOwner) { it ->
+//            it.forEach { date ->
+//                val date1= Date(date)
+//                binding.calendarView.markDate(DateData(date1.year, date1.month, date1.day))
+//            }
+//        }
+//    }
 
     fun showData(date: Long) {
 

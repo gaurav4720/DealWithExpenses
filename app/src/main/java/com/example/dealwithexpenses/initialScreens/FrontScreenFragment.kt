@@ -14,22 +14,18 @@ import com.example.dealwithexpenses.databinding.FragmentFrontScreenBinding
 @Suppress("DEPRECATION")
 class FrontScreenFragment : Fragment() {
 
-
     private lateinit var binding: FragmentFrontScreenBinding
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        //initialising shared preferences and binding
         sharedPreferences = activity?.getSharedPreferences("user_auth", 0)!!
         binding = FragmentFrontScreenBinding.inflate(inflater, container, false)
         val isRegistered: Boolean = sharedPreferences.getBoolean("isRegistered", false)
@@ -38,8 +34,10 @@ class FrontScreenFragment : Fragment() {
 
         var action: NavDirections = FrontScreenFragmentDirections.actionFrontScreenFragmentToLoginScreenFragment()
 
+        //to hold the front screen for 5 seconds
         val handler = Handler()
         handler.postDelayed({
+            //navigating to Login Screen from Front screen
             findNavController().navigate(action)
         }, 5000)
 

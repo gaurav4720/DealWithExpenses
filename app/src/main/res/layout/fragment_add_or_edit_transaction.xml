@@ -4,11 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".mainScreen.TransactionLibrary.AddOrEditTransactionFragment">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/contraint_layout"
+        android:id="@+id/constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -72,12 +71,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/trans_desc_input" />
 
-        <TextView
+        <EditText
             android:id="@+id/trans_amount_input"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="130dp"
+            android:layout_height="26dp"
             android:layout_marginStart="30dp"
+            android:inputType="text"
             android:text="InputAmount"
+            app:layout_constraintEnd_toEndOf="@+id/trans_date_input"
             app:layout_constraintStart_toEndOf="@+id/trans_amount_msg"
             app:layout_constraintTop_toTopOf="@+id/trans_amount_msg" />
 
@@ -159,7 +160,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/from_date_input" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <TextView
             android:id="@+id/transaction_tags"
             android:layout_width="match_parent"
             android:layout_height="26dp"
@@ -167,6 +168,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="20dp"
             android:orientation="horizontal"
+            android:text="Transaction Category"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.757"
             app:layout_constraintStart_toStartOf="parent"
@@ -189,12 +192,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:text="CANCEL"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/save_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tags_spinner">
+            app:layout_constraintTop_toBottomOf="@+id/radio_group">
 
         </com.google.android.material.button.MaterialButton>
 
@@ -203,31 +207,32 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
             android:layout_marginEnd="25dp"
+            android:layout_marginBottom="10dp"
             android:text="SAVE"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/cancel_button"
-            app:layout_constraintTop_toBottomOf="@+id/tags_spinner">
+            app:layout_constraintTop_toTopOf="@+id/cancel_button">
 
         </com.google.android.material.button.MaterialButton>
 
         <RadioGroup
-            android:id="@+id/radioGroup"
+            android:id="@+id/radio_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="70dp"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical"
-            app:layout_constraintStart_toEndOf="@+id/trans_amount_input"
-            app:layout_constraintTop_toBottomOf="@+id/trans_desc_input">
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@+id/tags_spinner"
+            app:layout_constraintTop_toBottomOf="@+id/tags_spinner">
 
             <RadioButton
                 android:id="@+id/income_button"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_margin="5dp"
-                android:text="Income">
+                android:text="Income"
+                android:textSize="16sp">
 
             </RadioButton>
 
@@ -236,7 +241,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_margin="5dp"
-                android:text="Expense">
+                android:text="Expense"
+                android:textSize="16sp">
 
             </RadioButton>
         </RadioGroup>

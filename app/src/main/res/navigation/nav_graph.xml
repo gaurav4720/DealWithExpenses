@@ -18,12 +18,6 @@
         <action
             android:id="@+id/action_loginScreenFragment_to_userBudgetDetailsFragment"
             app:destination="@id/userBudgetDetailsFragment" />
-        <action
-            android:id="@+id/action_loginScreenFragment_to_facebookLoginFragment"
-            app:destination="@id/facebookLoginFragment" />
-        <action
-            android:id="@+id/action_loginScreenFragment_to_googleLoginFragment"
-            app:destination="@id/googleLoginFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerScreenFragment"
@@ -31,11 +25,11 @@
         android:label="fragment_register_screen"
         tools:layout="@layout/fragment_register_screen" >
         <action
-            android:id="@+id/action_registerScreenFragment_to_facebookLoginFragment"
-            app:destination="@id/facebookLoginFragment" />
+            android:id="@+id/action_registerScreenFragment_to_userBudgetDetailsFragment"
+            app:destination="@id/userBudgetDetailsFragment" />
         <action
-            android:id="@+id/action_registerScreenFragment_to_googleLoginFragment"
-            app:destination="@id/googleLoginFragment" />
+            android:id="@+id/action_registerScreenFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/frontScreenFragment"
@@ -70,6 +64,9 @@
         <action
             android:id="@+id/action_transactionDetailFragment_to_addOrEditTransactionFragment"
             app:destination="@id/addOrEditTransactionFragment" />
+        <action
+            android:id="@+id/action_transactionDetailFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/userBudgetDetailsFragment"
@@ -94,29 +91,6 @@
         <action
             android:id="@+id/action_mainScreenFragment_to_transactionDetailFragment"
             app:destination="@id/transactionDetailFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/facebookLoginFragment"
-        android:name="com.example.dealwithexpenses.authentication.FacebookLoginFragment"
-        android:label="FacebookLoginFragment" >
-        <action
-            android:id="@+id/action_facebookLoginFragment_to_userBudgetDetailsFragment"
-            app:destination="@id/userBudgetDetailsFragment" />
-        <action
-            android:id="@+id/action_facebookLoginFragment_to_mainScreenFragment"
-            app:destination="@id/mainScreenFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/googleLoginFragment"
-        android:name="com.example.dealwithexpenses.authentication.GoogleLoginFragment"
-        android:label="fragment_google_login"
-        tools:layout="@layout/fragment_google_login" >
-        <action
-            android:id="@+id/action_googleLoginFragment_to_userBudgetDetailsFragment"
-            app:destination="@id/userBudgetDetailsFragment" />
-        <action
-            android:id="@+id/action_googleLoginFragment_to_mainScreenFragment"
-            app:destination="@id/mainScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/addOrEditTransactionFragment"
