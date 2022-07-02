@@ -75,6 +75,8 @@ class TransactionListAdapter(var transactionList: MutableList<Transaction>, val 
     }
 
     fun deleteTransaction(position: Int, transactionList2: MutableList<Transaction>){
+        val layout= LayoutInflater.from(context).inflate(R.layout.fragment_transaction_complete,null)
+        "Transaction Deleted :)".also { layout.findViewById<TextView>(R.id.text_transaction).text = it }
         val builder = AlertDialog.Builder(context)
             .setTitle("Delete Transaction")
             .setMessage("Are you sure you want to delete this transaction?")
@@ -84,6 +86,12 @@ class TransactionListAdapter(var transactionList: MutableList<Transaction>, val 
                 transactionList2.removeAt(position)
                 transactionList= transactionList2
                 notifyDataSetChanged()
+                val dialog= AlertDialog.Builder(context)
+                    .setView(layout)
+                    .setNegativeButton("OK"){_,_ ->
+
+                    }
+                dialog.create().show()
             }
             .setNegativeButton("NO"){_,_ ->
 
@@ -93,6 +101,7 @@ class TransactionListAdapter(var transactionList: MutableList<Transaction>, val 
 
     fun completeTransaction(position: Int, transactionList2: MutableList<Transaction>){
         val layout= LayoutInflater.from(context).inflate(R.layout.fragment_transaction_complete,null)
+        "Transaction Completed :)".also { layout.findViewById<TextView>(R.id.text_transaction).text = it }
         val builder = AlertDialog.Builder(context)
             .setTitle("Complete Transaction")
             .setMessage("Mark this transaction as completed?")
