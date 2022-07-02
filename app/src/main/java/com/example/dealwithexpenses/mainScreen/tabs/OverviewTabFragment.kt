@@ -14,12 +14,11 @@ import com.example.dealwithexpenses.entities.TransactionCategory
 import com.example.dealwithexpenses.entities.TransactionType
 import com.example.dealwithexpenses.mainScreen.viewModels.MainScreenViewModel
 import com.example.dealwithexpenses.R
+import com.example.dealwithexpenses.daoS.BarChartDetail
 import com.example.dealwithexpenses.databinding.FragmentOverviewTabBinding
 import com.example.dealwithexpenses.entities.TransactionMode
 import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.google.firebase.auth.FirebaseAuth
 import org.eazegraph.lib.models.PieModel
@@ -138,11 +137,20 @@ class OverviewTabFragment : Fragment() {
         return binding.root
     }
 
+    fun addDataToPieChart(pieDataSet: PieDataSet) {
+        val pieData = PieData(pieDataSet)
+        binding.pieChart.data = pieData
+
+        binding.pieChart.description.isEnabled = false
+        binding.pieChart.legend.isEnabled = false
+
+        binding.pieChart.animate()
+    }
 
     fun setPieChart(pieChartMode: String) {
 
         val colors: Array<Int>
-        var pieEntries: ArrayList<PieModel>
+        var pieEntries: ArrayList<PieEntry>
 
         when (pieChartMode) {
             "Category" -> {
@@ -158,19 +166,22 @@ class OverviewTabFragment : Fragment() {
                     R.color.category_other
                 )
 
-                viewModel.fetchCategoriesData()
-                viewModel.categoryInfo.observe(viewLifecycleOwner) {
+                viewModel.categoryInfoList.observe(viewLifecycleOwner) {
                     pieEntries = arrayListOf()
-                    it.forEachIndexed { index, category ->
+                    TransactionCategory.values().forEachIndexed { index, transactionCategory ->
+                        val amount= it[transactionCategory] ?: 0.0
                         pieEntries.add(
-                            PieModel(
-                                TransactionCategory.values()[index].name,
-                                category.toFloat(),
+                            PieEntry(
+                                amount.toFloat(),
                                 colors[index]
                             )
                         )
                     }
-
+                    val pieDataSet = PieDataSet(pieEntries, "Categories")
+                    pieDataSet.colors = colors.map {
+                        ContextCompat.getColor(requireContext(), it)
+                    }
+                    addDataToPieChart(pieDataSet)
                 }
 
             }
@@ -181,19 +192,22 @@ class OverviewTabFragment : Fragment() {
                     R.color.type_expense
                 )
 
-                viewModel.fetchTypesData()
-                viewModel.typesInfo.observe(viewLifecycleOwner) {
+                viewModel.typesInfoList.observe(viewLifecycleOwner) {
                     pieEntries = arrayListOf()
-                    it.forEachIndexed { index, type ->
+                    TransactionType.values().forEachIndexed { index, transactionType ->
+                        val amount= it[transactionType] ?: 0.0
                         pieEntries.add(
-                            PieModel(
-                                TransactionType.values()[index].name,
-                                type.toFloat(),
+                            PieEntry(
+                                amount.toFloat(),
                                 colors[index]
                             )
                         )
                     }
-
+                    val pieDataSet = PieDataSet(pieEntries, "Types")
+                    pieDataSet.colors = colors.map {
+                        ContextCompat.getColor(requireContext(), it)
+                    }
+                    addDataToPieChart(pieDataSet)
                 }
             }
 
@@ -204,25 +218,26 @@ class OverviewTabFragment : Fragment() {
                     R.color.mode_debit_card,
                 )
 
-                viewModel.fetchModesData()
-                viewModel.transModesInfo.observe(viewLifecycleOwner) {
+                viewModel.transModesInfoList.observe(viewLifecycleOwner) {
                     pieEntries = arrayListOf()
-                    it.forEachIndexed { index, mode ->
+                    TransactionMode.values().forEachIndexed { index, transactionMode ->
+                        val amount= it[transactionMode] ?: 0.0
                         pieEntries.add(
-                            PieModel(
-                                TransactionMode.values()[index].name,
-                                mode.toFloat(),
+                            PieEntry(
+                                amount.toFloat(),
                                 colors[index]
                             )
                         )
                     }
-
+                    val pieDataSet = PieDataSet(pieEntries, "Modes")
+                    pieDataSet.colors = colors.map {
+                        ContextCompat.getColor(requireContext(), it)
+                    }
+                    addDataToPieChart(pieDataSet)
                 }
 
             }
         }
-
-        binding.pieChart.animate()
     }
 
     fun setBarChart(barChartMode: String, year: Int = -1) {
@@ -244,14 +259,14 @@ class OverviewTabFragment : Fragment() {
                     "Dec",
                 )
 
-                viewModel.fetchMonthlyAmountData(year)
-                viewModel.fetchMonthlyTransactionsData(year)
-
                 var barAmountEntries: MutableList<BarEntry> = mutableListOf()
-                viewModel.monthlyAmountData.observe(viewLifecycleOwner) {
+                viewModel.barChartDetailByMonth.observe(viewLifecycleOwner) {
                     barAmountEntries = arrayListOf()
-                    it.forEachIndexed { index, amount ->
-                        barAmountEntries = mutableListOf()
+                    val monthYear= year*100
+                    months.forEachIndexed { index, month ->
+                        var amount= it[monthYear+index+1]?.amount?.toDouble()
+                        if(amount==null)
+                            amount= 0.0
                         barAmountEntries.add(
                             BarEntry(
                                 index.toFloat(),
@@ -262,10 +277,13 @@ class OverviewTabFragment : Fragment() {
                 }
 
                 var barTransactionsEntries: MutableList<BarEntry> = mutableListOf()
-                viewModel.monthlyTransactionData.observe(viewLifecycleOwner) {
+                viewModel.barChartDetailByMonth.observe(viewLifecycleOwner) {
                     barTransactionsEntries = mutableListOf()
-                    it.forEachIndexed { index, transactions ->
-                        barTransactionsEntries = mutableListOf()
+                    val monthYear= year*100
+                    months.forEachIndexed { index, month ->
+                        var transactions= it[monthYear+index+1]?.transactions?.toDouble()
+                        if(transactions==null)
+                            transactions= 0.0
                         barTransactionsEntries.add(
                             BarEntry(
                                 index.toFloat(),
@@ -320,33 +338,35 @@ class OverviewTabFragment : Fragment() {
                     }
                 }
 
-                viewModel.fetchYearlyAmountData()
-                viewModel.fetchYearlyTransactionsData()
-
                 var barAmountEntries: MutableList<BarEntry> = mutableListOf()
-                viewModel.yearlyAmountData.observe(viewLifecycleOwner) {
-                    barAmountEntries = mutableListOf()
-                    it.forEachIndexed { index, amount ->
+                viewModel.barChartDetailByYear.observe(viewLifecycleOwner) {
+                    barAmountEntries = arrayListOf()
+                    years.forEachIndexed { index, year ->
+                        var amount= it[year.toInt()]?.amount?.toDouble()
+                        if(amount==null)
+                            amount= 0.0
                         barAmountEntries.add(
                             BarEntry(
                                 index.toFloat(),
-                                amount.toFloat()
+                                amount!!.toFloat()
                             )
                         )
                     }
                 }
 
                 var barTransactionsEntries: MutableList<BarEntry> = mutableListOf()
-                viewModel.yearlyTransactionData.observe(viewLifecycleOwner) {
+                viewModel.barChartDetailByYear.observe(viewLifecycleOwner) {
                     barTransactionsEntries = mutableListOf()
-                    it.forEachIndexed { index, transactions ->
+                    years.forEachIndexed { index, year ->
+                        var transactions = it[year.toInt()]?.transactions?.toDouble()
+                        if (transactions == null)
+                            transactions = 0.0
                         barTransactionsEntries.add(
                             BarEntry(
                                 index.toFloat(),
-                                transactions.toFloat()
+                                transactions!!.toFloat()
                             )
                         )
-
                     }
                 }
 

@@ -17,8 +17,9 @@ import com.example.dealwithexpenses.entities.Transaction
 import com.example.dealwithexpenses.entities.TransactionStatus
 import com.example.dealwithexpenses.entities.TransactionType
 import com.example.dealwithexpenses.mainScreen.viewModels.TransactionViewModel
+import java.text.SimpleDateFormat
 
-class TransactionListAdapter(val transactionList: MutableList<Transaction>, val fragment: Fragment, private var listener: (Long)->Unit, val viewModel: TransactionViewModel, val context: Context)  : RecyclerView.Adapter<TransactionListAdapter.holder>() {
+class TransactionListAdapter(var transactionList: MutableList<Transaction>, val fragment: Fragment, private var listener: (Long)->Unit, val viewModel: TransactionViewModel, val context: Context)  : RecyclerView.Adapter<TransactionListAdapter.holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): holder {
         val view= LayoutInflater.from(parent.context).inflate(R.layout.transaction_item,parent,false)
@@ -61,7 +62,7 @@ class TransactionListAdapter(val transactionList: MutableList<Transaction>, val 
             title.text= transaction.title
             mode.text= transaction.transactionMode.name
             amount.text= transaction.transactionAmount.toString()
-            date.text= transaction.transactionDate.toString()
+            date.text= SimpleDateFormat("DD/MM/yyyy").format(transaction.transactionDate)
 
             val type= transaction.transactionType
             if(type==TransactionType.INCOME)
@@ -73,15 +74,16 @@ class TransactionListAdapter(val transactionList: MutableList<Transaction>, val 
         }
     }
 
-    fun deleteTransaction(position: Int){
+    fun deleteTransaction(position: Int, transactionList2: MutableList<Transaction>){
         val builder = AlertDialog.Builder(context)
             .setTitle("Delete Transaction")
             .setMessage("Are you sure you want to delete this transaction?")
+            .setCancelable(true)
             .setPositiveButton("YES"){ _,_ ->
-                viewModel.setTransactionId(transactionList[position].trans_id)
-                viewModel.delete(viewModel.transaction.value!!)
-                transactionList.removeAt(position)
-                notifyItemRemoved(position)
+                viewModel.delete(transactionList2[position])
+                transactionList2.removeAt(position)
+                transactionList= transactionList2
+                notifyDataSetChanged()
             }
             .setNegativeButton("NO"){_,_ ->
 
@@ -89,13 +91,28 @@ class TransactionListAdapter(val transactionList: MutableList<Transaction>, val 
         builder.create().show()
     }
 
-    fun completeTransaction(position: Int){
-        viewModel.setTransactionId(transactionList[position].trans_id)
-        viewModel.complete()
-        val transaction = transactionList[position]
-        transaction.transactionStatus = TransactionStatus.COMPLETED
-        transactionList[position] = transaction
-        notifyItemChanged(position)
+    fun completeTransaction(position: Int, transactionList2: MutableList<Transaction>){
+        val layout= LayoutInflater.from(context).inflate(R.layout.fragment_transaction_complete,null)
+        val builder = AlertDialog.Builder(context)
+            .setTitle("Complete Transaction")
+            .setMessage("Mark this transaction as completed?")
+            .setCancelable(true)
+            .setPositiveButton("YES"){ _,_ ->
+                viewModel.complete(transactionList2[position])
+                transactionList2.removeAt(position)
+                transactionList= transactionList2
+                notifyDataSetChanged()
+                val dialog= AlertDialog.Builder(context)
+                    .setView(layout)
+                    .setNegativeButton("OK"){_,_ ->
+
+                    }
+                dialog.create().show()
+            }
+            .setNegativeButton("NO"){_,_ ->
+
+            }
+        builder.create().show()
     }
 
     val type_color= arrayListOf(

@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import com.example.dealwithexpenses.daoS.BarChartDetail
 import com.example.dealwithexpenses.daoS.MonthDetail
 import com.example.dealwithexpenses.entities.*
 import com.example.dealwithexpenses.repositories.ListHandlerRepo
@@ -100,60 +101,11 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
         listHandlerRepo.getMonthDetailByYear(it)
     }
 
-    //fun getDistinctMonths(year: Int)= listHandlerRepo.getDistinctMonths(_userID.value!!, year)
-    val monthlyAmountData: MutableLiveData<MutableList<Double>> = MutableLiveData(mutableListOf())
-    val monthlyTransactionData: MutableLiveData<MutableList<Int>> = MutableLiveData(mutableListOf())
-
-    val yearlyAmountData: MutableLiveData<MutableList<Double>> = MutableLiveData(mutableListOf())
-    val yearlyTransactionData: MutableLiveData<MutableList<Int>> = MutableLiveData(mutableListOf())
-
-    fun fetchMonthlyAmountData(year: Int) {
-        monthlyAmountData.value = mutableListOf()
-        val monthYear = year * 100
-        for (i in 1..12) {
-            monthlyAmountData.value?.add(
-                listHandlerRepo.getAmountByMonth(
-                    _userID.value!!,
-                    (monthYear + i).toLong()
-                ).value ?: 0.0
-            )
-        }
+    val barChartDetailByMonth: LiveData<Map<Int,BarChartDetail>> = Transformations.switchMap(userID){
+        listHandlerRepo.getBarChartDetailsByMonth(it)
     }
 
-    fun fetchMonthlyTransactionsData(year: Int) {
-        monthlyTransactionData.value = mutableListOf()
-        val monthYear = year * 100
-        for (i in 1..12) {
-            monthlyTransactionData.value?.add(
-                listHandlerRepo.countTransactionsByMonthYear(
-                    _userID.value!!,
-                    (monthYear + i)
-                ).value ?: 0
-            )
-        }
-    }
-
-    fun fetchYearlyAmountData() {
-        yearlyAmountData.value = mutableListOf()
-        years.value?.forEach {
-            yearlyAmountData.value?.add(
-                listHandlerRepo.getAmountByYear(
-                    _userID.value!!,
-                    it
-                ).value ?: 0.0
-            )
-        }
-    }
-
-    fun fetchYearlyTransactionsData() {
-        yearlyTransactionData.value = mutableListOf()
-        years.value?.forEach {
-            yearlyTransactionData.value?.add(
-                listHandlerRepo.countTransactionsByYear(
-                    _userID.value!!,
-                    it
-                ).value ?: 0
-            )
-        }
+    val barChartDetailByYear: LiveData<Map<Int,BarChartDetail>> = Transformations.switchMap(userID){
+        listHandlerRepo.getBarChartDetailsByYear(it)
     }
 }

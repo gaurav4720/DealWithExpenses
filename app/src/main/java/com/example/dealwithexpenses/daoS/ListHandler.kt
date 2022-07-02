@@ -1,11 +1,9 @@
 package com.example.dealwithexpenses.daoS
 
 import androidx.lifecycle.LiveData
-import androidx.room.ColumnInfo
-import androidx.room.Dao
-import androidx.room.MapInfo
-import androidx.room.Query
+import androidx.room.*
 import com.example.dealwithexpenses.entities.*
+import com.example.dealwithexpenses.entities.Transaction
 
 @Dao
 interface ListHandler {
@@ -147,6 +145,14 @@ interface ListHandler {
     @Query("SELECT DISTINCT monthYear FROM transactions WHERE user_id = :user_id AND year= :year ORDER BY monthYear " )
     fun getDistinctMonths(user_id: String, year: Int): LiveData<List<Int>>
 
+    @MapInfo(keyColumn = "monthYear")
+    @Query("SELECT monthYear as monthYear, COUNT(*) as transactionsCount, SUM(transactionAmount) as amount FROM transactions WHERE user_id = :user_id GROUP BY monthYear")
+    fun getBarChartDetailsByMonth(user_id: String): LiveData<Map<Int,BarChartDetail>>
+
+    @MapInfo(keyColumn = "year")
+    @Query("SELECT year as year, COUNT(*) as transactionsCount, SUM(transactionAmount) as amount FROM transactions WHERE user_id = :user_id GROUP BY year")
+    fun getBarChartDetailsByYear(user_id: String): LiveData<Map<Int,BarChartDetail>>
+
     @MapInfo(keyColumn = "year")
     @Query(
         "SELECT t1.year as year, t1.month as month, t1.monthYear as monthYear, " +
@@ -170,9 +176,16 @@ interface ListHandler {
     ): LiveData<Map<Int, List<MonthDetail>>>
 }
 
+@Entity
 data class MonthDetail(
     @ColumnInfo(name= "month") val month: Int,
     @ColumnInfo(name= "monthYear") val monthYear: Int,
     @ColumnInfo(name= "expense") val expense: Double,
     @ColumnInfo(name= "gain") val gain: Double
+)
+
+@Entity
+data class BarChartDetail(
+    @ColumnInfo(name= "amount") val amount: Int,
+    @ColumnInfo(name= "transaction_count") val transactions: Int
 )

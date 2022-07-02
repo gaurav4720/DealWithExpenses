@@ -2,6 +2,7 @@ package com.example.dealwithexpenses.repositories
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import com.example.dealwithexpenses.daoS.BarChartDetail
 import com.example.dealwithexpenses.daoS.MonthDetail
 import com.example.dealwithexpenses.daoS.TransactionDB
 import com.example.dealwithexpenses.entities.*
@@ -150,4 +151,14 @@ class ListHandlerRepo(application: Application) {
         user_id: String
     ): LiveData<Map<Int, List<MonthDetail>>> =
         listHandlerDao.getMonthDetailByYear(user_id)
+
+    fun getBarChartDetailsByMonth(
+        user_id: String
+    ): LiveData<Map<Int, BarChartDetail>> =
+        listHandlerDao.getBarChartDetailsByMonth(user_id)
+
+    fun getBarChartDetailsByYear(
+        user_id: String
+    ): LiveData<Map<Int, BarChartDetail>> =
+        listHandlerDao.getBarChartDetailsByYear(user_id)
 }

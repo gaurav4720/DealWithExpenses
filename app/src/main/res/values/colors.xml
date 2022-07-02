@@ -42,4 +42,8 @@
     <color name="bar_chart_monthly_amount">#FF9800</color>
     <color name="bar_chart_monthly_transactions">#354FE3</color>
     <color name="bar_chart_years">#F44336</color>
+
+    <!--    Swipe Colors-->
+    <color name="swipe_left">#FF0000</color>
+    <color name="swipe_right">#00FF00</color>
 </resources>
