@@ -240,6 +240,21 @@ class OverviewTabFragment : Fragment() {
         }
     }
 
+    fun addDataToBarChart(barDataSet: ArrayList<BarDataSet> = arrayListOf(), yearsOrMonths: ArrayList<String> = arrayListOf()) {
+        binding.barChart.data = BarData(barDataSet.toList())
+        binding.barChart.data.barWidth = 0.5f
+        binding.barChart.xAxis.valueFormatter = IndexAxisValueFormatter(
+            yearsOrMonths
+        )
+        binding.barChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+        binding.barChart.xAxis.granularity = 1f
+        binding.barChart.xAxis.setDrawGridLines(false)
+        binding.barChart.axisLeft.axisMinimum = 0f
+        binding.barChart.axisRight.axisMinimum = 0f
+        binding.barChart.xAxis.axisMaximum = 11.1f
+        binding.barChart.animate()
+    }
+
     fun setBarChart(barChartMode: String, year: Int = -1) {
         when (barChartMode) {
             "Monthly" -> {
@@ -281,7 +296,7 @@ class OverviewTabFragment : Fragment() {
                     barTransactionsEntries = mutableListOf()
                     val monthYear= year*100
                     months.forEachIndexed { index, month ->
-                        var transactions= it[monthYear+index+1]?.transactions?.toDouble()
+                        var transactions= it[monthYear+index+1]?.transactionsCount?.toDouble()
                         if(transactions==null)
                             transactions= 0.0
                         barTransactionsEntries.add(
@@ -313,19 +328,7 @@ class OverviewTabFragment : Fragment() {
                 barDataSet[1].color =
                     ContextCompat.getColor(requireContext(), R.color.bar_chart_monthly_transactions)
 
-                binding.barChart.data = BarData(barDataSet.toList())
-                binding.barChart.data.barWidth = 0.5f
-                binding.barChart.xAxis.valueFormatter = IndexAxisValueFormatter(
-                    months
-                )
-                binding.barChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
-                binding.barChart.xAxis.granularity = 1f
-                binding.barChart.xAxis.setDrawGridLines(false)
-                binding.barChart.axisLeft.axisMinimum = 0f
-                binding.barChart.axisRight.axisMinimum = 0f
-                binding.barChart.xAxis.axisMaximum = 11.1f
-
-                binding.barChart.animate()
+                addDataToBarChart(barDataSet, months)
             }
 
             "Yearly" -> {
@@ -358,7 +361,7 @@ class OverviewTabFragment : Fragment() {
                 viewModel.barChartDetailByYear.observe(viewLifecycleOwner) {
                     barTransactionsEntries = mutableListOf()
                     years.forEachIndexed { index, year ->
-                        var transactions = it[year.toInt()]?.transactions?.toDouble()
+                        var transactions = it[year.toInt()]?.transactionsCount?.toDouble()
                         if (transactions == null)
                             transactions = 0.0
                         barTransactionsEntries.add(
@@ -390,18 +393,7 @@ class OverviewTabFragment : Fragment() {
                 barDataSet[1].color =
                     ContextCompat.getColor(requireContext(), R.color.bar_chart_monthly_transactions)
 
-                binding.barChart.data = BarData(barDataSet.toList())
-                binding.barChart.data.barWidth = 0.5f
-                binding.barChart.xAxis.valueFormatter = IndexAxisValueFormatter(
-                    years
-                )
-                binding.barChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
-                binding.barChart.xAxis.granularity = 1f
-                binding.barChart.xAxis.setDrawGridLines(false)
-                binding.barChart.axisLeft.axisMinimum = 0f
-                binding.barChart.axisRight.axisMinimum = 0f
-                binding.barChart.xAxis.axisMaximum = 11.1f
-                binding.barChart.animate()
+                addDataToBarChart(barDataSet, years)
             }
 
 

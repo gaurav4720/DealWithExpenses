@@ -33,6 +33,7 @@ abstract class TransactionLogModel : EpoxyModelWithHolder<TransactionLogModel.Ho
         super.bind(holder)
         holder.heading.text = title
         holder.recyclerView.adapter = adapter
+        holder.recyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(holder.recyclerView.context)
         itemTouchHelper.attachToRecyclerView(holder.recyclerView)
 
         holder.recyclerView.visibility = if (title == "Completed")

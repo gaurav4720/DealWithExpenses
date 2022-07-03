@@ -145,12 +145,12 @@ interface ListHandler {
     @Query("SELECT DISTINCT monthYear FROM transactions WHERE user_id = :user_id AND year= :year ORDER BY monthYear " )
     fun getDistinctMonths(user_id: String, year: Int): LiveData<List<Int>>
 
-    @MapInfo(keyColumn = "monthYear")
-    @Query("SELECT monthYear as monthYear, COUNT(*) as transactionsCount, SUM(transactionAmount) as amount FROM transactions WHERE user_id = :user_id GROUP BY monthYear")
+    @MapInfo(keyColumn = "monthYear" )
+    @Query("SELECT monthYear as monthYear, COUNT(*) as transaction_count, SUM(transactionAmount) as amount FROM transactions WHERE user_id = :user_id GROUP BY monthYear")
     fun getBarChartDetailsByMonth(user_id: String): LiveData<Map<Int,BarChartDetail>>
 
     @MapInfo(keyColumn = "year")
-    @Query("SELECT year as year, COUNT(*) as transactionsCount, SUM(transactionAmount) as amount FROM transactions WHERE user_id = :user_id GROUP BY year")
+    @Query("SELECT year as year, COUNT(*) as transaction_count, SUM(transactionAmount) as amount FROM transactions WHERE user_id = :user_id GROUP BY year")
     fun getBarChartDetailsByYear(user_id: String): LiveData<Map<Int,BarChartDetail>>
 
     @MapInfo(keyColumn = "year")
@@ -186,6 +186,6 @@ data class MonthDetail(
 
 @Entity
 data class BarChartDetail(
-    @ColumnInfo(name= "amount") val amount: Int,
-    @ColumnInfo(name= "transaction_count") val transactions: Int
+    @ColumnInfo(name= "transaction_count") val transactionsCount: Int,
+    @ColumnInfo(name= "amount") val amount: Int
 )

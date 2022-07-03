@@ -27,6 +27,7 @@ abstract class YearModel : EpoxyModelWithHolder<YearModel.holder>(){
         super.bind(holder)
         holder.view.text= year
         holder.list.adapter= adapter
+        holder.list.layoutManager= androidx.recyclerview.widget.LinearLayoutManager(holder.view.context)
         holder.button.setOnClickListener {
             if(holder.list.visibility==View.GONE){
                 holder.list.visibility= View.VISIBLE

@@ -2,6 +2,7 @@ package com.example.dealwithexpenses.mainScreen.TransactionLibrary
 
 import androidx.fragment.app.Fragment
 import com.airbnb.epoxy.AsyncEpoxyController
+import com.example.dealwithexpenses.mainScreen.viewModels.EpoxyData
 import com.example.dealwithexpenses.mainScreen.viewModels.year
 
 class YearEpoxyController(val fragment: Fragment) : AsyncEpoxyController() {

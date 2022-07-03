@@ -107,9 +107,9 @@ class CalenderViewFragment : Fragment() {
             val swipeHandler = object : SwipeHandler() {
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     if (direction == ItemTouchHelper.LEFT) {
-                        adapter.deleteTransaction(viewHolder.adapterPosition)
+                        adapter.deleteTransaction(viewHolder.adapterPosition, it.toMutableList())
                     } else if (direction == ItemTouchHelper.RIGHT) {
-                        adapter.completeTransaction(viewHolder.adapterPosition)
+                        adapter.completeTransaction(viewHolder.adapterPosition, it.toMutableList())
                     }
                 }
             }

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.dealwithexpenses.R
 import com.example.dealwithexpenses.databinding.FragmentMainScreenBinding
 import com.example.dealwithexpenses.mainScreen.viewModels.MainScreenViewModel
@@ -59,11 +60,15 @@ class MainScreenFragment : Fragment() {
             when (position) {
                 0 -> tab.text = "Statistics"
                 1 -> tab.text = "Recent Transaction"
-                2 -> tab.text = "Calendar"
+                2 -> tab.text = "Transaction History"
             }
         }.attach()
         val userId = firebaseAuth.currentUser?.uid!!
         viewModel.setUserID(userId)
+
+        binding.floatingActionButton2.setOnClickListener {
+            findNavController().navigate(MainScreenFragmentDirections.actionMainScreenFragmentToAddOrEditTransactionFragment(0L))
+        }
 
 //        binding.viewPager.adapter = ViewPagerAdapter(parentFragmentManager, this)
 //
