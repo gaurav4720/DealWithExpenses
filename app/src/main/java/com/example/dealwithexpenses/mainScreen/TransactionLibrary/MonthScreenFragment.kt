@@ -32,39 +32,54 @@ class MonthScreenFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding= FragmentMonthScreenBinding.inflate(inflater,container,false)
-        transactionViewModel= ViewModelProvider(this).get(TransactionViewModel::class.java)
-        viewModel= ViewModelProvider(this).get(MonthScreenViewModel:: class.java)
-        auth= FirebaseAuth.getInstance()
-        sharedPreferences= activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
+        binding = FragmentMonthScreenBinding.inflate(inflater, container, false)
+        transactionViewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MonthScreenViewModel::class.java)
+        auth = FirebaseAuth.getInstance()
+        sharedPreferences = activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
 
-        val monthYear= MonthScreenFragmentArgs.fromBundle(
+        val monthYear = MonthScreenFragmentArgs.fromBundle(
             requireArguments()
         ).monthYear
 
         transactionViewModel.setUserId(auth.currentUser?.uid!!)
         viewModel.setUserId(auth.currentUser?.uid!!)
+        viewModel.setMonthYear(monthYear)
 
-        val month= monthYear%100
-        val year= monthYear/100
-        binding.toolbar.title = "${months[month-1]} $year"
+        val month = monthYear % 100
+        val year = monthYear / 100
+        binding.toolbar.title = "${months[month - 1]} $year"
         binding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
 
+        val activeBudget = sharedPreferences.getString("budget", "0")!!.toDouble()
         val activeIncome = sharedPreferences.getString("income", "0")?.toDouble()
-        val totalGains = viewModel.monthlyIncome.value
-        val totalExpenses = viewModel.monthlyExpenses.value
 
-        binding.amountSpent.text= totalExpenses.toString()
-        binding.netBalance.text= totalGains.toString()
+        var totalGains = 0.0
+        var totalExpenses = 0.0
 
-        val totalCredit = totalGains?.plus((activeIncome!!))
-        val totalBalance = totalCredit?.minus(totalExpenses!!)
+        viewModel.monthlyExpenses.observe (viewLifecycleOwner) {
+            if (it != null) {
+                totalExpenses = it
+            }
+            binding.amountSpent.text= totalExpenses.toString()
+        }
+        viewModel.monthlyIncome.observe (viewLifecycleOwner) {
+            if (it != null) {
+                totalGains = it
+            }
+            binding.netBalance.text= totalGains.toString()
+        }
 
+
+        val totalCredit = totalGains.plus((activeIncome!!))
+        val totalBalance = totalCredit.minus(totalExpenses)
         binding.amountSaved.text= totalBalance.toString()
+
+        showMonthlyTransactions(monthYear)
 
         binding.addTransactionButton.setOnClickListener {
             findNavController().navigate(

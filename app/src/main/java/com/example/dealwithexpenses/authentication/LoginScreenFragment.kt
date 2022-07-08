@@ -56,7 +56,7 @@ class LoginScreenFragment : Fragment() {
         binding.customRegisterButton.setBackgroundColor(resources.getColor(R.color.white))
         binding.customRegisterButton.setTextColor(resources.getColor(R.color.black))
         binding.googleLoginButton.setOnClickListener {
-            GoogleLogin.login(this)
+            GoogleLogin.initialisation(this)
         }
 
         binding.fbLoginButton.setOnClickListener {

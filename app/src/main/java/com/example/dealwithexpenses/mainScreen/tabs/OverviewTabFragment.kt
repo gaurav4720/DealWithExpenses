@@ -8,22 +8,20 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.example.dealwithexpenses.entities.TransactionCategory
 import com.example.dealwithexpenses.entities.TransactionType
 import com.example.dealwithexpenses.mainScreen.viewModels.MainScreenViewModel
 import com.example.dealwithexpenses.R
-import com.example.dealwithexpenses.daoS.BarChartDetail
 import com.example.dealwithexpenses.databinding.FragmentOverviewTabBinding
 import com.example.dealwithexpenses.entities.TransactionMode
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.google.firebase.auth.FirebaseAuth
-import org.eazegraph.lib.models.PieModel
 import java.util.*
 import kotlin.collections.ArrayList
+
 class OverviewTabFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,47 +73,64 @@ class OverviewTabFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
+                    //ViewModel will set the choice according to the option chosen
                     viewModel.setChoice(pieChartChoices[position])
                     viewModel.choice.observe(viewLifecycleOwner) {
+                        // pie chart will be set according to the choice
                         setPieChart(it)
                     }
                 }
-
+                //on nothing selected, keep the selection fixed to be Category
                 override fun onNothingSelected(parent: AdapterView<*>?) {
-
+                    setPieChart("Category")
                 }
             }
 
+        // years to be shown when user has done at least one transaction
         val barChartYears: MutableList<String> = mutableListOf()
         viewModel.years.observe(viewLifecycleOwner) {
             it.forEach { year ->
+                //adding every such year into the list
                 barChartYears.add(year.toString())
             }
+            //creating the array adapter for bar graph choices
+            val barChartAdapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                barChartYears
+            )
+
+            //storing the created adapter in the adapter of the spinner
+            binding.barChartSpinner.adapter = barChartAdapter
         }
 
-        val barChartAdapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_spinner_item,
-            barChartYears
-        )
-
+        //initially mode is set to be yearly
         var barChartMode = "Yearly"
+        //considering year is -1 as it is not fixed in yearly mode
         var year: Int = -1
+        //whether the switch is activated or not
+        var isActivated = false
+        binding.barChartSpinner.isEnabled = isActivated
 
         binding.switch1.setOnClickListener {
-            binding.barChartSpinner.isVisible = it.isActivated
-            barChartMode = if (it.isActivated) "Monthly" else "Yearly"
+            //change the value of isActivated whenever user presses the switch
+            isActivated= !isActivated
+            // bar chart spinner will only be shown if switch is activated
+            binding.barChartSpinner.isEnabled = isActivated
+            //barchart mode will be yearly if switch is activated, otherwise monthly
+            barChartMode = if (isActivated) "Monthly" else "Yearly"
 
+            //year= -1 if mode= yearly, otherwise get the instance of the year
             year = if (barChartMode == "Yearly") {
                 -1
             } else {
                 Calendar.getInstance().get(Calendar.YEAR)
             }
+            //bar chart is set according to the mode selected
             setBarChart(barChartMode, year)
         }
 
-        binding.barChartSpinner.adapter = barChartAdapter
-
+        //bar chart set according to the mode selected
         setBarChart(barChartMode, year)
         binding.barChartSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -125,6 +140,7 @@ class OverviewTabFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
+                    year= barChartYears[binding.barChartSpinner.selectedItemPosition].toInt()
                     setBarChart(barChartMode, year)
                 }
 
@@ -140,11 +156,11 @@ class OverviewTabFragment : Fragment() {
     fun addDataToPieChart(pieDataSet: PieDataSet) {
         val pieData = PieData(pieDataSet)
         binding.pieChart.data = pieData
-
+        binding.pieChart.invalidate()
         binding.pieChart.description.isEnabled = false
         binding.pieChart.legend.isEnabled = false
-
-        binding.pieChart.animate()
+        binding.pieChart.animateXY(1000, 1000)
+        binding.pieChart.animate().alpha(1f).duration = 1000
     }
 
     fun setPieChart(pieChartMode: String) {
@@ -252,7 +268,9 @@ class OverviewTabFragment : Fragment() {
         binding.barChart.axisLeft.axisMinimum = 0f
         binding.barChart.axisRight.axisMinimum = 0f
         binding.barChart.xAxis.axisMaximum = 11.1f
-        binding.barChart.animate()
+        binding.barChart.invalidate()
+        binding.barChart.animateXY(1000, 1000)
+        binding.barChart.animate().alpha(1f).duration = 1000
     }
 
     fun setBarChart(barChartMode: String, year: Int = -1) {

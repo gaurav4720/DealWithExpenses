@@ -6,10 +6,10 @@ import com.example.dealwithexpenses.entities.Transaction
 
 @Dao
 interface TransactionManager {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(transaction: Transaction)
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
+    @Update(onConflict = OnConflictStrategy.IGNORE)
     suspend fun update(transaction: Transaction)
 
     @Delete

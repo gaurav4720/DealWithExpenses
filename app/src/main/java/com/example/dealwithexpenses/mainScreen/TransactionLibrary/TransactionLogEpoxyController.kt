@@ -36,9 +36,9 @@ class TransactionLogEpoxyController(
             val swipeHandler = object : SwipeHandler() {
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     if (direction == ItemTouchHelper.LEFT) {
-                        adapter.deleteTransaction(viewHolder.adapterPosition, item.transactionLog)
+                        adapter.deleteTransaction(viewHolder.absoluteAdapterPosition, item.transactionLog)
                     } else if (direction == ItemTouchHelper.RIGHT) {
-                        adapter.completeTransaction(viewHolder.adapterPosition, item.transactionLog)
+                        adapter.completeTransaction(viewHolder.absoluteAdapterPosition, item.transactionLog)
                     }
                 }
             }

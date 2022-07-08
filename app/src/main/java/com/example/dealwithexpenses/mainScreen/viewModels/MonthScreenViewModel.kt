@@ -15,7 +15,7 @@ class MonthScreenViewModel(application: Application): AndroidViewModel(applicati
 
     private var listHandlerRepo: ListHandlerRepo= ListHandlerRepo(application)
 
-    private fun setMonthYear(monthyear: Int){
+    fun setMonthYear(monthyear: Int){
         MonthYear.let {
             it.value= monthyear
         }

@@ -5,6 +5,7 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -49,6 +50,9 @@ class AddOrEditTransactionFragment : Fragment() {
         binding.transDateInput.transformIntoDatePicker(requireContext(), "dd-MM-yyyy")
         binding.toDateInput.transformIntoDatePicker(requireContext(), "dd-MM-yyyy")
         binding.fromDateInput.transformIntoDatePicker(requireContext(), "dd-MM-yyyy")
+
+        binding.fromDateInput.isVisible = false
+        binding.toDateInput.isVisible = false
 
         binding.isRecurringCheckBox.setOnCheckedChangeListener {_,it ->
 
@@ -134,9 +138,13 @@ class AddOrEditTransactionFragment : Fragment() {
         val month= binding.transDateInput.text.toString().substring(3,5).toInt()
         val year= binding.transDateInput.text.toString().substring(6).toInt()
         val monthyear= year*100 + month
+        Log.d("monthyear","$monthyear $month $year")
         val typeIndex= if(binding.incomeButton.isChecked) 1 else 0
         val type: TransactionType= TransactionType.values()[typeIndex]
-        val status: TransactionStatus= TransactionStatus.PENDING
+        var status: TransactionStatus= TransactionStatus.PENDING
+        if(binding.checkIfAlreadyCompleted.isChecked){
+            status= TransactionStatus.COMPLETED
+        }
         val transaction= Transaction(
             viewModel.userID.value!!,
             viewModel.transactionId.value!!,
@@ -164,7 +172,7 @@ class AddOrEditTransactionFragment : Fragment() {
         binding.transTitleInput.setText(transaction.title)
         binding.transDescInput.setText(transaction.description)
         binding.transAmountInput.setText(transaction.transactionAmount.toString())
-        binding.transDateInput.setText(transaction.transactionDate.toString())
+        binding.transDateInput.setText(SimpleDateFormat("dd-MM-yyyy").format(transaction.transactionDate))
         if(transaction.isRecurring) {
             binding.isRecurringCheckBox.isChecked = true
             binding.fromDateInput.setText(transaction.fromDate.toString())
@@ -182,6 +190,7 @@ class AddOrEditTransactionFragment : Fragment() {
         }!!.ordinal)
         binding.incomeButton.isChecked= transaction.transactionType.ordinal==1
         binding.expenseButton.isChecked= transaction.transactionType.ordinal==0
+
     }
 
     private fun EditText.transformIntoDatePicker(context: Context, format: String) {

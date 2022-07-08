@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.dealwithexpenses.R
@@ -17,6 +18,7 @@ import com.example.dealwithexpenses.entities.Transaction
 import com.example.dealwithexpenses.entities.TransactionMode
 import com.example.dealwithexpenses.mainScreen.viewModels.TransactionViewModel
 import com.google.firebase.auth.FirebaseAuth
+import java.text.SimpleDateFormat
 
 
 class TransactionDetailFragment : Fragment() {
@@ -83,21 +85,22 @@ class TransactionDetailFragment : Fragment() {
         binding.transTitleInput.setText(transaction.title)
         binding.transDescInput.setText(transaction.description)
         binding.transAmountInput.text= (transaction.transactionAmount.toString())
-        binding.transDateInput.setText(transaction.transactionDate.toString())
+        binding.transDateInput.setText(SimpleDateFormat("dd-MM-yyyy").format(transaction.transactionDate))
         if(transaction.isRecurring) {
             binding.isRecurringCheckBox.isChecked = true
+            binding.isRecurringCheckBox.isEnabled = false
             binding.fromDateInput.setText(transaction.fromDate.toString())
             binding.toDateInput.setText(transaction.toDate.toString())
         } else {
             binding.isRecurringCheckBox.isChecked = false
-            binding.fromDateInput.isEnabled= false
-            binding.toDateInput.isEnabled= false
+            binding.isRecurringCheckBox.isEnabled = false
+            binding.fromDateInput.isVisible= false
+            binding.toDateInput.isVisible= false
         }
-        binding.transModeInput.setText(TransactionMode.values().find {
-            it.name== transaction.transactionMode.name
-        }!!.ordinal)
+        binding.transModeInput.text= transaction.transactionMode.name
         binding.incomeButton.isChecked= transaction.transactionType.ordinal==1
-        binding.expenseButton.isChecked= transaction.transactionType.ordinal==0 //rishabh ye kar
-        binding.radioGroup.isClickable= false;
+        binding.incomeButton.isEnabled= false
+        binding.expenseButton.isChecked= transaction.transactionType.ordinal==0
+        binding.expenseButton.isEnabled= false
     }
 }

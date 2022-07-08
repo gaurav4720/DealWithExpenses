@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import com.example.dealwithexpenses.daoS.BarChartDetail
 import com.example.dealwithexpenses.daoS.MonthDetail
 import com.example.dealwithexpenses.daoS.TransactionDB
+import com.example.dealwithexpenses.daoS.YearDetail
 import com.example.dealwithexpenses.entities.*
 import java.time.YearMonth
 import java.util.*
@@ -114,6 +115,9 @@ class ListHandlerRepo(application: Application) {
 
     fun getTransactionsByYear(user_id: String, year: Int): LiveData<List<Transaction>> =
         listHandlerDao.getTransactionsByYear(user_id, year)
+
+    fun getAmountByAllYears(user_id: String): LiveData<Map<Int, YearDetail>> =
+        listHandlerDao.getAmountByAllYears(user_id)
 
     fun getAmountByMonthYearAndType(
         user_id: String,

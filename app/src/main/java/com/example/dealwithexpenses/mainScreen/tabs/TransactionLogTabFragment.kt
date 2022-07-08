@@ -34,6 +34,8 @@ class TransactionLogTabFragment(val fragment: Fragment) : Fragment() {
         viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
         firebaseAuth = FirebaseAuth.getInstance()
         transactionViewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
+        viewModel.setUserID(firebaseAuth.currentUser!!.uid)
+        transactionViewModel.setUserId(firebaseAuth.currentUser!!.uid)
 
         val transStatus = mutableListOf<TransactionLogItem>(
             TransactionLogItem("Completed", mutableListOf()),
@@ -51,6 +53,7 @@ class TransactionLogTabFragment(val fragment: Fragment) : Fragment() {
 
         viewModel.getCompletedTransactions().observe(viewLifecycleOwner) {
             transStatus[0]= TransactionLogItem("Completed", it.toMutableList())
+            Log.d("ChalLeBhai",it.toString())
             epoxyController.transactionLog = transStatus
             epoxyController.requestModelBuild()
         }
@@ -58,6 +61,7 @@ class TransactionLogTabFragment(val fragment: Fragment) : Fragment() {
         viewModel.getPendingTransactions(Date(System.currentTimeMillis()).time)
             .observe(viewLifecycleOwner) {
                 transStatus[1]= TransactionLogItem("Pending", it.toMutableList())
+                Log.d("ChalLeYaar",it.toString())
                 epoxyController.transactionLog = transStatus
                 epoxyController.requestModelBuild()
             }
@@ -65,6 +69,7 @@ class TransactionLogTabFragment(val fragment: Fragment) : Fragment() {
         viewModel.getUpcomingTransactions(Date(System.currentTimeMillis()).time)
             .observe(viewLifecycleOwner) {
                 transStatus[2]= TransactionLogItem("Upcoming", it.toMutableList())
+                Log.d("ChalLeBsdk",it.toString())
                 epoxyController.transactionLog = transStatus
                 epoxyController.requestModelBuild()
             }

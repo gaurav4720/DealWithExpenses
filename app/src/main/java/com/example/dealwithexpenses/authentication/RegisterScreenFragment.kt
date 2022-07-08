@@ -49,7 +49,7 @@ class RegisterScreenFragment : Fragment() {
         }
 
         binding.googleLoginButton.setOnClickListener {
-            GoogleLogin.login(this)
+            GoogleLogin.initialisation(this)
         }
         binding.fbLoginButton.setOnClickListener {
             callBackManager = CallbackManager.Factory.create()

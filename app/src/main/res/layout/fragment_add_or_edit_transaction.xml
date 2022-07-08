@@ -59,25 +59,26 @@
             android:hint="Description"
             android:inputType="textMultiLine"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/trans_title_input" />
+            app:layout_constraintTop_toBottomOf="@+id/trans_title_input"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <TextView
             android:id="@+id/trans_amount_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:text="Amount : "
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/trans_desc_input" />
+            app:layout_constraintTop_toBottomOf="@+id/checkIfAlreadyCompleted" />
 
         <EditText
             android:id="@+id/trans_amount_input"
-            android:layout_width="130dp"
-            android:layout_height="26dp"
+            android:layout_width="127dp"
+            android:layout_height="52dp"
             android:layout_marginStart="30dp"
+            android:hint="InputAmount"
             android:inputType="text"
-            android:text="InputAmount"
             app:layout_constraintEnd_toEndOf="@+id/trans_date_input"
             app:layout_constraintStart_toEndOf="@+id/trans_amount_msg"
             app:layout_constraintTop_toTopOf="@+id/trans_amount_msg" />
@@ -87,9 +88,10 @@
             android:layout_width="60dp"
             android:layout_height="21dp"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="44dp"
             android:text="Date :"
             app:layout_constraintEnd_toEndOf="@+id/trans_amount_msg"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/trans_amount_msg" />
 
@@ -99,6 +101,7 @@
             android:layout_height="48dp"
             android:layout_marginStart="30dp"
             android:ems="10"
+            android:hint="click here"
             android:inputType="date"
             app:layout_constraintStart_toEndOf="@+id/trans_date_msg"
             app:layout_constraintTop_toTopOf="@+id/trans_date_msg"
@@ -124,7 +127,8 @@
             android:hint="Title"
             android:inputType="textPersonName"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/app_bar" />
+            app:layout_constraintTop_toBottomOf="@+id/app_bar"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <EditText
             android:id="@+id/from_date_input"
@@ -147,7 +151,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/tranaction_mode_label"
-            app:layout_constraintTop_toTopOf="@+id/tranaction_mode_label" />
+            app:layout_constraintTop_toTopOf="@+id/tranaction_mode_label"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <TextView
             android:id="@+id/tranaction_mode_label"
@@ -185,7 +190,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.557"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/transaction_tags" />
+            app:layout_constraintTop_toBottomOf="@+id/transaction_tags"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/cancel_button"
@@ -198,7 +204,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/save_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radio_group">
+            app:layout_constraintTop_toBottomOf="@+id/radio_group"
+            app:layout_constraintVertical_bias="1.0">
 
         </com.google.android.material.button.MaterialButton>
 
@@ -213,7 +220,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/cancel_button"
-            app:layout_constraintTop_toTopOf="@+id/cancel_button">
+            app:layout_constraintTop_toTopOf="@+id/cancel_button"
+            app:layout_constraintVertical_bias="0.0">
 
         </com.google.android.material.button.MaterialButton>
 
@@ -232,7 +240,8 @@
                 android:layout_height="20dp"
                 android:layout_margin="5dp"
                 android:text="Income"
-                android:textSize="16sp">
+                android:textSize="16sp"
+                tools:ignore="TouchTargetSizeCheck">
 
             </RadioButton>
 
@@ -242,10 +251,21 @@
                 android:layout_height="20dp"
                 android:layout_margin="5dp"
                 android:text="Expense"
-                android:textSize="16sp">
+                android:textSize="16sp"
+                tools:ignore="TouchTargetSizeCheck">
 
             </RadioButton>
         </RadioGroup>
+
+        <CheckBox
+            android:id="@+id/checkIfAlreadyCompleted"
+            android:layout_width="188dp"
+            android:layout_height="34dp"
+            android:text="Already Completed ?"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/trans_desc_input"
+            tools:ignore="TouchTargetSizeCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

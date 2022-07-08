@@ -1,5 +1,6 @@
 package com.example.dealwithexpenses.authentication
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -25,9 +26,14 @@ class GoogleLogin {
 
         private const val SIGN_IN_CODE = 12345
 
-        fun login(fragment: Fragment) {
+        fun initialisation(fragment: Fragment) {
             this.fragment = fragment
 
+            sharedPreferences =
+                fragment.requireActivity().getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
+            login(sharedPreferences)
+        }
+        fun login(sharedPreferences: SharedPreferences){
             val googleSignInOptions =
                 GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                     .requestIdToken(fragment.getString(R.string.default_web_client_id))

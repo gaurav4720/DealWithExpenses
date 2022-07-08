@@ -17,6 +17,7 @@ import com.example.dealwithexpenses.entities.Transaction
 import com.example.dealwithexpenses.entities.TransactionStatus
 import com.example.dealwithexpenses.entities.TransactionType
 import com.example.dealwithexpenses.mainScreen.viewModels.TransactionViewModel
+import pl.droidsonroids.gif.GifImageView
 import java.text.SimpleDateFormat
 
 class TransactionListAdapter(var transactionList: MutableList<Transaction>, val fragment: Fragment, private var listener: (Long)->Unit, val viewModel: TransactionViewModel, val context: Context)  : RecyclerView.Adapter<TransactionListAdapter.holder>() {
@@ -62,7 +63,7 @@ class TransactionListAdapter(var transactionList: MutableList<Transaction>, val 
             title.text= transaction.title
             mode.text= transaction.transactionMode.name
             amount.text= transaction.transactionAmount.toString()
-            date.text= SimpleDateFormat("DD/MM/yyyy").format(transaction.transactionDate)
+            date.text= SimpleDateFormat("dd-MM-yyyy").format(transaction.transactionDate)
 
             val type= transaction.transactionType
             if(type==TransactionType.INCOME)
@@ -77,6 +78,7 @@ class TransactionListAdapter(var transactionList: MutableList<Transaction>, val 
     fun deleteTransaction(position: Int, transactionList2: MutableList<Transaction>){
         val layout= LayoutInflater.from(context).inflate(R.layout.fragment_transaction_complete,null)
         "Transaction Deleted :)".also { layout.findViewById<TextView>(R.id.text_transaction).text = it }
+        layout.findViewById<GifImageView>(R.id.gif_complete).setBackgroundResource(R.drawable.deleted_transaction)
         val builder = AlertDialog.Builder(context)
             .setTitle("Delete Transaction")
             .setMessage("Are you sure you want to delete this transaction?")

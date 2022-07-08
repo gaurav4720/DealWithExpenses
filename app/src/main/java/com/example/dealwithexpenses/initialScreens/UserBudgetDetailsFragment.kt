@@ -76,18 +76,18 @@ class UserBudgetDetailsFragment : Fragment() {
         return binding.root
     }
 
-        fun SharedPreferences.saveHashMap(key: String, obj: HashMap<Int, Int>) {
-            val editor = this.edit()
-            val gson = Gson()
-            val json = gson.toJson(obj)
-            editor.putString(key, json)
-            editor.apply()
-        }
+    fun SharedPreferences.saveHashMap(key: String, obj: HashMap<Int, Int>) {
+        val editor = this.edit()
+        val gson = Gson()
+        val json = gson.toJson(obj)
+        editor.putString(key, json)
+        editor.apply()
+    }
 
-        fun SharedPreferences.getHashMap(key: String): HashMap<Int, Int> {
-            val gson = Gson()
-            val json = this.getString(key, "")
-            val type = object : TypeToken<HashMap<Int, Int>>() {}.type
-            return gson.fromJson(json, type)
-        }
+    fun SharedPreferences.getHashMap(key: String): HashMap<Int, Int> {
+        val gson = Gson()
+        val json = this.getString(key, "")
+        val type = object : TypeToken<HashMap<Int, Int>>() {}.type
+        return gson.fromJson(json, type)
+    }
 }

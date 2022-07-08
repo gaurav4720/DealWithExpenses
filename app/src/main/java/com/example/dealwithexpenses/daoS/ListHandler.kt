@@ -174,12 +174,40 @@ interface ListHandler {
         transactionType1: TransactionType = TransactionType.EXPENSE,
         transactionType2: TransactionType = TransactionType.INCOME,
     ): LiveData<Map<Int, List<MonthDetail>>>
+
+    @MapInfo(keyColumn = "year")
+    @Query(
+        "SELECT t1.year as year," +
+                "(SELECT SUM(t2.transactionAmount) " +
+                "FROM transactions t2 " +
+                "WHERE t2.user_id = :user_id and t2.transactionType = :transactionType1) " +
+                "as expense, " +
+                "(SELECT SUM(t2.transactionAmount) " +
+                "FROM transactions t2 " +
+                "WHERE t2.user_id = :user_id and t2.transactionType = :transactionType2) " +
+                "as gain " +
+                "FROM transactions t1 " +
+                "WHERE t1.user_id = :user_id " +
+                "GROUP BY t1.year "
+    )
+    fun getAmountByAllYears(
+        user_id: String,
+        transactionType1: TransactionType = TransactionType.EXPENSE,
+        transactionType2: TransactionType = TransactionType.INCOME,
+    ): LiveData<Map<Int, YearDetail>>
 }
 
 @Entity
 data class MonthDetail(
     @ColumnInfo(name= "month") val month: Int,
     @ColumnInfo(name= "monthYear") val monthYear: Int,
+    @ColumnInfo(name= "expense") val expense: Double,
+    @ColumnInfo(name= "gain") val gain: Double
+)
+
+@Entity
+data class YearDetail(
+    @ColumnInfo(name= "year") val year: Int,
     @ColumnInfo(name= "expense") val expense: Double,
     @ColumnInfo(name= "gain") val gain: Double
 )

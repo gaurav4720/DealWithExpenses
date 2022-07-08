@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.example.dealwithexpenses.daoS.BarChartDetail
 import com.example.dealwithexpenses.daoS.MonthDetail
+import com.example.dealwithexpenses.daoS.YearDetail
 import com.example.dealwithexpenses.entities.*
 import com.example.dealwithexpenses.repositories.ListHandlerRepo
 import java.util.*
@@ -107,5 +108,9 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
 
     val barChartDetailByYear: LiveData<Map<Int,BarChartDetail>> = Transformations.switchMap(userID){
         listHandlerRepo.getBarChartDetailsByYear(it)
+    }
+
+    val getAmountByAllYears: LiveData<Map<Int, YearDetail>> = Transformations.switchMap(userID){
+        listHandlerRepo.getAmountByAllYears(it)
     }
 }
