@@ -4,7 +4,7 @@
     android:id="@+id/scroll_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dealwithexpenses.mainScreen.tabs.TransactionLogTabFragment"
+    tools:context="com.example.dealwithexpenses.mainScreen.tabs.RecentTransactionsTabFragment"
     tools:ignore="SpeakableTextPresentCheck">
 
     <com.airbnb.epoxy.EpoxyRecyclerView

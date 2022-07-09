@@ -10,7 +10,7 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
-import com.example.dealwithexpenses.mainScreen.TransactionLibrary.TransactionListAdapter
+import com.example.dealwithexpenses.mainScreen.transactionLibrary.TransactionListAdapter
 import com.example.dealwithexpenses.R
 
 @EpoxyModelClass

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dealwithexpenses.mainScreen.TransactionLibrary.CalendarViewFragment">
+    tools:context="com.example.dealwithexpenses.mainScreen.transactionLibrary.CalendarViewFragment">
 
     <com.applandeo.materialcalendarview.CalendarView
         android:id="@+id/calendarView"

@@ -55,7 +55,7 @@
     </fragment>
     <fragment
         android:id="@+id/transactionDetailFragment"
-        android:name="com.example.dealwithexpenses.mainScreen.TransactionLibrary.TransactionDetailFragment"
+        android:name="com.example.dealwithexpenses.mainScreen.transactionLibrary.TransactionDetailFragment"
         android:label="fragment_transaction_detail"
         tools:layout="@layout/fragment_transaction_detail" >
         <argument
@@ -94,7 +94,7 @@
     </fragment>
     <fragment
         android:id="@+id/addOrEditTransactionFragment"
-        android:name="com.example.dealwithexpenses.mainScreen.TransactionLibrary.AddOrEditTransactionFragment"
+        android:name="com.example.dealwithexpenses.mainScreen.transactionLibrary.AddOrEditTransactionFragment"
         android:label="fragment_add_or_edit_transaction"
         tools:layout="@layout/fragment_add_or_edit_transaction" >
         <argument
@@ -106,7 +106,7 @@
     </fragment>
     <fragment
         android:id="@+id/monthScreenFragment"
-        android:name="com.example.dealwithexpenses.mainScreen.TransactionLibrary.MonthScreenFragment"
+        android:name="com.example.dealwithexpenses.mainScreen.transactionLibrary.MonthScreenFragment"
         android:label="fragment_month_screen"
         tools:layout="@layout/fragment_month_screen" >
         <argument
@@ -118,10 +118,13 @@
         <action
             android:id="@+id/action_monthScreenFragment_to_addOrEditTransactionFragment"
             app:destination="@id/addOrEditTransactionFragment" />
+        <action
+            android:id="@+id/action_monthScreenFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/calenderViewFragment"
-        android:name="com.example.dealwithexpenses.mainScreen.TransactionLibrary.CalenderViewFragment"
+        android:name="com.example.dealwithexpenses.mainScreen.transactionLibrary.CalenderViewFragment"
         android:label="CalenderViewFragment" >
         <argument
             android:name="monthYear"
@@ -133,7 +136,7 @@
         android:label="OverviewTabFragment" />
     <fragment
         android:id="@+id/transactionLogTabFragment"
-        android:name="com.example.dealwithexpenses.mainScreen.tabs.TransactionLogTabFragment"
+        android:name="com.example.dealwithexpenses.mainScreen.tabs.RecentTransactionsTabFragment"
         android:label="fragment_transaction_log_tab"
         tools:layout="@layout/fragment_transaction_log_tab" />
     <fragment

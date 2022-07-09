@@ -1,4 +1,4 @@
-package com.example.dealwithexpenses.mainScreen.TransactionLibrary
+package com.example.dealwithexpenses.mainScreen.transactionLibrary
 
 data class MonthCardDetail(
     val month: String,

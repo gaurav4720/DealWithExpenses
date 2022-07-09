@@ -1,4 +1,4 @@
-package com.example.dealwithexpenses.mainScreen.TransactionLibrary
+package com.example.dealwithexpenses.mainScreen.transactionLibrary
 
 import androidx.fragment.app.Fragment
 import com.airbnb.epoxy.AsyncEpoxyController

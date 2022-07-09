@@ -1,7 +1,6 @@
-package com.example.dealwithexpenses.mainScreen.TransactionLibrary
+package com.example.dealwithexpenses.mainScreen.transactionLibrary
 
 import android.content.Context
-import android.preference.PreferenceManager
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -11,8 +10,6 @@ import com.example.dealwithexpenses.entities.Transaction
 import com.example.dealwithexpenses.mainScreen.MainScreenFragmentDirections
 import com.example.dealwithexpenses.mainScreen.viewModels.TransactionViewModel
 import com.example.dealwithexpenses.mainScreen.viewModels.transactionLog
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 
 
 class TransactionLogEpoxyController(

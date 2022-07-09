@@ -19,19 +19,17 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 
+@Suppress("DEPRECATION")
 class LoginScreenFragment : Fragment() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var binding: FragmentLoginScreenBinding
     private lateinit var action: NavDirections
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var callBackManager: CallbackManager
+    private var isLoggedIn: Boolean = false
 
-    private val SIGN_IN_CODE = 12345
+    private val signInCode = 12345
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,8 +37,6 @@ class LoginScreenFragment : Fragment() {
     ): View {
 
         sharedPreferences = activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
-        val isRegistered: Boolean = sharedPreferences.getBoolean("isRegistered", false)
-        val isLoggedIn: Boolean = sharedPreferences.getBoolean("isLoggedIn", false)
 
         // Initialize Firebase Auth
         firebaseAuth = FirebaseAuth.getInstance()
@@ -64,9 +60,8 @@ class LoginScreenFragment : Fragment() {
             FBLogin.login(this, callBackManager)
         }
 
-        var stayLoggedIn = false
         binding.stayLoggedIn.setOnClickListener {
-            stayLoggedIn = binding.stayLoggedIn.isChecked
+            isLoggedIn = binding.stayLoggedIn.isChecked
         }
 
         binding.customLoginButton.setOnClickListener {
@@ -76,6 +71,10 @@ class LoginScreenFragment : Fragment() {
         binding.customRegisterButton.setOnClickListener {
             action =
                 LoginScreenFragmentDirections.actionLoginScreenFragmentToRegisterScreenFragment()
+            if(isLoggedIn){
+                val editor = sharedPreferences.edit()
+                editor.putBoolean("isLoggedIn", true).apply()
+            }
             findNavController().navigate(action)
         }
 
@@ -116,7 +115,7 @@ class LoginScreenFragment : Fragment() {
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == SIGN_IN_CODE) {
+        if (requestCode == signInCode) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)

@@ -10,7 +10,6 @@ import com.example.dealwithexpenses.daoS.MonthDetail
 import com.example.dealwithexpenses.daoS.YearDetail
 import com.example.dealwithexpenses.entities.*
 import com.example.dealwithexpenses.repositories.ListHandlerRepo
-import java.util.*
 
 class MainScreenViewModel(application: Application) : AndroidViewModel(application) {
 

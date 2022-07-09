@@ -3,7 +3,7 @@ package com.example.dealwithexpenses.mainScreen.viewModels
 import android.content.SharedPreferences
 import android.util.Log
 import com.example.dealwithexpenses.daoS.MonthDetail
-import com.example.dealwithexpenses.mainScreen.TransactionLibrary.MonthCardDetail
+import com.example.dealwithexpenses.mainScreen.transactionLibrary.MonthCardDetail
 import com.example.dealwithexpenses.mainScreen.tabs.YearMonthTabFragment.Companion.months
 
 data class EpoxyData(val year: Int, var mutableList: MutableList<MonthCardDetail> )

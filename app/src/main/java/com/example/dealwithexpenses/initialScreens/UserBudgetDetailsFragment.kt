@@ -3,28 +3,21 @@ package com.example.dealwithexpenses.initialScreens
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.preference.PreferenceManager
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.example.dealwithexpenses.R
 import com.example.dealwithexpenses.databinding.FragmentUserBudgetDetailsBinding
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 
 class UserBudgetDetailsFragment : Fragment() {
     private lateinit var binding: FragmentUserBudgetDetailsBinding
     private lateinit var sharedPreferences: SharedPreferences
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         //initialising binding and shared preferences
         binding= FragmentUserBudgetDetailsBinding.inflate(inflater,container,false)
         sharedPreferences = activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
@@ -35,7 +28,8 @@ class UserBudgetDetailsFragment : Fragment() {
             //if there is nothing written in username column
             if(binding.username.text.isEmpty()){
                 //the warning should be visible about it being empty
-                binding.warningUsername.visibility= View.VISIBLE
+                binding.warningUsername.visibility=
+                    View.VISIBLE
             }
 
             //if there is nothing written in budget column
@@ -74,20 +68,5 @@ class UserBudgetDetailsFragment : Fragment() {
             }
         }
         return binding.root
-    }
-
-    fun SharedPreferences.saveHashMap(key: String, obj: HashMap<Int, Int>) {
-        val editor = this.edit()
-        val gson = Gson()
-        val json = gson.toJson(obj)
-        editor.putString(key, json)
-        editor.apply()
-    }
-
-    fun SharedPreferences.getHashMap(key: String): HashMap<Int, Int> {
-        val gson = Gson()
-        val json = this.getString(key, "")
-        val type = object : TypeToken<HashMap<Int, Int>>() {}.type
-        return gson.fromJson(json, type)
     }
 }

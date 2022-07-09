@@ -2,59 +2,36 @@ package com.example.dealwithexpenses.mainScreen
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import com.example.dealwithexpenses.R
 import com.example.dealwithexpenses.databinding.FragmentMainScreenBinding
 import com.example.dealwithexpenses.mainScreen.viewModels.MainScreenViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import java.util.*
 import kotlin.collections.HashMap
 
 class MainScreenFragment : Fragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
-    companion object {
-        fun SharedPreferences.saveHashMap(key: String, obj: HashMap<Int, Double>) {
-            val editor = this.edit()
-            val gson = Gson()
-            val json = gson.toJson(obj)
-            editor.putString(key, json)
-            editor.apply()
-        }
-
-        fun SharedPreferences.getHashMap(key: String): HashMap<Int, Double> {
-            val gson = Gson()
-            val json = this.getString(key, "")
-            val type = object : TypeToken<HashMap<Int, Int>>() {}.type
-            return gson.fromJson(json, type)
-        }
-    }
 
     private lateinit var binding: FragmentMainScreenBinding
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var viewModel: MainScreenViewModel
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var incomeRegister: HashMap<Int, Double>
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentMainScreenBinding.inflate(inflater, container, false)
         sharedPreferences = activity?.getSharedPreferences("user_auth", 0)!!
@@ -132,7 +109,6 @@ class MainScreenFragment : Fragment() {
                         val calendar = Calendar.getInstance()
 
                         val year = calendar.get(Calendar.YEAR)
-                        val currMonthYear = year * 100 + calendar.get(Calendar.MONTH)
 
                         val yearIncome =0.0
                            // totalMonthlyEarnings(year * 100 + 1, currMonthYear)

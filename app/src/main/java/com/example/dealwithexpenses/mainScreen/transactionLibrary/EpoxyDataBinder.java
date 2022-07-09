@@ -1,4 +1,4 @@
-package com.example.dealwithexpenses.mainScreen.TransactionLibrary;
+package com.example.dealwithexpenses.mainScreen.transactionLibrary;
 
 import com.airbnb.epoxy.EpoxyDataBindingLayouts;
 import com.example.dealwithexpenses.R;

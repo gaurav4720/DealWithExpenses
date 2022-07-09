@@ -1,4 +1,4 @@
-package com.example.dealwithexpenses.mainScreen.TransactionLibrary
+package com.example.dealwithexpenses.mainScreen.transactionLibrary
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -78,6 +79,7 @@ class MonthScreenFragment : Fragment() {
         val totalCredit = totalGains.plus((activeIncome!!))
         val totalBalance = totalCredit.minus(totalExpenses)
         binding.amountSaved.text= totalBalance.toString()
+        binding.monthBudget.text= activeBudget.toString()
 
         showMonthlyTransactions(monthYear)
 
@@ -88,6 +90,12 @@ class MonthScreenFragment : Fragment() {
                 )
             )
         }
+        val onBackPressedCallback= object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigate(MonthScreenFragmentDirections.actionMonthScreenFragmentToMainScreenFragment())
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
 
         return binding.root
     }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mainScreen.TransactionLibrary.MonthScreenFragment">
+    tools:context=".mainScreen.transactionLibrary.MonthScreenFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -124,7 +124,7 @@
             android:textSize="30sp" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/budget_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -134,7 +134,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/monthBudget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"

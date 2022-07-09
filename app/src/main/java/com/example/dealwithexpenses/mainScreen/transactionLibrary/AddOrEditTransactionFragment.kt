@@ -1,4 +1,4 @@
-package com.example.dealwithexpenses.mainScreen.TransactionLibrary
+package com.example.dealwithexpenses.mainScreen.transactionLibrary
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog

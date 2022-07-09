@@ -1,4 +1,4 @@
-package com.example.dealwithexpenses.mainScreen.TransactionLibrary
+package com.example.dealwithexpenses.mainScreen.transactionLibrary
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,13 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dealwithexpenses.entities.TransactionType
 import com.example.dealwithexpenses.mainScreen.MainScreenFragmentDirections
 import com.example.dealwithexpenses.mainScreen.viewModels.MainScreenViewModel
-import com.example.dealwithexpenses.R
 import com.example.dealwithexpenses.databinding.FragmentCalendarViewBinding
 import com.example.dealwithexpenses.mainScreen.viewModels.TransactionViewModel
 import com.google.firebase.auth.FirebaseAuth
-import sun.bob.mcalendarview.listeners.OnDateClickListener
-import sun.bob.mcalendarview.listeners.OnMonthChangeListener
-import sun.bob.mcalendarview.vo.DateData
 import java.util.*
 
 class CalenderViewFragment : Fragment() {
@@ -33,7 +29,7 @@ class CalenderViewFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // declaring the binding and viewModel
         binding = FragmentCalendarViewBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
@@ -46,12 +42,12 @@ class CalenderViewFragment : Fragment() {
         transactionViewModel.setUserId(firebaseAuth.currentUser?.uid.toString())
 
         // getting monthYear through arguments of CalenderViewFragment
-        var monthYear = CalenderViewFragmentArgs.fromBundle(requireArguments()).monthYear
+        val monthYear = CalenderViewFragmentArgs.fromBundle(requireArguments()).monthYear
         // monthYear is of the form YYYYMM in long format
         // hence monthYear /100 will be YYYY(the year) and monthYear % 100 will be MM(the month)
         val month = monthYear % 100
         val year = monthYear / 100
-        val day = 1;
+        val day = 1
 
         // getting the instance of the calendar
         val calender = Calendar.getInstance()
@@ -107,9 +103,9 @@ class CalenderViewFragment : Fragment() {
             val swipeHandler = object : SwipeHandler() {
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     if (direction == ItemTouchHelper.LEFT) {
-                        adapter.deleteTransaction(viewHolder.adapterPosition, it.toMutableList())
+                        adapter.deleteTransaction(viewHolder.absoluteAdapterPosition, it.toMutableList())
                     } else if (direction == ItemTouchHelper.RIGHT) {
-                        adapter.completeTransaction(viewHolder.adapterPosition, it.toMutableList())
+                        adapter.completeTransaction(viewHolder.absoluteAdapterPosition, it.toMutableList())
                     }
                 }
             }

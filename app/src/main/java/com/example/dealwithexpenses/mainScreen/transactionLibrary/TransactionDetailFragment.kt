@@ -1,4 +1,4 @@
-package com.example.dealwithexpenses.mainScreen.TransactionLibrary
+package com.example.dealwithexpenses.mainScreen.transactionLibrary
 
 import android.app.AlertDialog
 import android.content.Context
@@ -9,13 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.dealwithexpenses.R
 import com.example.dealwithexpenses.databinding.FragmentTransactionDetailBinding
 import com.example.dealwithexpenses.entities.Transaction
-import com.example.dealwithexpenses.entities.TransactionMode
 import com.example.dealwithexpenses.mainScreen.viewModels.TransactionViewModel
 import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
@@ -36,7 +36,7 @@ class TransactionDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding= FragmentTransactionDetailBinding.inflate(inflater,container,false)
         sharedPreferences= requireActivity().getSharedPreferences("transaction_detail", Context.MODE_PRIVATE)
@@ -44,11 +44,11 @@ class TransactionDetailFragment : Fragment() {
         viewModel= ViewModelProvider(this).get(TransactionViewModel::class.java)
         auth= FirebaseAuth.getInstance()
 
-        val user_id= auth.currentUser!!.uid
-        viewModel.setUserId(user_id)
+        val userId= auth.currentUser!!.uid
+        viewModel.setUserId(userId)
 
-        val transaction_id= TransactionDetailFragmentArgs.fromBundle(requireArguments()).transId
-        viewModel.setTransactionId(transaction_id)
+        val transactionId= TransactionDetailFragmentArgs.fromBundle(requireArguments()).transId
+        viewModel.setTransactionId(transactionId)
 
         viewModel.transaction.observe(viewLifecycleOwner) {
             setData(it)
@@ -78,19 +78,25 @@ class TransactionDetailFragment : Fragment() {
                 }
             }
         }
+        val onBackPressedCallback= object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigate(TransactionDetailFragmentDirections.actionTransactionDetailFragmentToMainScreenFragment())
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
         return binding.root
     }
 
     private  fun setData(transaction: Transaction) {
-        binding.transTitleInput.setText(transaction.title)
-        binding.transDescInput.setText(transaction.description)
+        binding.transTitleInput.text= transaction.title
+        binding.transDescInput.text= transaction.description
         binding.transAmountInput.text= (transaction.transactionAmount.toString())
-        binding.transDateInput.setText(SimpleDateFormat("dd-MM-yyyy").format(transaction.transactionDate))
+        binding.transDateInput.text= (SimpleDateFormat("dd-MM-yyyy").format(transaction.transactionDate))
         if(transaction.isRecurring) {
             binding.isRecurringCheckBox.isChecked = true
             binding.isRecurringCheckBox.isEnabled = false
-            binding.fromDateInput.setText(transaction.fromDate.toString())
-            binding.toDateInput.setText(transaction.toDate.toString())
+            binding.fromDateInput.text= transaction.fromDate.toString()
+            binding.toDateInput.text= transaction.toDate.toString()
         } else {
             binding.isRecurringCheckBox.isChecked = false
             binding.isRecurringCheckBox.isEnabled = false

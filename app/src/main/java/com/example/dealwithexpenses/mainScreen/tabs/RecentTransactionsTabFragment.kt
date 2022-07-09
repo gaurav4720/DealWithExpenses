@@ -7,15 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.example.dealwithexpenses.mainScreen.TransactionLibrary.TransactionLogEpoxyController
-import com.example.dealwithexpenses.mainScreen.TransactionLibrary.TransactionLogItem
+import com.example.dealwithexpenses.mainScreen.transactionLibrary.TransactionLogEpoxyController
+import com.example.dealwithexpenses.mainScreen.transactionLibrary.TransactionLogItem
 import com.example.dealwithexpenses.mainScreen.viewModels.MainScreenViewModel
 import com.example.dealwithexpenses.databinding.FragmentTransactionLogTabBinding
 import com.example.dealwithexpenses.mainScreen.viewModels.TransactionViewModel
 import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 
-class TransactionLogTabFragment(val fragment: Fragment) : Fragment() {
+class RecentTransactionsTabFragment(val fragment: Fragment) : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -53,7 +53,6 @@ class TransactionLogTabFragment(val fragment: Fragment) : Fragment() {
 
         viewModel.getCompletedTransactions().observe(viewLifecycleOwner) {
             transStatus[0]= TransactionLogItem("Completed", it.toMutableList())
-            Log.d("ChalLeBhai",it.toString())
             epoxyController.transactionLog = transStatus
             epoxyController.requestModelBuild()
         }
@@ -61,7 +60,6 @@ class TransactionLogTabFragment(val fragment: Fragment) : Fragment() {
         viewModel.getPendingTransactions(Date(System.currentTimeMillis()).time)
             .observe(viewLifecycleOwner) {
                 transStatus[1]= TransactionLogItem("Pending", it.toMutableList())
-                Log.d("ChalLeYaar",it.toString())
                 epoxyController.transactionLog = transStatus
                 epoxyController.requestModelBuild()
             }
@@ -69,7 +67,6 @@ class TransactionLogTabFragment(val fragment: Fragment) : Fragment() {
         viewModel.getUpcomingTransactions(Date(System.currentTimeMillis()).time)
             .observe(viewLifecycleOwner) {
                 transStatus[2]= TransactionLogItem("Upcoming", it.toMutableList())
-                Log.d("ChalLeBsdk",it.toString())
                 epoxyController.transactionLog = transStatus
                 epoxyController.requestModelBuild()
             }

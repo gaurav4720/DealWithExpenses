@@ -8,9 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.dealwithexpenses.databinding.FragmentYearMonthTabBinding
-import com.example.dealwithexpenses.mainScreen.TransactionLibrary.MonthCardDetail
-import com.example.dealwithexpenses.mainScreen.TransactionLibrary.YearEpoxyController
-import com.example.dealwithexpenses.mainScreen.viewModels.EpoxyData
+import com.example.dealwithexpenses.mainScreen.transactionLibrary.YearEpoxyController
 import com.example.dealwithexpenses.mainScreen.viewModels.MainScreenViewModel
 import com.example.dealwithexpenses.mainScreen.viewModels.convertIntoEpoxyData
 import com.google.firebase.auth.FirebaseAuth

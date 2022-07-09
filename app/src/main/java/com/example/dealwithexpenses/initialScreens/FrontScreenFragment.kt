@@ -17,14 +17,11 @@ class FrontScreenFragment : Fragment() {
     private lateinit var binding: FragmentFrontScreenBinding
     private lateinit var sharedPreferences: SharedPreferences
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         //initialising shared preferences and binding
         sharedPreferences = activity?.getSharedPreferences("user_auth", 0)!!
         binding = FragmentFrontScreenBinding.inflate(inflater, container, false)
@@ -33,6 +30,10 @@ class FrontScreenFragment : Fragment() {
         val allCheck: Boolean = sharedPreferences.getBoolean("allCheck", false)
 
         var action: NavDirections = FrontScreenFragmentDirections.actionFrontScreenFragmentToLoginScreenFragment()
+
+        if(isRegistered && isLoggedIn && allCheck){
+            action = FrontScreenFragmentDirections.actionFrontScreenFragmentToMainScreenFragment()
+        }
 
         //to hold the front screen for 5 seconds
         val handler = Handler()

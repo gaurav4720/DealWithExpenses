@@ -16,18 +16,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 
+@Suppress("DEPRECATION")
 class RegisterScreenFragment : Fragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     private lateinit var binding: FragmentRegisterScreenBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var sharedPreferences : SharedPreferences
     private lateinit var callBackManager: CallbackManager
 
-    private val SIGN_IN_CODE = 12345
+    private val signInCode = 12345
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -86,7 +83,7 @@ class RegisterScreenFragment : Fragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == SIGN_IN_CODE) {
+        if (requestCode == signInCode) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)

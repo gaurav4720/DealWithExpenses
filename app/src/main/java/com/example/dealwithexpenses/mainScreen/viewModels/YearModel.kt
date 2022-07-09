@@ -9,7 +9,7 @@ import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.example.dealwithexpenses.R
-import com.example.dealwithexpenses.mainScreen.TransactionLibrary.MonthAdapter
+import com.example.dealwithexpenses.mainScreen.transactionLibrary.MonthAdapter
 
 @EpoxyModelClass
 abstract class YearModel : EpoxyModelWithHolder<YearModel.holder>(){

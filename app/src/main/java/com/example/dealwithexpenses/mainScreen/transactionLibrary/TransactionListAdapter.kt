@@ -1,6 +1,7 @@
-package com.example.dealwithexpenses.mainScreen.TransactionLibrary
+package com.example.dealwithexpenses.mainScreen.transactionLibrary
 
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
@@ -20,26 +21,26 @@ import com.example.dealwithexpenses.mainScreen.viewModels.TransactionViewModel
 import pl.droidsonroids.gif.GifImageView
 import java.text.SimpleDateFormat
 
-class TransactionListAdapter(var transactionList: MutableList<Transaction>, val fragment: Fragment, private var listener: (Long)->Unit, val viewModel: TransactionViewModel, val context: Context)  : RecyclerView.Adapter<TransactionListAdapter.holder>() {
+class TransactionListAdapter(var transactionList: MutableList<Transaction>, val fragment: Fragment, private var listener: (Long)->Unit, private val viewModel: TransactionViewModel, val context: Context)  : RecyclerView.Adapter<TransactionListAdapter.Holder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): holder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view= LayoutInflater.from(parent.context).inflate(R.layout.transaction_item,parent,false)
-        return holder(view)
+        return Holder(view)
     }
 
-    override fun onBindViewHolder(holder: holder, position: Int) {
-        holder.bindview(transactionList[position])
+    override fun onBindViewHolder(holder: Holder, position: Int) {
+        holder.bindView(transactionList[position])
     }
 
     override fun getItemCount(): Int {
         return transactionList.size
     }
 
-    inner class holder(val view: View) : RecyclerView.ViewHolder(view){
+    inner class Holder(val view: View) : RecyclerView.ViewHolder(view){
         init {
             val viewDetails: TextView= view.findViewById(R.id.profitOrLoss)
             viewDetails.setOnClickListener {
-                listener.invoke(transactionList[adapterPosition].trans_id)
+                listener.invoke(transactionList[absoluteAdapterPosition].trans_id)
             }
         }
 
@@ -51,14 +52,14 @@ class TransactionListAdapter(var transactionList: MutableList<Transaction>, val 
         private val typeHere: View= view.findViewById(R.id.expenseOrIncome)
         val image: ImageView= view.findViewById(R.id.categorized_image)
 
-        fun bindview(transaction: Transaction){
+        fun bindView(transaction: Transaction){
             val isUpcoming = transaction.transactionDate.time > System.currentTimeMillis()
             if (transaction.transactionStatus == TransactionStatus.COMPLETED)
-                layout.setBackgroundColor(status_color[0])
+                layout.setBackgroundColor(statusColor[0])
             else if (isUpcoming)
-                layout.setBackgroundColor(status_color[1])
+                layout.setBackgroundColor(statusColor[1])
             else if (transaction.transactionStatus == TransactionStatus.PENDING)
-                layout.setBackgroundColor(status_color[2])
+                layout.setBackgroundColor(statusColor[2])
 
             title.text= transaction.title
             mode.text= transaction.transactionMode.name
@@ -67,14 +68,15 @@ class TransactionListAdapter(var transactionList: MutableList<Transaction>, val 
 
             val type= transaction.transactionType
             if(type==TransactionType.INCOME)
-                typeHere.setBackgroundColor(type_color[0])
+                typeHere.setBackgroundColor(typeColor[0])
             else
-                typeHere.setBackgroundColor(type_color[1])
+                typeHere.setBackgroundColor(typeColor[1])
 
             image.setImageDrawable(ContextCompat.getDrawable(image.context,images[transaction.transactionCategory.ordinal]))
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun deleteTransaction(position: Int, transactionList2: MutableList<Transaction>){
         val layout= LayoutInflater.from(context).inflate(R.layout.fragment_transaction_complete,null)
         "Transaction Deleted :)".also { layout.findViewById<TextView>(R.id.text_transaction).text = it }
@@ -101,6 +103,7 @@ class TransactionListAdapter(var transactionList: MutableList<Transaction>, val 
         builder.create().show()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun completeTransaction(position: Int, transactionList2: MutableList<Transaction>){
         val layout= LayoutInflater.from(context).inflate(R.layout.fragment_transaction_complete,null)
         "Transaction Completed :)".also { layout.findViewById<TextView>(R.id.text_transaction).text = it }
@@ -126,18 +129,18 @@ class TransactionListAdapter(var transactionList: MutableList<Transaction>, val 
         builder.create().show()
     }
 
-    val type_color= arrayListOf(
+    val typeColor= arrayListOf(
         R.color.type_income,
         R.color.type_expense
     )
 
-    val mode_color= arrayListOf(
+    val modeColor= arrayListOf(
         R.color.mode_cash,
         R.color.mode_credit_card,
         R.color.mode_debit_card
     )
 
-    val status_color = arrayListOf(
+    val statusColor = arrayListOf(
         R.color.status_completed,
         R.color.status_upcoming,
         R.color.status_pending,

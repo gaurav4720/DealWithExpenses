@@ -10,31 +10,27 @@ import com.example.dealwithexpenses.entities.TransactionType
 import com.example.dealwithexpenses.repositories.ListHandlerRepo
 
 class MonthScreenViewModel(application: Application): AndroidViewModel(application) {
-    private val MonthYear: MutableLiveData<Int> = MutableLiveData(0)
-    private val user_id: MutableLiveData<String> = MutableLiveData("")
+    private val _monthYear: MutableLiveData<Int> = MutableLiveData(0)
+    private val userid: MutableLiveData<String> = MutableLiveData("")
 
     private var listHandlerRepo: ListHandlerRepo= ListHandlerRepo(application)
 
-    fun setMonthYear(monthyear: Int){
-        MonthYear.let {
-            it.value= monthyear
-        }
+    fun setMonthYear(monthYear: Int){
+        _monthYear.value = monthYear
     }
 
     fun setUserId(userId: String){
-        user_id.let {
-            it.value= userId
-        }
+        userid.value = userId
     }
-    val monthlyTransactions : LiveData<List<Transaction>> = Transformations.switchMap(MonthYear){
-        listHandlerRepo.getTransactionsByMonthYear(user_id.value!!,it)
+    val monthlyTransactions : LiveData<List<Transaction>> = Transformations.switchMap(_monthYear){
+        listHandlerRepo.getTransactionsByMonthYear(userid.value!!,it)
     }
 
-    val monthlyExpenses : LiveData<Double> = Transformations.switchMap(MonthYear){
-        listHandlerRepo.getAmountByMonthYearAndType(user_id.value!!, TransactionType.EXPENSE, it)
+    val monthlyExpenses : LiveData<Double> = Transformations.switchMap(_monthYear){
+        listHandlerRepo.getAmountByMonthYearAndType(userid.value!!, TransactionType.EXPENSE, it)
     }
 
-    val monthlyIncome : LiveData<Double> = Transformations.switchMap(MonthYear){
-        listHandlerRepo.getAmountByMonthYearAndType(user_id.value!!, TransactionType.INCOME, it)
+    val monthlyIncome : LiveData<Double> = Transformations.switchMap(_monthYear){
+        listHandlerRepo.getAmountByMonthYearAndType(userid.value!!, TransactionType.INCOME, it)
     }
 }
