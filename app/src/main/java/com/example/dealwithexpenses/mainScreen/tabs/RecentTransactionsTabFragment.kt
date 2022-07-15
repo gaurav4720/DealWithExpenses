@@ -1,7 +1,6 @@
 package com.example.dealwithexpenses.mainScreen.tabs
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,9 +15,6 @@ import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 
 class RecentTransactionsTabFragment(val fragment: Fragment) : Fragment() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     private lateinit var binding: FragmentTransactionLogTabBinding
     private lateinit var firebaseAuth: FirebaseAuth
@@ -29,11 +25,13 @@ class RecentTransactionsTabFragment(val fragment: Fragment) : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
+        // initialize the binding, firebase auth and both the viewModels
         binding = FragmentTransactionLogTabBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
         firebaseAuth = FirebaseAuth.getInstance()
         transactionViewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
+
+        // setting the user id for both the viewModels
         viewModel.setUserID(firebaseAuth.currentUser!!.uid)
         transactionViewModel.setUserId(firebaseAuth.currentUser!!.uid)
 
@@ -47,28 +45,28 @@ class RecentTransactionsTabFragment(val fragment: Fragment) : Fragment() {
             TransactionLogEpoxyController(fragment, requireContext(), transactionViewModel)
         epoxyController.transactionLog = transStatus
 
-        binding.transactionsLogRecyclerView.setController(epoxyController)
+        binding.transactionsLogRecyclerView.adapter= epoxyController
         binding.transactionsLogRecyclerView.layoutManager =
             androidx.recyclerview.widget.LinearLayoutManager(requireContext())
 
         viewModel.getCompletedTransactions().observe(viewLifecycleOwner) {
             transStatus[0]= TransactionLogItem("Completed", it.toMutableList())
             epoxyController.transactionLog = transStatus
-            epoxyController.requestModelBuild()
+            binding.transactionsLogRecyclerView.adapter= epoxyController
         }
 
         viewModel.getPendingTransactions(Date(System.currentTimeMillis()).time)
             .observe(viewLifecycleOwner) {
                 transStatus[1]= TransactionLogItem("Pending", it.toMutableList())
                 epoxyController.transactionLog = transStatus
-                epoxyController.requestModelBuild()
+                binding.transactionsLogRecyclerView.adapter= epoxyController
             }
 
         viewModel.getUpcomingTransactions(Date(System.currentTimeMillis()).time)
             .observe(viewLifecycleOwner) {
                 transStatus[2]= TransactionLogItem("Upcoming", it.toMutableList())
                 epoxyController.transactionLog = transStatus
-                epoxyController.requestModelBuild()
+                binding.transactionsLogRecyclerView.adapter= epoxyController
             }
 
         // Inflate the layout for this fragment

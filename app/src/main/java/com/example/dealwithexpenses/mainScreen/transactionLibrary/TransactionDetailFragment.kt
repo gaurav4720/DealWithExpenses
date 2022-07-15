@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -48,6 +49,8 @@ class TransactionDetailFragment : Fragment() {
         viewModel.setUserId(userId)
 
         val transactionId= TransactionDetailFragmentArgs.fromBundle(requireArguments()).transId
+        val direction= TransactionDetailFragmentArgs.fromBundle(requireArguments()).calenderOrRecents
+
         viewModel.setTransactionId(transactionId)
 
         viewModel.transaction.observe(viewLifecycleOwner) {
@@ -57,7 +60,7 @@ class TransactionDetailFragment : Fragment() {
         binding.toolbar.setOnMenuItemClickListener { item ->
             when(item.itemId)  {
                 R.id.edit -> {
-                    findNavController().navigate(TransactionDetailFragmentDirections.actionTransactionDetailFragmentToAddOrEditTransactionFragment(viewModel.transactionId.value!!))
+                    findNavController().navigate(TransactionDetailFragmentDirections.actionTransactionDetailFragmentToAddOrEditTransactionFragment(viewModel.transactionId.value!!,1))
                     true
                 }
                 else -> {
@@ -68,7 +71,10 @@ class TransactionDetailFragment : Fragment() {
                         setPositiveButton("Yes"){_,_->
                             viewModel.delete(viewModel.transaction.value!!)
                             Toast.makeText(requireContext(),"Transaction deleted successfully",Toast.LENGTH_SHORT).show()
-                            findNavController().navigate(TransactionDetailFragmentDirections.actionTransactionDetailFragmentToMainScreenFragment())
+                            if(direction==1)
+                                findNavController().navigate(TransactionDetailFragmentDirections.actionTransactionDetailFragmentToMainScreenFragment(1))
+                            else
+                                findNavController().navigateUp()
                         }
                         setNegativeButton("No"){_,_->
                         }
@@ -80,7 +86,10 @@ class TransactionDetailFragment : Fragment() {
         }
         val onBackPressedCallback= object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                findNavController().navigate(TransactionDetailFragmentDirections.actionTransactionDetailFragmentToMainScreenFragment())
+                if(direction==1)
+                    findNavController().navigate(TransactionDetailFragmentDirections.actionTransactionDetailFragmentToMainScreenFragment(1))
+                else
+                    findNavController().navigateUp()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)

@@ -54,6 +54,11 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
         listHandlerRepo.getYears(it)
     }
 
+    val date: MutableLiveData<Long> = MutableLiveData(0L)
+    fun setDate(date: Long) {
+        this.date.value = date
+    }
+
     val categoryInfoList: LiveData<Map<TransactionCategory, Double>> = Transformations.switchMap(_userID) {
         listHandlerRepo.getAmountByCategoryAll(it)
     }
@@ -79,11 +84,17 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
         listHandlerRepo.getTransactionDatesByMonthYear(_userID.value!!, monthYear)
 
 
-    fun getTransactionsByDate(date: Long) =
-        listHandlerRepo.getTransactionByDate(_userID.value!!, date)
+    val getTransactionsByDate = Transformations.switchMap(date) {
+        listHandlerRepo.getTransactionByDate(_userID.value!!, it)
+    }
 
-    fun getAmountByDateAndType(date: Long, type: TransactionType) =
-        listHandlerRepo.getTransactionAmountByDateAndType(_userID.value!!, date, type)
+    val getIncomeByDateAndType = Transformations.switchMap(date) {
+        listHandlerRepo.getTransactionAmountByDateAndType(_userID.value!!, it, TransactionType.INCOME)
+    }
+
+    val getExpenseByDateAndType = Transformations.switchMap(date) {
+        listHandlerRepo.getTransactionAmountByDateAndType(_userID.value!!, it, TransactionType.EXPENSE)
+    }
 
     val monthlyTransactions: LiveData<List<Transaction>> = Transformations.switchMap(monthYear) {
         listHandlerRepo.getTransactionsByMonthYear(userID.value!!, it)

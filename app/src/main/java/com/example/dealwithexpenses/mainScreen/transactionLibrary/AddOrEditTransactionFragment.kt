@@ -36,6 +36,7 @@ class AddOrEditTransactionFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var viewModel: TransactionViewModel
     private lateinit var auth: FirebaseAuth
+    private val screenNo= AddOrEditTransactionFragmentArgs.fromBundle(requireArguments()).screenNo
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -105,7 +106,7 @@ class AddOrEditTransactionFragment : Fragment() {
                 setTitle("Cancel Transaction")
                 setMessage("Are you sure you want to cancel this transaction?")
                 setPositiveButton("Yes"){_, it->
-                    findNavController().navigate(AddOrEditTransactionFragmentDirections.actionAddOrEditTransactionFragmentToMainScreenFragment())
+                    findNavController().navigate(AddOrEditTransactionFragmentDirections.actionAddOrEditTransactionFragmentToMainScreenFragment(screenNo))
                 }
             }
             dialog.create().show()
@@ -165,7 +166,7 @@ class AddOrEditTransactionFragment : Fragment() {
         )
         viewModel.insertOrUpdate(transaction)
         Toast.makeText(requireContext(),"Transaction added/updated",Toast.LENGTH_SHORT).show()
-        findNavController().navigate(AddOrEditTransactionFragmentDirections.actionAddOrEditTransactionFragmentToMainScreenFragment())
+        findNavController().navigate(AddOrEditTransactionFragmentDirections.actionAddOrEditTransactionFragmentToMainScreenFragment(screenNo))
     }
 
     private  fun setData(transaction: Transaction) {

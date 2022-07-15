@@ -64,7 +64,7 @@ class UserBudgetDetailsFragment : Fragment() {
                 editor.apply()
 
                 //Then the user is directed to the main screen fragment
-                findNavController().navigate(UserBudgetDetailsFragmentDirections.actionUserBudgetDetailsFragmentToMainScreenFragment())
+                findNavController().navigate(UserBudgetDetailsFragmentDirections.actionUserBudgetDetailsFragmentToMainScreenFragment(0))
             }
         }
         return binding.root

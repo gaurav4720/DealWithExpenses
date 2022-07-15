@@ -20,12 +20,12 @@ class Navigate {
                 if (!allCheck)
                     LoginScreenFragmentDirections.actionLoginScreenFragmentToUserBudgetDetailsFragment()
                 else
-                    LoginScreenFragmentDirections.actionLoginScreenFragmentToMainScreenFragment()
+                    LoginScreenFragmentDirections.actionLoginScreenFragmentToMainScreenFragment(0)
             } else {
                 if (!allCheck)
                     RegisterScreenFragmentDirections.actionRegisterScreenFragmentToUserBudgetDetailsFragment()
                 else
-                    RegisterScreenFragmentDirections.actionRegisterScreenFragmentToMainScreenFragment()
+                    RegisterScreenFragmentDirections.actionRegisterScreenFragmentToMainScreenFragment(0)
             }
 
             NavHostFragment.findNavController(fragment).navigate(action)

@@ -87,8 +87,6 @@ class TransactionListAdapter(var transactionList: MutableList<Transaction>, val 
             .setCancelable(true)
             .setPositiveButton("YES"){ _,_ ->
                 viewModel.delete(transactionList2[position])
-                transactionList2.removeAt(position)
-                transactionList= transactionList2
                 notifyDataSetChanged()
                 val dialog= AlertDialog.Builder(context)
                     .setView(layout)
@@ -113,8 +111,6 @@ class TransactionListAdapter(var transactionList: MutableList<Transaction>, val 
             .setCancelable(true)
             .setPositiveButton("YES"){ _,_ ->
                 viewModel.complete(transactionList2[position])
-                transactionList2.removeAt(position)
-                transactionList= transactionList2
                 notifyDataSetChanged()
                 val dialog= AlertDialog.Builder(context)
                     .setView(layout)

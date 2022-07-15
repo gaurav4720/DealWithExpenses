@@ -12,7 +12,11 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:selectionColor="@color/category_bills"
+        app:selectionLabelColor="@color/category_food"
+        app:highlightedDaysLabelsColor="@color/mode_debit_card">
+
 
     </com.applandeo.materialcalendarview.CalendarView>
 

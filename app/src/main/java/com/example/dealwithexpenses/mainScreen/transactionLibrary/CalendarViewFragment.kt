@@ -5,12 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dealwithexpenses.entities.TransactionType
-import com.example.dealwithexpenses.mainScreen.MainScreenFragmentDirections
 import com.example.dealwithexpenses.mainScreen.viewModels.MainScreenViewModel
 import com.example.dealwithexpenses.databinding.FragmentCalendarViewBinding
 import com.example.dealwithexpenses.mainScreen.viewModels.TransactionViewModel
@@ -18,9 +17,6 @@ import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 
 class CalenderViewFragment : Fragment() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
     private lateinit var binding: FragmentCalendarViewBinding
     private lateinit var viewModel: MainScreenViewModel
     private lateinit var transactionViewModel: TransactionViewModel
@@ -56,50 +52,36 @@ class CalenderViewFragment : Fragment() {
         // marking the dates
         //markDates(monthYear)
 
-        //
-//        binding.calendarView.setOnDateClickListener(object : OnDateClickListener() {
-//            override fun onDateClick(view: View?, date: DateData) {
-//                val calendar= Calendar.getInstance()
-//                calendar.set(date.year,date.month,date.day)
-//                showData(calendar.timeInMillis)
-//            }
-//        })
-//
-//        binding.calendarView.setOnMonthChangeListener(object : OnMonthChangeListener() {
-//            override fun onMonthChange(year: Int, month: Int) {
-//                monthYear = year * 100 + month
-//                markDates(monthYear)
-//            }
-//        })
+        viewModel.setDate(calender.timeInMillis)
+        binding.calendarView.selectedDates = mutableListOf(calender)
 
-        // Inflate the layout for this fragment
-        return binding.root
-    }
-
-
-//    private fun markDates(monthYear: Int) {
-//        viewModel.getDates(monthYear).observe(viewLifecycleOwner) { it ->
-//            it.forEach { date ->
-//                val date1= Date(date)
-//                binding.calendarView.markDate(DateData(date1.year, date1.month, date1.day))
-//            }
-//        }
-//    }
-
-    fun showData(date: Long) {
-
-        viewModel.getAmountByDateAndType(date, TransactionType.EXPENSE)
-            .observe(viewLifecycleOwner) {
-                binding.spentAmount.text = it.toString()
-            }
-
-        viewModel.getAmountByDateAndType(date, TransactionType.INCOME).observe(viewLifecycleOwner) {
-            binding.earnedAmount.text = it.toString()
+        binding.calendarView.setOnDayClickListener { eventDay ->
+            val calendar = eventDay.calendar
+            viewModel.setMonthYear(calendar.get(Calendar.YEAR) * 100 + calendar.get(Calendar.MONTH))
+            viewModel.setDate(calendar.timeInMillis)
+            binding.calendarView.selectedDates= mutableListOf(calendar)
+            binding.calendarView.setHighlightedDays(mutableListOf(calendar))
         }
 
-        viewModel.getTransactionsByDate(date).observe(viewLifecycleOwner) { it ->
+        viewModel.getExpenseByDateAndType
+            .observe(viewLifecycleOwner) {
+                binding.spentAmount.text = it?.toString() ?: "0"
+            }
+
+        viewModel.getIncomeByDateAndType
+            .observe(viewLifecycleOwner) {
+                binding.earnedAmount.text = it?.toString() ?: "0"
+        }
+
+        viewModel.getTransactionsByDate.observe(viewLifecycleOwner) {
             val adapter =
-                TransactionListAdapter(it.toMutableList(), this, listener, transactionViewModel, requireContext())
+                TransactionListAdapter(
+                    it.toMutableList(),
+                    this,
+                    listener,
+                    transactionViewModel,
+                    requireContext()
+                )
             val swipeHandler = object : SwipeHandler() {
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     if (direction == ItemTouchHelper.LEFT) {
@@ -111,13 +93,25 @@ class CalenderViewFragment : Fragment() {
             }
 
             binding.dailyTransactions.adapter = adapter
+            binding.dailyTransactions.layoutManager =
+                androidx.recyclerview.widget.LinearLayoutManager(requireContext())
             ItemTouchHelper(swipeHandler).attachToRecyclerView(binding.dailyTransactions)
         }
+
+        val onBackPressedCallback= object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigateUp()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
+
+        // Inflate the layout for this fragment
+        return binding.root
     }
 
     private val listener: (id: Long) -> Unit = {
         findNavController().navigate(
-            MainScreenFragmentDirections.actionMainScreenFragmentToTransactionDetailFragment(it)
+            CalenderViewFragmentDirections.actionCalenderViewFragmentToTransactionDetailFragment(it,0)
         )
     }
 }

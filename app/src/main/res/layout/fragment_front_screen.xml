@@ -16,11 +16,11 @@
 
     <TextView
         android:id="@+id/app_title_mainScreen"
-        android:layout_width="306dp"
-        android:layout_height="45dp"
+        android:layout_width="348dp"
+        android:layout_height="46dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/aclonica"
-        android:text="Make My Budget"
+        android:text="Deal With Expenses"
 
         android:textAlignment="center"
         android:textColor="#330502"

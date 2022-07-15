@@ -51,7 +51,9 @@
             app:destination="@id/registerScreenFragment" />
         <action
             android:id="@+id/action_frontScreenFragment_to_mainScreenFragment"
-            app:destination="@id/mainScreenFragment" />
+            app:destination="@id/mainScreenFragment"
+            app:popUpTo="@id/frontScreenFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/transactionDetailFragment"
@@ -67,6 +69,12 @@
         <action
             android:id="@+id/action_transactionDetailFragment_to_mainScreenFragment"
             app:destination="@id/mainScreenFragment" />
+        <argument
+            android:name="CalenderOrRecents"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_transactionDetailFragment_to_calenderViewFragment"
+            app:destination="@id/calenderViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/userBudgetDetailsFragment"
@@ -91,6 +99,9 @@
         <action
             android:id="@+id/action_mainScreenFragment_to_transactionDetailFragment"
             app:destination="@id/transactionDetailFragment" />
+        <argument
+            android:name="screenNumber"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/addOrEditTransactionFragment"
@@ -103,6 +114,9 @@
         <action
             android:id="@+id/action_addOrEditTransactionFragment_to_mainScreenFragment"
             app:destination="@id/mainScreenFragment" />
+        <argument
+            android:name="screenNo"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/monthScreenFragment"
@@ -121,6 +135,9 @@
         <action
             android:id="@+id/action_monthScreenFragment_to_mainScreenFragment"
             app:destination="@id/mainScreenFragment" />
+        <action
+            android:id="@+id/action_monthScreenFragment_to_calenderViewFragment"
+            app:destination="@id/calenderViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/calenderViewFragment"
@@ -129,6 +146,9 @@
         <argument
             android:name="monthYear"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_calenderViewFragment_to_transactionDetailFragment"
+            app:destination="@id/transactionDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/overviewTabFragment"

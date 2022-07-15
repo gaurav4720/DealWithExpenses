@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.dealwithexpenses.databinding.FragmentMainScreenBinding
 import com.example.dealwithexpenses.mainScreen.viewModels.MainScreenViewModel
 import com.google.android.material.tabs.TabLayout
@@ -38,10 +39,12 @@ class MainScreenFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
         firebaseAuth = FirebaseAuth.getInstance()
 
-        binding.viewPager.adapter = ViewPagerAdapter(this)
+        val initialPosition= MainScreenFragmentArgs.fromBundle(requireArguments()).screenNumber
 
+        binding.viewPager.adapter = ViewPagerAdapter(this)
         binding.tabLayout.tabGravity = TabLayout.GRAVITY_FILL
 
+        binding.viewPager.currentItem = initialPosition
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 binding.viewPager.currentItem = tab.position
@@ -131,6 +134,15 @@ class MainScreenFragment : Fragment() {
             override fun onNothingSelected(parent: android.widget.AdapterView<*>) {
                 // Another interface callback
             }
+        }
+
+        binding.floatingActionButton2.setOnClickListener {
+            findNavController().navigate(
+                MainScreenFragmentDirections.actionMainScreenFragmentToAddOrEditTransactionFragment(
+                    0,
+                    0
+                )
+            )
         }
 
         // Inflate the layout for this fragment
