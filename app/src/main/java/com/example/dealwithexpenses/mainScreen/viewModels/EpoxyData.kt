@@ -1,7 +1,6 @@
 package com.example.dealwithexpenses.mainScreen.viewModels
 
 import android.content.SharedPreferences
-import android.util.Log
 import com.example.dealwithexpenses.daoS.MonthDetail
 import com.example.dealwithexpenses.mainScreen.transactionLibrary.MonthCardDetail
 import com.example.dealwithexpenses.mainScreen.tabs.YearMonthTabFragment.Companion.months
@@ -13,7 +12,6 @@ fun convertIntoEpoxyData(map : Map<Int, List<MonthDetail>>, sharedPreferences: S
     for (key in map.keys) {
         val epoxyData = EpoxyData(key, mutableListOf())
         for (monthDetail in map[key]!!) {
-            Log.d("yoyoyo",monthDetail.toString())
             val income= sharedPreferences.getString("income","0")!!.toDouble()
             var expense= 0.0
             var profit= 0.0

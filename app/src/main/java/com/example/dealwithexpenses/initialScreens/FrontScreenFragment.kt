@@ -1,5 +1,6 @@
 package com.example.dealwithexpenses.initialScreens
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
@@ -23,7 +24,7 @@ class FrontScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         //initialising shared preferences and binding
-        sharedPreferences = activity?.getSharedPreferences("user_auth", 0)!!
+        sharedPreferences = activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
         binding = FragmentFrontScreenBinding.inflate(inflater, container, false)
 
         //getting the variables isRegistered and isLoggedIn from shared preferences

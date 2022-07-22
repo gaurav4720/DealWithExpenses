@@ -8,6 +8,9 @@ import com.example.dealwithexpenses.entities.Transaction
 @Dao
 interface ListHandler {
 
+    @Query("SELECT * FROM transactions WHERE user_id = :user_id ORDER BY transactionDate DESC")
+    fun getAllTransactions(user_id: String): LiveData<List<Transaction>>
+
     @Query("SELECT * FROM transactions WHERE user_id = :user_id and transactionDate = :date")
     fun getTransactions(user_id: String, date: Long): LiveData<List<Transaction>>
 
@@ -195,6 +198,8 @@ interface ListHandler {
         transactionType1: TransactionType = TransactionType.EXPENSE,
         transactionType2: TransactionType = TransactionType.INCOME,
     ): LiveData<Map<Int, YearDetail>>
+
+
 }
 
 @Entity

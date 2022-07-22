@@ -131,7 +131,8 @@
             app:destination="@id/transactionDetailFragment" />
         <action
             android:id="@+id/action_monthScreenFragment_to_addOrEditTransactionFragment"
-            app:destination="@id/addOrEditTransactionFragment" />
+            app:destination="@id/addOrEditTransactionFragment"
+            app:popUpTo="@id/monthScreenFragment" />
         <action
             android:id="@+id/action_monthScreenFragment_to_mainScreenFragment"
             app:destination="@id/mainScreenFragment" />

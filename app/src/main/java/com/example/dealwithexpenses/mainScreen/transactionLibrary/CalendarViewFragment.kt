@@ -1,5 +1,6 @@
 package com.example.dealwithexpenses.mainScreen.transactionLibrary
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,14 +14,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dealwithexpenses.mainScreen.viewModels.MainScreenViewModel
 import com.example.dealwithexpenses.databinding.FragmentCalendarViewBinding
 import com.example.dealwithexpenses.mainScreen.viewModels.TransactionViewModel
-import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 
 class CalenderViewFragment : Fragment() {
     private lateinit var binding: FragmentCalendarViewBinding
     private lateinit var viewModel: MainScreenViewModel
     private lateinit var transactionViewModel: TransactionViewModel
-    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,12 +30,13 @@ class CalenderViewFragment : Fragment() {
         binding = FragmentCalendarViewBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
         transactionViewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
-        // declaring the firebaseAuth
-        firebaseAuth = FirebaseAuth.getInstance()
+        sharedPreferences= activity?.getSharedPreferences("user_auth",0)!!
 
-        // getting the user id from firebase to set in both viewModels
-        viewModel.setUserID(firebaseAuth.currentUser?.uid.toString())
-        transactionViewModel.setUserId(firebaseAuth.currentUser?.uid.toString())
+        val userId= sharedPreferences.getString("user_id", "")!!
+
+        //setting the user id of viewModel after getting it through shared preferences
+        viewModel.setUserID(userId)
+        transactionViewModel.setUserId(userId)
 
         // getting monthYear through arguments of CalenderViewFragment
         val monthYear = CalenderViewFragmentArgs.fromBundle(requireArguments()).monthYear
@@ -82,7 +83,7 @@ class CalenderViewFragment : Fragment() {
                     transactionViewModel,
                     requireContext()
                 )
-            val swipeHandler = object : SwipeHandler() {
+            val swipeHandler = object : SwipeHandler(requireContext()) {
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     if (direction == ItemTouchHelper.LEFT) {
                         adapter.deleteTransaction(viewHolder.absoluteAdapterPosition, it.toMutableList())

@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +17,6 @@ import com.example.dealwithexpenses.R
 import com.example.dealwithexpenses.databinding.FragmentTransactionDetailBinding
 import com.example.dealwithexpenses.entities.Transaction
 import com.example.dealwithexpenses.mainScreen.viewModels.TransactionViewModel
-import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
 
 
@@ -27,7 +25,6 @@ class TransactionDetailFragment : Fragment() {
     private lateinit var binding: FragmentTransactionDetailBinding
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var viewModel: TransactionViewModel
-    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,12 +37,13 @@ class TransactionDetailFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding= FragmentTransactionDetailBinding.inflate(inflater,container,false)
-        sharedPreferences= requireActivity().getSharedPreferences("transaction_detail", Context.MODE_PRIVATE)
+        sharedPreferences= requireActivity().getSharedPreferences("user_auth", Context.MODE_PRIVATE)
 
         viewModel= ViewModelProvider(this).get(TransactionViewModel::class.java)
-        auth= FirebaseAuth.getInstance()
 
-        val userId= auth.currentUser!!.uid
+        val userId= sharedPreferences.getString("user_id", "")!!
+
+        //setting the user id of viewModel after getting it through firebase
         viewModel.setUserId(userId)
 
         val transactionId= TransactionDetailFragmentArgs.fromBundle(requireArguments()).transId
@@ -60,7 +58,7 @@ class TransactionDetailFragment : Fragment() {
         binding.toolbar.setOnMenuItemClickListener { item ->
             when(item.itemId)  {
                 R.id.edit -> {
-                    findNavController().navigate(TransactionDetailFragmentDirections.actionTransactionDetailFragmentToAddOrEditTransactionFragment(viewModel.transactionId.value!!,1))
+                    findNavController().navigate(TransactionDetailFragmentDirections.actionTransactionDetailFragmentToAddOrEditTransactionFragment(viewModel.transactionId.value!!,3))
                     true
                 }
                 else -> {
@@ -92,7 +90,7 @@ class TransactionDetailFragment : Fragment() {
                     findNavController().navigateUp()
             }
         }
-        requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
+        this.activity?.onBackPressedDispatcher?.addCallback(onBackPressedCallback)
         return binding.root
     }
 

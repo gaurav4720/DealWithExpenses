@@ -15,12 +15,8 @@ import com.google.firebase.auth.FirebaseAuth
 
 class YearMonthTabFragment(val fragment: Fragment) : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
     private lateinit var binding: FragmentYearMonthTabBinding
     private lateinit var model: MainScreenViewModel
-    private lateinit var auth: FirebaseAuth
     private lateinit var sharedPreferences: SharedPreferences
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,10 +24,10 @@ class YearMonthTabFragment(val fragment: Fragment) : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding= FragmentYearMonthTabBinding.inflate(inflater,container,false)
-        auth= FirebaseAuth.getInstance()
         model= ViewModelProvider(this).get(MainScreenViewModel::class.java)
         sharedPreferences= activity?.getSharedPreferences("user_auth", 0)!!
-        model.setUserID(auth.currentUser!!.uid)
+        val userId= sharedPreferences.getString("user_id", "")!!
+        model.setUserID(userId)
 
         val yearEpoxyController= YearEpoxyController(fragment)
             //yearEpoxyController.transactYears= list

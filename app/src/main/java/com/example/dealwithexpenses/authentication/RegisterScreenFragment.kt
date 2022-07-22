@@ -69,6 +69,7 @@ class RegisterScreenFragment : Fragment() {
             firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { auth ->
                     if (auth.isSuccessful) {
+                        sharedPreferences.edit().putString("user_id", firebaseAuth.currentUser?.uid).apply()
                         Toast.makeText(context, "Successfully registered", Toast.LENGTH_SHORT)
                             .show()
                         val user = User(email, password, "0")

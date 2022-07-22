@@ -59,6 +59,10 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
         this.date.value = date
     }
 
+    val transactions: LiveData<List<Transaction>> = Transformations.switchMap(_userID) {
+        listHandlerRepo.getAllTransactions(it)
+    }
+
     val categoryInfoList: LiveData<Map<TransactionCategory, Double>> = Transformations.switchMap(_userID) {
         listHandlerRepo.getAmountByCategoryAll(it)
     }

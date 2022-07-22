@@ -1,5 +1,7 @@
 package com.example.dealwithexpenses.mainScreen.tabs
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -22,14 +24,13 @@ import com.example.dealwithexpenses.entities.TransactionMode
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 import kotlin.collections.ArrayList
 
 class OverviewTabFragment : Fragment() {
 
     private lateinit var viewModel: MainScreenViewModel
-    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var binding: FragmentOverviewTabBinding
 
     override fun onCreateView(
@@ -40,10 +41,12 @@ class OverviewTabFragment : Fragment() {
         //initialising binding, viewModel and firebase
         binding = FragmentOverviewTabBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
-        firebaseAuth = FirebaseAuth.getInstance()
+        sharedPreferences = activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
+
+        val userId= sharedPreferences.getString("user_id", "")!!
 
         //setting the user id of viewModel after getting it through firebase
-        viewModel.setUserID(firebaseAuth.currentUser?.uid.toString())
+        viewModel.setUserID(userId)
 
         //choices for the pie chart data, category-wise, type-wise or mode-wise
         val pieChartChoices = arrayOf(
@@ -88,8 +91,9 @@ class OverviewTabFragment : Fragment() {
             }
 
         // years to be shown when user has done at least one transaction
-        val barChartYears: MutableList<String> = mutableListOf()
+        var barChartYears: MutableList<String> = mutableListOf()
         viewModel.years.observe(viewLifecycleOwner) {
+            barChartYears= mutableListOf()
             it.forEach { year ->
                 //adding every such year into the list
                 barChartYears.add(year.toString())
@@ -197,7 +201,7 @@ class OverviewTabFragment : Fragment() {
                     entries.add(it.name)
                 }
 
-                val adapter= legendAdapter(colors,entries)
+                val adapter= LegendAdapter(colors,entries)
                 binding.referneceBox.adapter= adapter
                 binding.referneceBox.layoutManager= LinearLayoutManager(requireContext())
 
@@ -237,7 +241,7 @@ class OverviewTabFragment : Fragment() {
                     entries.add(it.name)
                 }
 
-                val adapter= legendAdapter(colors,entries)
+                val adapter= LegendAdapter(colors,entries)
                 binding.referneceBox.adapter= adapter
                 binding.referneceBox.layoutManager= LinearLayoutManager(requireContext())
                 // adding the data to the pie data set
@@ -276,7 +280,7 @@ class OverviewTabFragment : Fragment() {
                     entries.add(it.name)
                 }
 
-                val adapter= legendAdapter(colors,entries)
+                val adapter= LegendAdapter(colors,entries)
                 binding.referneceBox.adapter= adapter
                 binding.referneceBox.layoutManager= LinearLayoutManager(requireContext())
 
@@ -477,7 +481,7 @@ class OverviewTabFragment : Fragment() {
 
 }
 
-class legendAdapter(val colorList: Array<Int>, val legendList: ArrayList<String>): RecyclerView.Adapter<legendAdapter.Holder>() {
+class LegendAdapter(val colorList: Array<Int>, val legendList: ArrayList<String>): RecyclerView.Adapter<LegendAdapter.Holder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view= LayoutInflater.from(parent.context).inflate(R.layout.pie_chart_elements, parent, false)
         return Holder(view)

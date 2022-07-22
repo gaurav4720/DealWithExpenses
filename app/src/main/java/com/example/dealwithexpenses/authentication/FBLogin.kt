@@ -2,7 +2,6 @@ package com.example.dealwithexpenses.authentication
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import com.facebook.CallbackManager
@@ -25,22 +24,28 @@ class FBLogin {
 
         private lateinit var fragment: Fragment
 
+
+        @DelicateCoroutinesApi
         fun login(fragment: Fragment, callBackManager: CallbackManager) {
-            // 
+            // fixing the fragment of this file as the previous one.
             this.fragment = fragment
 
+            // login with facebook using the logInWithReadPermissions method.
             LoginManager.getInstance()
                 .logInWithReadPermissions(fragment, listOf("public_profile", "email"))
 
+            // callback manager is used to get the result of the login.
             LoginManager.getInstance()
                 .registerCallback(
                     callBackManager,
                     object : FacebookCallback<LoginResult> {
+                        // if the user cancels this option for login, login cancelled will be shown
                         override fun onCancel() {
                             Toast.makeText(fragment.activity, "Login Cancelled", Toast.LENGTH_SHORT)
                                 .show()
                         }
 
+                        // if the login is unsuccessful, the error is shown.
                         override fun onError(error: FacebookException) {
                             Toast.makeText(
                                 fragment.activity, "Login Failed", Toast.LENGTH_SHORT
@@ -48,6 +53,7 @@ class FBLogin {
                         }
 
                         override fun onSuccess(result: LoginResult) {
+                            //on success, backend of FB handle works
                             handleFBLogin(result)
                         }
 
@@ -55,28 +61,38 @@ class FBLogin {
                 )
         }
 
-        @OptIn(DelicateCoroutinesApi::class)
+        @DelicateCoroutinesApi
         private fun handleFBLogin(result: LoginResult) {
 
+            // initializing the firebase auth and the shared preferences.
             firebaseAuth = FirebaseAuth.getInstance()
             sharedPreferences =
                 fragment.requireActivity().getSharedPreferences("user_auth", Context.MODE_PRIVATE)
 
-
+            // getting credentials from the facebook provider
             val credentials = FacebookAuthProvider.getCredential(result.accessToken.token)
             GlobalScope.launch(Dispatchers.IO) {
+                // logging in the user with the credentials.
                 val auth = firebaseAuth.signInWithCredential(credentials)
 
+                // when the task is complete
                 auth.addOnCompleteListener {
+                    // if the task is successful
                     if (it.isSuccessful) {
-                        Log.d("FBLogin", "${it.result?.user?.displayName} logged in")
+                        sharedPreferences.edit().putString("user_id", firebaseAuth.currentUser?.uid).apply()
+                        // showing a toast message
                         Toast.makeText(fragment.activity, "Login Successful", Toast.LENGTH_SHORT)
                             .show()
-                        val user = auth.result?.user
-                            sharedPreferences.edit().putBoolean("isRegistered", true).apply()
-                            Navigate.action(fragment)
                     } else {
+                        // if the task is unsuccessful, showing the error by FB Handle as a toast message
                         Toast.makeText(fragment.activity, it.exception?.message.toString(), Toast.LENGTH_SHORT).show()
+                    }
+                }
+                withContext(Dispatchers.Main) {
+                    if (auth.isSuccessful) {
+                        Navigate.action(fragment)
+                        sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
+                        sharedPreferences.edit().putBoolean("isRegistered", true).apply()
                     }
                 }
             }

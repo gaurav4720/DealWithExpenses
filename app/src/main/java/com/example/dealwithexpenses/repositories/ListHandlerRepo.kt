@@ -13,6 +13,10 @@ import java.util.*
 class ListHandlerRepo(application: Application) {
     private val listHandlerDao = TransactionDB.getDatabase(application).listHandlerDao()
 
+    fun getAllTransactions(user_id: String): LiveData<List<Transaction>> {
+        return listHandlerDao.getAllTransactions(user_id)
+    }
+
     fun getAllTransactionsByDate(user_id: String, date: Long): LiveData<List<Transaction>> =
         listHandlerDao.getTransactions(user_id, date)
 
@@ -165,4 +169,5 @@ class ListHandlerRepo(application: Application) {
         user_id: String
     ): LiveData<Map<Int, BarChartDetail>> =
         listHandlerDao.getBarChartDetailsByYear(user_id)
+
 }

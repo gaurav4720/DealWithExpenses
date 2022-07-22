@@ -65,7 +65,7 @@ class TransactionViewModel(application: Application): AndroidViewModel(applicati
             TransactionStatus.COMPLETED
         )
         viewModelScope.launch {
-            insertOrUpdate(transaction1)
+            repository.update(transaction1)
         }
     }
 }

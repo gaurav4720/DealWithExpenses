@@ -6,18 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.view.menu.MenuView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.airbnb.epoxy.AsyncEpoxyController
 import com.example.dealwithexpenses.R
 import com.example.dealwithexpenses.entities.Transaction
+import com.example.dealwithexpenses.entities.TransactionStatus
 import com.example.dealwithexpenses.mainScreen.MainScreenFragmentDirections
 import com.example.dealwithexpenses.mainScreen.viewModels.TransactionViewModel
-import com.example.dealwithexpenses.mainScreen.viewModels.transactionLog
 
 
 class TransactionLogEpoxyController(
@@ -41,12 +40,18 @@ class TransactionLogEpoxyController(
             val adapter =
                 TransactionListAdapter(item.transactionLog, fragment, listener, viewModel, context)
 
-            val swipeHandler = object : SwipeHandler() {
+            val swipeHandler = object : SwipeHandler(context) {
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     if (direction == ItemTouchHelper.LEFT) {
                         adapter.deleteTransaction(viewHolder.absoluteAdapterPosition, item.transactionLog)
+                        //viewModel.delete(item.transactionLog[viewHolder.absoluteAdapterPosition])
                     } else if (direction == ItemTouchHelper.RIGHT) {
-                        adapter.completeTransaction(viewHolder.absoluteAdapterPosition, item.transactionLog)
+                        if(item.transactionLog[viewHolder.absoluteAdapterPosition].transactionStatus== TransactionStatus.COMPLETED){
+                            Toast.makeText(context,"Transaction already completed", Toast.LENGTH_SHORT).show()
+                        }
+                        else
+                            adapter.completeTransaction(viewHolder.absoluteAdapterPosition, item.transactionLog)
+                        //viewModel.complete(item.transactionLog[viewHolder.absoluteAdapterPosition])
                     }
                 }
             }

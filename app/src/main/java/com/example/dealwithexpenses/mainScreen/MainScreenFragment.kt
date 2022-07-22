@@ -13,21 +13,13 @@ import com.example.dealwithexpenses.databinding.FragmentMainScreenBinding
 import com.example.dealwithexpenses.mainScreen.viewModels.MainScreenViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.firebase.auth.FirebaseAuth
 import java.util.*
-import kotlin.collections.HashMap
 
 class MainScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentMainScreenBinding
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var viewModel: MainScreenViewModel
-    private lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var incomeRegister: HashMap<Int, Double>
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,12 +29,13 @@ class MainScreenFragment : Fragment() {
         binding = FragmentMainScreenBinding.inflate(inflater, container, false)
         sharedPreferences = activity?.getSharedPreferences("user_auth", 0)!!
         viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
-        firebaseAuth = FirebaseAuth.getInstance()
 
         val initialPosition= MainScreenFragmentArgs.fromBundle(requireArguments()).screenNumber
 
         binding.viewPager.adapter = ViewPagerAdapter(this)
         binding.tabLayout.tabGravity = TabLayout.GRAVITY_FILL
+
+
 
         binding.viewPager.currentItem = initialPosition
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -65,7 +58,10 @@ class MainScreenFragment : Fragment() {
                 2 -> tab.text = "Calendar"
             }
         }.attach()
-        val userId = firebaseAuth.currentUser?.uid!!
+
+        val userId= sharedPreferences.getString("user_id", "")!!
+
+        //setting the user id of viewModel after getting it through firebase
         viewModel.setUserID(userId)
 
         val activeMonthlyIncome = sharedPreferences.getString("income", "0")?.toDouble()

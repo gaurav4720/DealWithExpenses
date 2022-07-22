@@ -1,13 +1,14 @@
 package com.example.dealwithexpenses.mainScreen.transactionLibrary
 
-import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Canvas
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dealwithexpenses.R
 import com.kevincodes.recyclerview.ItemDecorator
 
-abstract class SwipeHandler() : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT){
+abstract class SwipeHandler(val context: Context) : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT){
     override fun onMove(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder,
@@ -16,7 +17,6 @@ abstract class SwipeHandler() : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper
         return false
     }
 
-    @SuppressLint("ResourceAsColor")
     override fun onChildDraw(
         c: Canvas,
         recyclerView: RecyclerView,
@@ -33,13 +33,23 @@ abstract class SwipeHandler() : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper
             dX,
             actionState
         ).set(
-            backgroundColorFromStartToEnd = R.color.swipe_right,
-            iconResIdFromStartToEnd = R.drawable.swipe_complete,
+            backgroundColorFromStartToEnd = ContextCompat.getColor(context,
+                R.color.transaction_completed
+            ),
+            iconResIdFromStartToEnd = R.drawable.ic_baseline_check_circle_outline_24,
+            iconTintColorFromStartToEnd = ContextCompat.getColor(context,
+                R.color.swipe_right
+            ),
             textFromStartToEnd = "Complete",
             textSizeFromStartToEnd = 10f,
 
-            backgroundColorFromEndToStart = R.color.swipe_left,
-            iconResIdFromEndToStart = R.drawable.swipe_delete,
+            backgroundColorFromEndToStart = ContextCompat.getColor(context,
+                R.color.transaction_completed
+            ),
+            iconResIdFromEndToStart = R.drawable.ic_baseline_delete_forever_24,
+            iconTintColorFromEndToStart = ContextCompat.getColor(context,
+                R.color.swipe_left
+            ),
             textFromEndToStart = "Delete",
             textSizeFromEndToStart = 10f,
         )
