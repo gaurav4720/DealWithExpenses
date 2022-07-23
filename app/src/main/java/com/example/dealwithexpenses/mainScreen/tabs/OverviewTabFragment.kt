@@ -43,7 +43,7 @@ class OverviewTabFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
         sharedPreferences = activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
 
-        val userId= sharedPreferences.getString("user_id", "")!!
+        val userId = sharedPreferences.getString("user_id", "")!!
 
         //setting the user id of viewModel after getting it through firebase
         viewModel.setUserID(userId)
@@ -84,6 +84,7 @@ class OverviewTabFragment : Fragment() {
                         setPieChart(it)
                     }
                 }
+
                 //on nothing selected, keep the selection fixed to be Category
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                     setPieChart("Category")
@@ -93,7 +94,7 @@ class OverviewTabFragment : Fragment() {
         // years to be shown when user has done at least one transaction
         var barChartYears: MutableList<String> = mutableListOf()
         viewModel.years.observe(viewLifecycleOwner) {
-            barChartYears= mutableListOf()
+            barChartYears = mutableListOf()
             it.forEach { year ->
                 //adding every such year into the list
                 barChartYears.add(year.toString())
@@ -119,7 +120,7 @@ class OverviewTabFragment : Fragment() {
 
         binding.switch1.setOnClickListener {
             //change the value of isActivated whenever user presses the switch
-            isActivated= !isActivated
+            isActivated = !isActivated
             // bar chart spinner will only be shown if switch is activated
             binding.barChartSpinner.isEnabled = isActivated
             //barchart mode will be yearly if switch is activated, otherwise monthly
@@ -148,7 +149,7 @@ class OverviewTabFragment : Fragment() {
                     id: Long
                 ) {
                     //ViewModel will set the year according to the option chosen
-                    year= barChartYears[binding.barChartSpinner.selectedItemPosition].toInt()
+                    year = barChartYears[binding.barChartSpinner.selectedItemPosition].toInt()
                     //bar chart is set according to the year selected
                     setBarChart(barChartMode, year)
                 }
@@ -196,20 +197,21 @@ class OverviewTabFragment : Fragment() {
                     R.color.category_other
                 )
 
-                val entries= arrayListOf<String>()
+                val entries = arrayListOf<String>()
                 TransactionCategory.values().forEach {
                     entries.add(it.name)
                 }
 
-                val adapter= LegendAdapter(colors,entries)
-                binding.referneceBox.adapter= adapter
-                binding.referneceBox.layoutManager= LinearLayoutManager(requireContext())
+                val adapter = LegendAdapter(colors, entries)
+                binding.referneceBox.adapter = adapter
+                binding.referneceBox.layoutManager = LinearLayoutManager(requireContext())
 
                 // adding the data to the pie chart
                 viewModel.categoryInfoList.observe(viewLifecycleOwner) {
                     pieEntries = arrayListOf()
                     TransactionCategory.values().forEachIndexed { index, transactionCategory ->
-                        val amount= it[transactionCategory] ?: 0.0 // if no amount is found, set it to 0.0
+                        val amount =
+                            it[transactionCategory] ?: 0.0 // if no amount is found, set it to 0.0
                         pieEntries.add(
                             PieEntry(
                                 amount.toFloat(),
@@ -236,19 +238,20 @@ class OverviewTabFragment : Fragment() {
                     R.color.type_expense
                 )
 
-                val entries= arrayListOf<String>()
+                val entries = arrayListOf<String>()
                 TransactionType.values().forEach {
                     entries.add(it.name)
                 }
 
-                val adapter= LegendAdapter(colors,entries)
-                binding.referneceBox.adapter= adapter
-                binding.referneceBox.layoutManager= LinearLayoutManager(requireContext())
+                val adapter = LegendAdapter(colors, entries)
+                binding.referneceBox.adapter = adapter
+                binding.referneceBox.layoutManager = LinearLayoutManager(requireContext())
                 // adding the data to the pie data set
                 viewModel.typesInfoList.observe(viewLifecycleOwner) {
                     pieEntries = arrayListOf()
                     TransactionType.values().forEachIndexed { index, transactionType ->
-                        val amount= it[transactionType] ?: 0.0 // if no amount is found, set it to 0.0
+                        val amount =
+                            it[transactionType] ?: 0.0 // if no amount is found, set it to 0.0
                         pieEntries.add(
                             PieEntry(
                                 amount.toFloat(),
@@ -275,20 +278,21 @@ class OverviewTabFragment : Fragment() {
                     R.color.mode_debit_card,
                 )
 
-                val entries= arrayListOf<String>()
+                val entries = arrayListOf<String>()
                 TransactionMode.values().forEach {
                     entries.add(it.name)
                 }
 
-                val adapter= LegendAdapter(colors,entries)
-                binding.referneceBox.adapter= adapter
-                binding.referneceBox.layoutManager= LinearLayoutManager(requireContext())
+                val adapter = LegendAdapter(colors, entries)
+                binding.referneceBox.adapter = adapter
+                binding.referneceBox.layoutManager = LinearLayoutManager(requireContext())
 
                 // adding the data to the pie data set
                 viewModel.transModesInfoList.observe(viewLifecycleOwner) {
                     pieEntries = arrayListOf()
                     TransactionMode.values().forEachIndexed { index, transactionMode ->
-                        val amount= it[transactionMode] ?: 0.0  // if no amount is found, set it to 0.0
+                        val amount =
+                            it[transactionMode] ?: 0.0  // if no amount is found, set it to 0.0
                         pieEntries.add(
                             PieEntry(
                                 amount.toFloat(),
@@ -310,7 +314,10 @@ class OverviewTabFragment : Fragment() {
     }
 
     //function to set the bar chart according to the choice selected
-    private fun addDataToBarChart(barDataSet: ArrayList<BarDataSet> = arrayListOf(), yearsOrMonths: ArrayList<String> = arrayListOf()) {
+    private fun addDataToBarChart(
+        barDataSet: ArrayList<BarDataSet> = arrayListOf(),
+        yearsOrMonths: ArrayList<String> = arrayListOf()
+    ) {
         binding.barChart.data = BarData(barDataSet.toList())
         //setting the x-axis of the bar chart and width of the bar
         binding.barChart.data.barWidth = 0.5f
@@ -356,11 +363,11 @@ class OverviewTabFragment : Fragment() {
                 var barAmountEntries: MutableList<BarEntry> = mutableListOf()
                 viewModel.barChartDetailByMonth.observe(viewLifecycleOwner) {
                     barAmountEntries = arrayListOf()
-                    val monthYear= year*100
+                    val monthYear = year * 100
                     months.forEachIndexed { index, month ->
-                        var amount= it[monthYear+index+1]?.amount?.toDouble()
-                        if(amount==null)
-                            amount= 0.0
+                        var amount = it[monthYear + index + 1]?.amount?.toDouble()
+                        if (amount == null)
+                            amount = 0.0
                         barAmountEntries.add(
                             BarEntry(
                                 index.toFloat(),
@@ -373,11 +380,11 @@ class OverviewTabFragment : Fragment() {
                 var barTransactionsEntries: MutableList<BarEntry> = mutableListOf()
                 viewModel.barChartDetailByMonth.observe(viewLifecycleOwner) {
                     barTransactionsEntries = mutableListOf()
-                    val monthYear= year*100
+                    val monthYear = year * 100
                     months.forEachIndexed { index, month ->
-                        var transactions= it[monthYear+index+1]?.transactionsCount?.toDouble()
-                        if(transactions==null)
-                            transactions= 0.0
+                        var transactions = it[monthYear + index + 1]?.transactionsCount?.toDouble()
+                        if (transactions == null)
+                            transactions = 0.0
                         barTransactionsEntries.add(
                             BarEntry(
                                 index.toFloat(),
@@ -424,9 +431,9 @@ class OverviewTabFragment : Fragment() {
                 viewModel.barChartDetailByYear.observe(viewLifecycleOwner) {
                     barAmountEntries = arrayListOf()
                     years.forEachIndexed { index, year ->
-                        var amount= it[year.toInt()]?.amount?.toDouble()
-                        if(amount==null)
-                            amount= 0.0
+                        var amount = it[year.toInt()]?.amount?.toDouble()
+                        if (amount == null)
+                            amount = 0.0
                         barAmountEntries.add(
                             BarEntry(
                                 index.toFloat(),
@@ -481,9 +488,11 @@ class OverviewTabFragment : Fragment() {
 
 }
 
-class LegendAdapter(val colorList: Array<Int>, val legendList: ArrayList<String>): RecyclerView.Adapter<LegendAdapter.Holder>() {
+class LegendAdapter(val colorList: Array<Int>, val legendList: ArrayList<String>) :
+    RecyclerView.Adapter<LegendAdapter.Holder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        val view= LayoutInflater.from(parent.context).inflate(R.layout.pie_chart_elements, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.pie_chart_elements, parent, false)
         return Holder(view)
     }
 
@@ -495,12 +504,12 @@ class LegendAdapter(val colorList: Array<Int>, val legendList: ArrayList<String>
         holder.bindView(colorList[position], legendList[position])
     }
 
-    class Holder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        val circle= itemView.findViewById<ImageView>(R.id.circular_mark)
-        val item= itemView.findViewById<TextView>(R.id.item)
+    class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val circle = itemView.findViewById<ImageView>(R.id.circular_mark)
+        val item = itemView.findViewById<TextView>(R.id.item)
         fun bindView(color: Int, legend: String) {
             circle.setColorFilter(ContextCompat.getColor(circle.context, color))
-            item.text= legend
+            item.text = legend
         }
     }
 }
