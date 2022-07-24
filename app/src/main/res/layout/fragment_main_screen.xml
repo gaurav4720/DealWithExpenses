@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
+        android:contentDescription="@string/addtransactionbutton"
+        android:focusable="true"
         android:foregroundGravity="bottom|right"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_baseline_add_24"
-        android:contentDescription="@string/addtransactionbutton"
-        android:focusable="true" />
+        app:srcCompat="@drawable/ic_baseline_add_24" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -174,26 +174,25 @@
 
 
     </ScrollView>
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="2dp" >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/profileImage"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginStart="20dp"
             app:srcCompat="@drawable/logo"
-            tools:layout_editor_absoluteX="8dp"
-            android:layout_marginStart="20dp" />
+            tools:layout_editor_absoluteX="8dp" />
 
         <TextView
             android:id="@+id/appName"
@@ -203,7 +202,8 @@
             android:layout_marginStart="20dp"
             android:text="Deal With Expenses"
             android:textColor="#FFFFFF"
-            android:textSize="25sp" />
+            android:textSize="25sp"
+            />
 
     </androidx.appcompat.widget.Toolbar>
 
