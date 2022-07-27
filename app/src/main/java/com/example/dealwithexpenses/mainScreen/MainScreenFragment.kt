@@ -6,9 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.activity.OnBackPressedCallback
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.dealwithexpenses.R
 import com.example.dealwithexpenses.databinding.FragmentMainScreenBinding
 import com.example.dealwithexpenses.mainScreen.viewModels.MainScreenViewModel
 import com.google.android.material.tabs.TabLayout
@@ -32,10 +36,15 @@ class MainScreenFragment : Fragment() {
 
         val initialPosition= MainScreenFragmentArgs.fromBundle(requireArguments()).screenNumber
 
+        val drawerLayout= requireActivity().findViewById<DrawerLayout>(R.id.fragment_drawer)
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START)
+        }
+
         binding.viewPager.adapter = ViewPagerAdapter(this)
         binding.tabLayout.tabGravity = TabLayout.GRAVITY_FILL
 
-
+        var positionNow= 0
 
         binding.viewPager.currentItem = initialPosition
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -53,9 +62,9 @@ class MainScreenFragment : Fragment() {
         })
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             when (position) {
-                0 -> tab.text = "Statistics"
-                1 -> tab.text = "Recent Transaction"
-                2 -> tab.text = "Calendar"
+                0 -> {tab.text = "Statistics"; positionNow=0 }
+                1 -> {tab.text = "Recent Transaction"; positionNow=1 }
+                2 -> {tab.text = "Calendar"; positionNow=2 }
             }
         }.attach()
 
@@ -79,8 +88,6 @@ class MainScreenFragment : Fragment() {
         )
 
         binding.spinner.adapter = choicesAdapter
-
-        //incomeRegister = sharedPreferences.getHashMap("income_register")
 
         binding.spinner.onItemSelectedListener = object :
             android.widget.AdapterView.OnItemSelectedListener {
@@ -136,10 +143,19 @@ class MainScreenFragment : Fragment() {
             findNavController().navigate(
                 MainScreenFragmentDirections.actionMainScreenFragmentToAddOrEditTransactionFragment(
                     0,
-                    0
+                    positionNow
                 )
             )
         }
+
+        val onBackPressedCallback= object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                }
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
 
         // Inflate the layout for this fragment
         return binding.root

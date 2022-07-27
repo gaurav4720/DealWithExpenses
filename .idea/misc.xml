@@ -18,22 +18,32 @@
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/drawable/ic_baseline_vpn_key_24.xml" value="0.125" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/drawable/ic_sharp_stay_current_landscape_24.xml" value="0.1955" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/drawable/logo_app.xml" value="0.1" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/drawable/side_nav_bar.xml" value="0.1" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/font/aclonica.xml" value="0.284375" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/font/galada.xml" value="0.24074074074074073" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/activity_drawer.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/app_bar_drawer.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/content_drawer.xml" value="0.1" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/drawer_options.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/epoxy_months.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/epoxy_years.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_about_us.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_add_or_edit_transaction.xml" value="0.264" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_calendar_view.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_drawer.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_edit_my_details.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_facebook_login.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_front_screen.xml" value="0.2" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_front_screen2.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_gallery.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_google_login.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_login_screen.xml" value="0.264" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_login_screen2.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_main_screen.xml" value="0.264" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_month_screen.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_my_details.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_my_details2.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_opening_screen.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_overview_tab.xml" value="0.264" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_recent_transactions_tab.xml" value="0.25416666666666665" />
@@ -45,10 +55,13 @@
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_user_budget_details.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/fragment_year_month_tab.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/front_screen.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/pie_chart_elements.xml" value="0.8" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/nav_header_drawer.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/pie_chart_elements.xml" value="0.264" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/toolbar_layout.xml" value="0.24010416666666667" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/transaction_item.xml" value="0.264" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/transaction_log_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/menu/add_or_edit_transaction_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/menu/drawer_menu.xml" value="0.24010416666666667" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/menu/month_screen_menu.xml" value="0.4" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/menu/view_transaction_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2595" />

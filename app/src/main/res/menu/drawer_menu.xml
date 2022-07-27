@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/action"
+        android:checkableBehavior="none">
+
+        <item
+            android:id="@+id/newTransaction"
+            android:title="Add New Transaction" />
+    </group>
+    <group
+        android:id="@+id/Details"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/myDetails"
+            android:title="View My Details" />
+        <item
+            android:id="@+id/editMyDetail"
+            android:title="Edit My Details" />
+    </group>
+    <group
+        android:id="@+id/basic"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/aboutUs"
+            android:title="About Us" />
+
+        <item
+            android:id="@+id/logout"
+            android:title="Logout" />
+    </group>
+
+</menu>

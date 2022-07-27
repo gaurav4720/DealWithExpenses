@@ -5,7 +5,6 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +19,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.dealwithexpenses.entities.*
 import com.example.dealwithexpenses.mainScreen.viewModels.TransactionViewModel
 import com.example.dealwithexpenses.databinding.FragmentAddOrEditTransactionBinding
-import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -135,7 +133,7 @@ class AddOrEditTransactionFragment : Fragment() {
     }
 
     private fun saveData() {
-        var validTrans: Boolean = true
+        var validTrans= true
 
         if (binding.transTitleInput.text.isBlank()) {
             binding.transTitleInput.error = "Title is required"
@@ -237,11 +235,9 @@ class AddOrEditTransactionFragment : Fragment() {
             "Transaction registered successfully!!",
             Toast.LENGTH_SHORT
         ).show()
-        findNavController().navigate(
-            AddOrEditTransactionFragmentDirections.actionAddOrEditTransactionFragmentToMainScreenFragment(
-                screenNo
-            )
-        )
+
+        if (screenNo <= 2) findNavController().navigate(AddOrEditTransactionFragmentDirections.actionAddOrEditTransactionFragmentToMainScreenFragment(screenNo))
+        else findNavController().navigateUp()
 
     }
 

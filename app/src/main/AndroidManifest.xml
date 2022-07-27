@@ -11,11 +11,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DealWithExpenses">
-        <activity
-            android:name=".DrawerActivity"
-            android:exported="false"
-            android:label="@string/title_activity_drawer"
-            android:theme="@style/Theme.DealWithExpenses.NoActionBar" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
