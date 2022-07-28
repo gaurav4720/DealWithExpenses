@@ -10,6 +10,7 @@
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/drawable/ic_baseline_calendar_today_24.xml" value="0.1" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/drawable/ic_baseline_check_circle_outline_24.xml" value="0.1245" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/drawable/ic_baseline_collapse_up.xml" value="0.13" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/drawable/ic_baseline_dehaze_24.xml" value="0.1" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.1955" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/drawable/ic_baseline_edit_road_24.xml" value="0.1955" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/drawable/ic_baseline_expand_down.xml" value="0.13" />
@@ -61,7 +62,7 @@
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/transaction_item.xml" value="0.264" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/layout/transaction_log_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/menu/add_or_edit_transaction_menu.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/menu/drawer_menu.xml" value="0.24010416666666667" />
+        <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/menu/drawer_menu.xml" value="0.176" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/menu/month_screen_menu.xml" value="0.4" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/menu/view_transaction_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Gaurav Gupta/AndroidStudioProjects/DealWithExpenses/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2595" />

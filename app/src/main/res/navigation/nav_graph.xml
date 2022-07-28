@@ -102,6 +102,22 @@
         <argument
             android:name="screenNumber"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_editMyDetailsFragment"
+            app:destination="@id/editMyDetailsFragment"
+            app:popUpTo="@id/mainScreenFragment" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_myDetailsFragment"
+            app:destination="@id/myDetailsFragment"
+            app:popUpTo="@id/mainScreenFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_aboutUsFragment"
+            app:destination="@id/aboutUsFragment"
+            app:popUpTo="@id/mainScreenFragment" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_loginScreenFragment"
+            app:destination="@id/loginScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/addOrEditTransactionFragment"
@@ -164,29 +180,6 @@
         android:id="@+id/yearMonthTabFragment"
         android:name="com.example.dealwithexpenses.mainScreen.tabs.YearMonthTabFragment"
         android:label="YearMonthTabFragment" />
-    <fragment
-        android:id="@+id/drawerFragment"
-        android:name="com.example.dealwithexpenses.navDrawerScreens.DrawerFragment"
-        android:label="fragment_drawer"
-        tools:layout="@layout/fragment_drawer" >
-        <action
-            android:id="@+id/action_drawerFragment_to_editMyDetailsFragment"
-            app:destination="@id/editMyDetailsFragment" />
-        <action
-            android:id="@+id/action_drawerFragment_to_myDetailsFragment"
-            app:destination="@id/myDetailsFragment" />
-        <action
-            android:id="@+id/action_drawerFragment_to_aboutUsFragment"
-            app:destination="@id/aboutUsFragment" />
-        <action
-            android:id="@+id/action_drawerFragment_to_addOrEditTransactionFragment"
-            app:destination="@id/addOrEditTransactionFragment" />
-        <action
-            android:id="@+id/action_drawerFragment_to_loginScreenFragment"
-            app:destination="@id/loginScreenFragment"
-            app:popUpTo="@id/drawerFragment"
-            app:popUpToInclusive="true" />
-    </fragment>
     <fragment
         android:id="@+id/editMyDetailsFragment"
         android:name="com.example.dealwithexpenses.navDrawerScreens.EditMyDetailsFragment"

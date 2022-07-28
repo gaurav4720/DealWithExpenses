@@ -1,14 +1,15 @@
 package com.example.dealwithexpenses.mainScreen
 
+import android.app.AlertDialog
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -36,13 +37,54 @@ class MainScreenFragment : Fragment() {
 
         val initialPosition= MainScreenFragmentArgs.fromBundle(requireArguments()).screenNumber
 
-        val drawerLayout= requireActivity().findViewById<DrawerLayout>(R.id.fragment_drawer)
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
-            drawerLayout.closeDrawer(GravityCompat.START)
-        }
-
+        val drawerLayout= binding.profileDrawerLayout
         binding.viewPager.adapter = ViewPagerAdapter(this)
         binding.tabLayout.tabGravity = TabLayout.GRAVITY_FILL
+
+        binding.profileImage.setOnClickListener {
+            drawerLayout.openDrawer(GravityCompat.START)
+        }
+
+        binding.navigationView.setNavigationItemSelectedListener {
+            drawerLayout.closeDrawer(binding.navigationView)
+            when(it.itemId) {
+                R.id.newTransaction -> {
+                    findNavController().navigate(
+                        MainScreenFragmentDirections.actionMainScreenFragmentToAddOrEditTransactionFragment(
+                            0,
+                            4
+                        )
+                    )
+                    true
+                }
+                R.id.myDetails -> {
+                    findNavController().navigate(MainScreenFragmentDirections.actionMainScreenFragmentToMyDetailsFragment())
+                    true
+                }
+                R.id.editMyDetail -> {
+                    findNavController().navigate(MainScreenFragmentDirections.actionMainScreenFragmentToEditMyDetailsFragment())
+                    true
+                }
+                R.id.aboutUs -> {
+                    findNavController().navigate(MainScreenFragmentDirections.actionMainScreenFragmentToAboutUsFragment())
+                    true
+                }
+                R.id.logout -> {
+                    val dialog = AlertDialog.Builder(requireContext())
+                        .setTitle("Logout")
+                        .setMessage("Are you sure you want to logout?")
+                        .setPositiveButton("Yes") { _, _ ->
+                            sharedPreferences.edit().putBoolean("isLoggedIn", false).apply()
+                            findNavController().navigate(MainScreenFragmentDirections.actionMainScreenFragmentToLoginScreenFragment())
+                        }
+                        .setNegativeButton("No") { _, _ ->
+                        }
+                    dialog.create().show()
+                    true
+                }
+                else -> false
+            }
+        }
 
         var positionNow= 0
 

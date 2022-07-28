@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -44,36 +45,40 @@ class DrawerFragment : Fragment() {
         NavigationUI.setupWithNavController(toolbar,navController,drawerLayout)
         navigationView.setupWithNavController(navController)
 
+        val profileName= requireActivity().findViewById<TextView>(R.id.profileName)
+        profileName.text= sharedPreferences.getString("username","")
+
         navigationView.setNavigationItemSelectedListener {
             drawerLayout.closeDrawer(navigationView)
             when(it.itemId){
                 R.id.newTransaction -> {
-                    findNavController().navigate(DrawerFragmentDirections.actionDrawerFragmentToAddOrEditTransactionFragment(0,4))
+                    //findNavController().navigate(DrawerFragmentDirections.actionDrawerFragmentToAddOrEditTransactionFragment(0,4))
+                    Toast.makeText(requireContext(),"New Transaction",Toast.LENGTH_SHORT).show()
                     true
                 }
-                R.id.myDetails -> {
-                    findNavController().navigate(DrawerFragmentDirections.actionDrawerFragmentToMyDetailsFragment())
-                    true
-                }
-                R.id.editMyDetail -> {
-                    findNavController().navigate(DrawerFragmentDirections.actionDrawerFragmentToEditMyDetailsFragment())
-                    true
-                }
-                R.id.aboutUs -> {
-                    findNavController().navigate(DrawerFragmentDirections.actionDrawerFragmentToAboutUsFragment())
-                    true
-                }
-                R.id.logout -> {
-                    val dialog= AlertDialog.Builder(requireContext())
-                        .setTitle("Logout")
-                        .setMessage("Are you sure you want to logout?")
-                        .setPositiveButton("Yes") { _, _ ->
-                            sharedPreferences.edit().putBoolean("isLoggedIn",false).apply()
-                            findNavController().navigate(DrawerFragmentDirections.actionDrawerFragmentToLoginScreenFragment())
-                        }
-
-                    true
-                }
+//                R.id.myDetails -> {
+//                    findNavController().navigate(DrawerFragmentDirections.actionDrawerFragmentToMyDetailsFragment())
+//                    true
+//                }
+//                R.id.editMyDetail -> {
+//                    findNavController().navigate(DrawerFragmentDirections.actionDrawerFragmentToEditMyDetailsFragment())
+//                    true
+//                }
+//                R.id.aboutUs -> {
+//                    findNavController().navigate(DrawerFragmentDirections.actionDrawerFragmentToAboutUsFragment())
+//                    true
+//                }
+//                R.id.logout -> {
+//                    val dialog= AlertDialog.Builder(requireContext())
+//                        .setTitle("Logout")
+//                        .setMessage("Are you sure you want to logout?")
+//                        .setPositiveButton("Yes") { _, _ ->
+//                            sharedPreferences.edit().putBoolean("isLoggedIn",false).apply()
+//                            findNavController().navigate(DrawerFragmentDirections.actionDrawerFragmentToLoginScreenFragment())
+//                        }
+//
+//                    true
+//                }
                 else -> false
             }
         }

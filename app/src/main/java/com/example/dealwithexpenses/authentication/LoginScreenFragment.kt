@@ -105,6 +105,12 @@ class LoginScreenFragment : Fragment() {
                                 "Welcome to MakeMyBudget",
                                 Toast.LENGTH_SHORT
                             ).show()
+                            val editor= sharedPreferences.edit()
+                            if(binding.stayLoggedIn.isChecked)
+                                editor.putBoolean("isLoggedIn", true).apply()
+                            else
+                                editor.putBoolean("isLoggedIn", false).apply()
+                            editor.apply()
                             Navigate.action(this)
                         } else {
                             Toast.makeText(
