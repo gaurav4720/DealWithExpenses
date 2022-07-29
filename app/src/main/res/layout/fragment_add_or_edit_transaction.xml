@@ -78,7 +78,7 @@
             android:layout_height="52dp"
             android:layout_marginStart="30dp"
             android:hint="InputAmount"
-            android:inputType="text"
+            android:inputType="numberDecimal"
             app:layout_constraintEnd_toEndOf="@+id/trans_date_input"
             app:layout_constraintStart_toEndOf="@+id/trans_amount_msg"
             app:layout_constraintTop_toTopOf="@+id/trans_amount_msg" />

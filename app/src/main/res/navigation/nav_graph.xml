@@ -183,14 +183,32 @@
     <fragment
         android:id="@+id/editMyDetailsFragment"
         android:name="com.example.dealwithexpenses.navDrawerScreens.EditMyDetailsFragment"
-        android:label="EditMyDetailsFragment" />
+        android:label="EditMyDetailsFragment" >
+        <action
+            android:id="@+id/action_editMyDetailsFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment"
+            app:popUpTo="@id/editMyDetailsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/myDetailsFragment"
         android:name="com.example.dealwithexpenses.navDrawerScreens.MyDetailsFragment"
-        android:label="MyDetailsFragment" />
+        android:label="MyDetailsFragment" >
+        <action
+            android:id="@+id/action_myDetailsFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment"
+            app:popUpTo="@id/myDetailsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/aboutUsFragment"
         android:name="com.example.dealwithexpenses.navDrawerScreens.AboutUsFragment"
         android:label="fragment_about_us"
-        tools:layout="@layout/fragment_about_us" />
+        tools:layout="@layout/fragment_about_us" >
+        <action
+            android:id="@+id/action_aboutUsFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment"
+            app:popUpTo="@id/aboutUsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

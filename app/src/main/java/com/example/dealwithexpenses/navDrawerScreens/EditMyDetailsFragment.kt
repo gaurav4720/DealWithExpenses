@@ -64,12 +64,12 @@ class EditMyDetailsFragment : Fragment() {
                 editor.apply()
 
                 //Then the user is directed to the main screen fragment
-                findNavController().navigateUp()
+                findNavController().navigate(EditMyDetailsFragmentDirections.actionEditMyDetailsFragmentToMainScreenFragment(0))
             }
         }
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                findNavController().navigateUp()
+                findNavController().navigate(EditMyDetailsFragmentDirections.actionEditMyDetailsFragmentToMainScreenFragment(0))
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)

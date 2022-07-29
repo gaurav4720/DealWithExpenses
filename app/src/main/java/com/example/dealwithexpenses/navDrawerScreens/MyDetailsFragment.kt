@@ -9,9 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
-import com.example.dealwithexpenses.R
 import com.example.dealwithexpenses.databinding.FragmentMyDetailsBinding
-import com.example.dealwithexpenses.mainScreen.transactionLibrary.TransactionDetailFragmentDirections
 
 class MyDetailsFragment : Fragment() {
     private lateinit var binding: FragmentMyDetailsBinding
@@ -33,7 +31,7 @@ class MyDetailsFragment : Fragment() {
         }
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                findNavController().navigateUp()
+                findNavController().navigate(MyDetailsFragmentDirections.actionMyDetailsFragmentToMainScreenFragment(0))
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)

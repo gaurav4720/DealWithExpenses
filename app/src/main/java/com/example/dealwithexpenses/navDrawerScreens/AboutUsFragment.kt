@@ -26,7 +26,7 @@ class AboutUsFragment : Fragment() {
         ).also { binding.aboutApp.text = it }
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                findNavController().navigateUp()
+                findNavController().navigate(AboutUsFragmentDirections.actionAboutUsFragmentToMainScreenFragment(0))
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)

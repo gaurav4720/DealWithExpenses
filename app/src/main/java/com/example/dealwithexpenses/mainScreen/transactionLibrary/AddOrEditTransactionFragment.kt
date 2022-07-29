@@ -13,12 +13,14 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.dealwithexpenses.entities.*
 import com.example.dealwithexpenses.mainScreen.viewModels.TransactionViewModel
 import com.example.dealwithexpenses.databinding.FragmentAddOrEditTransactionBinding
+import com.example.dealwithexpenses.navDrawerScreens.MyDetailsFragmentDirections
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -115,11 +117,14 @@ class AddOrEditTransactionFragment : Fragment() {
                 setTitle("Cancel Transaction")
                 setMessage("Are you sure you want to discard the changes?")
                 setPositiveButton("Yes") { _, _ ->
+                    if(screenNo<=2)
                     findNavController().navigate(
                         AddOrEditTransactionFragmentDirections.actionAddOrEditTransactionFragmentToMainScreenFragment(
                             screenNo
                         )
                     )
+                    else
+                        findNavController().navigateUp()
                 }
             }
             dialog.create().show()
@@ -128,6 +133,19 @@ class AddOrEditTransactionFragment : Fragment() {
         binding.saveButton.setOnClickListener {
             saveData()
         }
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if(screenNo<=2)
+                    findNavController().navigate(
+                        AddOrEditTransactionFragmentDirections.actionAddOrEditTransactionFragmentToMainScreenFragment(
+                            screenNo
+                        )
+                    )
+                else
+                    findNavController().navigateUp()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
 
         return binding.root
     }

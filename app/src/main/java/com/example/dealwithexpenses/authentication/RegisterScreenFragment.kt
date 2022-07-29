@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.example.dealwithexpenses.databinding.FragmentRegisterScreenBinding
 import com.example.dealwithexpenses.entities.User
 import com.facebook.CallbackManager
@@ -76,6 +77,7 @@ class RegisterScreenFragment : Fragment() {
                         firebaseAuth.currentUser?.uid?.let {
                             user.user_id = it
                         }
+                        findNavController().navigate(RegisterScreenFragmentDirections.actionRegisterScreenFragmentToMainScreenFragment(0))
                     } else {
                         Toast.makeText(context, "Registration failed", Toast.LENGTH_SHORT).show()
                     }

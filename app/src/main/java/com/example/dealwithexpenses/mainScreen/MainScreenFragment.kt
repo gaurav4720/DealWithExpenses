@@ -3,11 +3,12 @@ package com.example.dealwithexpenses.mainScreen
 import android.app.AlertDialog
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
@@ -45,6 +46,11 @@ class MainScreenFragment : Fragment() {
             drawerLayout.openDrawer(GravityCompat.START)
         }
 
+        "Hello, ${(sharedPreferences.getString("username", ""))!!.split(" ")[0]}".also {
+            binding.navigationView.getHeaderView(0).findViewById<TextView>(R.id.profileName).text = it
+        }
+        binding.navigationView.getHeaderView(0).findViewById<ImageView>(R.id.appImage).setImageResource(R.drawable.logo)
+
         binding.navigationView.setNavigationItemSelectedListener {
             drawerLayout.closeDrawer(binding.navigationView)
             when(it.itemId) {
@@ -52,7 +58,7 @@ class MainScreenFragment : Fragment() {
                     findNavController().navigate(
                         MainScreenFragmentDirections.actionMainScreenFragmentToAddOrEditTransactionFragment(
                             0,
-                            4
+                            0
                         )
                     )
                     true
@@ -194,7 +200,8 @@ class MainScreenFragment : Fragment() {
             override fun handleOnBackPressed() {
                 if(drawerLayout.isDrawerOpen(GravityCompat.START)){
                     drawerLayout.closeDrawer(GravityCompat.START)
-                }
+                } else
+                    requireActivity().finish()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
