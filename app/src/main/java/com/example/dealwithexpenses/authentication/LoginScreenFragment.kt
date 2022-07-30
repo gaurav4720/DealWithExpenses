@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.core.view.GravityCompat
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.example.dealwithexpenses.R
@@ -77,14 +76,14 @@ class LoginScreenFragment : Fragment() {
         binding.customRegisterButton.setOnClickListener {
             action =
                 LoginScreenFragmentDirections.actionLoginScreenFragmentToRegisterScreenFragment()
-            if(isLoggedIn){
+            if (isLoggedIn) {
                 val editor = sharedPreferences.edit()
                 editor.putBoolean("isLoggedIn", true).apply()
             }
             findNavController().navigate(action)
         }
 
-        val onBackPressedCallback= object : OnBackPressedCallback(true) {
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 requireActivity().finish()
             }
@@ -108,17 +107,19 @@ class LoginScreenFragment : Fragment() {
                 firebaseAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            sharedPreferences.edit().putString("user_id", firebaseAuth.currentUser?.uid).apply()
+                            sharedPreferences.edit()
+                                .putString("user_id", firebaseAuth.currentUser?.uid).apply()
                             Toast.makeText(
                                 context,
                                 "Welcome to MakeMyBudget",
                                 Toast.LENGTH_SHORT
                             ).show()
-                            val editor= sharedPreferences.edit()
-                            if(binding.stayLoggedIn.isChecked)
-                                editor.putBoolean("isLoggedIn", true).apply()
+                            val editor = sharedPreferences.edit()
+                            editor.putBoolean("isRegistered", true)
+                            if (binding.stayLoggedIn.isChecked)
+                                editor.putBoolean("isLoggedIn", true)
                             else
-                                editor.putBoolean("isLoggedIn", false).apply()
+                                editor.putBoolean("isLoggedIn", false)
                             editor.apply()
                             Navigate.action(this)
                         } else {
@@ -133,7 +134,6 @@ class LoginScreenFragment : Fragment() {
         }
     }
 
-    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == signInCode) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)

@@ -147,17 +147,26 @@ class MainScreenFragment : Fragment() {
             ) {
                 when (position) {
                     0 -> {
-                        val totalMonthlyEarnings = 0.0
-                            //allTimeMonthlyEarnings()
-                        val totalGains = viewModel.gains.value?.toDouble() ?: 0.0
-                        val totalExpenses = viewModel.expense.value?.toDouble() ?: 0.0
+                        var totalGains = 0.0
+                        var totalExpenses = 0.0
+                        var totalSavings = 0.0
 
-                        val totalCredit = totalMonthlyEarnings.plus(totalGains)
-                        val totalSavings = totalCredit.minus(totalExpenses)
+                        viewModel.gains.observe(viewLifecycleOwner) {
+                            if(it!=null)
+                                totalGains = it
+                            binding.credit.text = totalGains.toString()
+                            totalSavings= totalGains- totalExpenses
+                            binding.savings.text = totalSavings.toString()
+                        }
 
-                        binding.credit.text = totalCredit.toString()
-                        binding.expenditure.text = totalExpenses.toString()
-                        binding.savings.text = totalSavings.toString()
+                        viewModel.expense.observe(viewLifecycleOwner) {
+                            if(it!=null)
+                                totalExpenses = it
+                            binding.expenditure.text = totalExpenses.toString()
+                            totalSavings= totalGains- totalExpenses
+                            binding.savings.text = totalSavings.toString()
+                        }
+
                     }
                     1 -> {
                         val calendar = Calendar.getInstance()
@@ -165,11 +174,10 @@ class MainScreenFragment : Fragment() {
                         val year = calendar.get(Calendar.YEAR)
 
                         val yearIncome =0.0
-                           // totalMonthlyEarnings(year * 100 + 1, currMonthYear)
 
                         viewModel.getAmountByAllYears.observe(viewLifecycleOwner) {
-                            val yearlyGains = it[year]!!.gain
-                            val yearlyExpenses = it[year]!!.expense
+                            val yearlyGains = it[year]?.gain ?: 0.0
+                            val yearlyExpenses = it[year]?.expense ?: 0.0
 
                             val yearlyCredit = yearIncome.plus(yearlyGains)
                             val yearlySavings = yearlyCredit.minus(yearlyExpenses)
@@ -209,33 +217,5 @@ class MainScreenFragment : Fragment() {
         // Inflate the layout for this fragment
         return binding.root
     }
-
-//    fun allTimeMonthlyEarnings(): Double {
-//        var totalEarnings = 0.0
-//        var earningTillNow = 0.0
-//        var lastMonth = -1
-//
-//        for (KeyValuePair in incomeRegister) {
-//            val currMonth = KeyValuePair.key % 100
-//            if (earningTillNow != 0.0) {
-//                val months = currMonth - lastMonth
-//                totalEarnings += earningTillNow * months
-//            }
-//
-//            earningTillNow = KeyValuePair.value
-//            lastMonth = currMonth
-//        }
-//
-//        return totalEarnings
-//    }
-//
-//    fun totalMonthlyEarnings(startMonth: Int, endMonth: Int): Double {
-//        var totalEarnings = 0.0
-//
-//        for (i in startMonth..endMonth)
-//            totalEarnings += incomeRegister[i]!!
-//
-//        return totalEarnings
-//    }
 
 }

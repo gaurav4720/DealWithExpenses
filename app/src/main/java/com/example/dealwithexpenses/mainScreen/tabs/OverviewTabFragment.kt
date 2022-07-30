@@ -319,6 +319,7 @@ class OverviewTabFragment : Fragment() {
         yearsOrMonths: ArrayList<String> = arrayListOf()
     ) {
         binding.barChart.data = BarData(barDataSet.toList())
+        binding.barChart.groupBars(1f,1f,0f)
         //setting the x-axis of the bar chart and width of the bar
         binding.barChart.data.barWidth = 0.5f
         binding.barChart.xAxis.valueFormatter = IndexAxisValueFormatter(
@@ -364,7 +365,7 @@ class OverviewTabFragment : Fragment() {
                 viewModel.barChartDetailByMonth.observe(viewLifecycleOwner) {
                     barAmountEntries = arrayListOf()
                     val monthYear = year * 100
-                    months.forEachIndexed { index, month ->
+                    months.forEachIndexed { index, _ ->
                         var amount = it[monthYear + index + 1]?.amount?.toDouble()
                         if (amount == null)
                             amount = 0.0
@@ -377,11 +378,11 @@ class OverviewTabFragment : Fragment() {
                     }
                 }
 
-                var barTransactionsEntries: MutableList<BarEntry> = mutableListOf()
+                var barTransactionsEntries: MutableList<BarEntry>
                 viewModel.barChartDetailByMonth.observe(viewLifecycleOwner) {
                     barTransactionsEntries = mutableListOf()
                     val monthYear = year * 100
-                    months.forEachIndexed { index, month ->
+                    months.forEachIndexed { index, _ ->
                         var transactions = it[monthYear + index + 1]?.transactionsCount?.toDouble()
                         if (transactions == null)
                             transactions = 0.0
@@ -392,29 +393,32 @@ class OverviewTabFragment : Fragment() {
                             )
                         )
                     }
+
+                    val barDataSet: ArrayList<BarDataSet> = arrayListOf()
+                    barDataSet.add(
+                        BarDataSet(
+                            barAmountEntries,
+                            "Amount"
+                        )
+                    )
+
+                    barDataSet.add(
+                        BarDataSet(
+                            barTransactionsEntries,
+                            "Transactions"
+                        )
+                    )
+
+                    barDataSet[0].color =
+                        ContextCompat.getColor(requireContext(), R.color.bar_chart_monthly_amount)
+                    barDataSet[1].color =
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.bar_chart_monthly_transactions
+                        )
+
+                    addDataToBarChart(barDataSet, months)
                 }
-
-                val barDataSet: ArrayList<BarDataSet> = arrayListOf()
-                barDataSet.add(
-                    BarDataSet(
-                        barAmountEntries,
-                        "Amount"
-                    )
-                )
-
-                barDataSet.add(
-                    BarDataSet(
-                        barTransactionsEntries,
-                        "Transactions"
-                    )
-                )
-
-                barDataSet[0].color =
-                    ContextCompat.getColor(requireContext(), R.color.bar_chart_monthly_amount)
-                barDataSet[1].color =
-                    ContextCompat.getColor(requireContext(), R.color.bar_chart_monthly_transactions)
-
-                addDataToBarChart(barDataSet, months)
             }
 
             "Yearly" -> {
